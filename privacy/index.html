@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Privacy – Freequenz</title>
+<meta name="description" content="How Frequenz Inc. (Freequenz) processes personal data on this website and in the co-founder application process.">
+<meta property="og:title" content="Privacy – Freequenz">
+<meta property="og:description" content="How Frequenz Inc. (Freequenz) processes personal data on this website and in the co-founder application process.">
+<meta property="og:url" content="https://freequenz.tech/privacy">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
+   every claim carries an epistemic tag, the interview sits in the single raised panel. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --ink:#0F1A2E; --muted:#55617A; --line:#D3D9E3;
+  --accent:#2440E0; --accent-ink:#FFFFFF; --trace-b:#C2410C;
+  --beleg:#1B7347; --hypo:#A15C00; --offen:#B3382C;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-attachment:local}
+.veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(clamp(20px,4vw,56px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,4vw,56px),env(safe-area-inset-right,0px))}
+@media (min-width:1000px){
+  .hero,.about-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:64px;align-items:start}
+  .hero>*,.about-hero>*{grid-column:1}
+  .hero>.scope,.about-hero>.scope{grid-column:2;grid-row:1 / span 5;align-self:center;margin-top:24px}
+  .hero .scope canvas,.about-hero .scope canvas{height:300px}
+}
+#app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.mark{font-family:var(--display);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em}
+.mark i{font-style:normal;color:var(--accent)}
+a.mark{color:var(--ink);text-decoration:none}
+.topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--ink)}
+@media (max-width:520px){header .wrap{flex-wrap:wrap;row-gap:10px}.topnav{order:3;width:100%;margin-left:0;gap:20px}}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.hero{padding-block:28px 12px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 24px}
+.scope{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.scope canvas{display:block;width:100%;height:170px}
+.scope figcaption{display:flex;flex-wrap:wrap;gap:6px 20px;font:400 12.5px var(--mono);color:var(--muted);padding:9px 14px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.scope .a{color:var(--accent)} .scope .b{color:var(--trace-b)}
+figure{margin:0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.btn{display:inline-block;font:600 16px var(--body);padding:13px 22px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.lang button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.facts{font:400 13px var(--mono);color:var(--muted)}
+
+section{padding-block:44px 0}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(25px,4.4vw,32px);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+h3{font:600 16px var(--body);margin:0 0 6px}
+p{margin:0 0 14px;max-width:65ch}
+a{color:var(--accent)}
+
+.claims{display:grid;gap:0;border-top:1px solid var(--line);margin-top:20px}
+.claim{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claim p{margin:0}
+.tag{font:500 12px var(--mono);letter-spacing:.04em;padding-top:4px}
+.tag.beleg{color:var(--beleg)} .tag.hypo{color:var(--hypo)} .tag.offen{color:var(--offen)}
+@media (max-width:520px){.claim{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:20px}
+.cols > div{min-width:0}
+ul{margin:0;padding-left:1.1em} li{margin-bottom:6px}
+.todo{font:400 12.5px var(--mono);color:var(--hypo)}
+
+ol.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;margin:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 13px var(--mono);color:var(--accent);padding-top:4px}
+ol.steps p{margin:0;color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 24px;margin-top:20px;box-shadow:0 14px 40px -24px color-mix(in srgb,var(--ink) 45%,transparent)}
+.notice{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:0 0 22px}
+.notice p{margin:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 16px;margin-bottom:20px}
+label.f{display:grid;gap:5px;font:500 13.5px var(--body);min-width:0}
+label.f input{font:400 16px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%}
+.checks{display:grid;gap:12px;margin-bottom:22px}
+label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;cursor:pointer}
+label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+#status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
+#agent-slot{margin-top:18px}
+
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
+summary{font-weight:600;cursor:pointer}
+details p{margin:10px 0 2px;color:var(--muted)}
+
+footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
+footer p{margin:0 0 6px}
+footer a{color:inherit}
+.xrole{font-size:15px;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<div id="app" data-lang="de" class="veil">
+<header><div class="wrap">
+  <a class="mark" href="/">Free<i>quenz</i></a>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team">Team</a><a href="/#roles" class="de">Offene Rollen</a><a href="/#roles" class="en">Open roles</a></nav>
+  <div class="lang" role="group" aria-label="Sprache / Language">
+    <button id="lang-de" type="button" aria-pressed="true">DE</button>
+    <button id="lang-en" type="button" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+<main>
+<style>
+.legal{padding-block:28px 8px}
+.legal h1{font-size:clamp(32px,6vw,48px)}
+.legal h2{font-size:22px;margin-top:34px}
+.legal p,.legal li{max-width:72ch}
+.legal ul{margin:0 0 14px}
+.legal .meta{font:400 13px var(--mono);color:var(--muted)}
+</style>
+<div class="wrap legal">
+<p class="eyebrow"><span class="de">Datenschutz</span><span class="en">Privacy</span></p>
+
+<div class="de">
+<h1>Datenschutzhinweise</h1>
+<p class="meta">Stand: November 2026</p>
+
+<h2>1. Verantwortlicher</h2>
+<p>Frequenz Inc. (Freequenz), eine Gesellschaft nach dem Recht von Delaware (File No. 10120853), c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA, vertreten durch den Director Daniel Tobias Heer.</p>
+
+<h2>2. Besuch dieser Website</h2>
+<p>Die Website wird über GitHub Pages (GitHub, Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Zeitpunkt und abgerufene Seite, um die Seite auszuliefern und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Wir setzen keine Cookies, kein Tracking und keine Analyse-Tools ein. Schriften werden von unserem eigenen Server geladen, nicht von Drittanbietern. Deine Sprachwahl (DE/EN) wird nur lokal in deinem Browser gespeichert.</p>
+
+<h2>3. Bewerbung und KI-Interview</h2>
+<p>Wenn du dich als Mitgründer:in bewirbst, verarbeiten wir:</p>
+<ul>
+  <li>Name, E-Mail-Adresse und LinkedIn-Profil,</li>
+  <li>die Audioaufnahme und das Transkript des Interviews,</li>
+  <li>eine KI-gestützte Zusammenfassung und Bewertung des Transkripts.</li>
+</ul>
+<p><strong>Zweck:</strong> ausschließlich die Auswahl von Mitgründer:innen für Freequenz. <strong>Rechtsgrundlage:</strong> deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sowie die Durchführung vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO).</p>
+<p><strong>Hinweis nach Art. 50 KI-Verordnung:</strong> Das Interview führt ein KI-System, kein Mensch. Die KI erstellt nur eine Zusammenfassung. Die Entscheidung über deine Bewerbung trifft ausschließlich ein Mensch; es gibt keine automatisierte Entscheidung im Sinne von Art. 22 DSGVO.</p>
+
+<h2>4. Dienstleister</h2>
+<p>Für das Interview setzen wir Auftragsverarbeiter ein, mit denen Verträge nach Art. 28 DSGVO bestehen:</p>
+<ul>
+  <li><strong>ElevenLabs</strong> (Spracherkennung, Sprachausgabe, Gesprächsführung),</li>
+  <li><strong>Anthropic</strong> (KI-gestützte Auswertung des Transkripts),</li>
+  <li><strong>Supabase</strong> (Speicherung von Bewerbungsdaten und Transkripten).</li>
+</ul>
+<p>Dabei können Daten in die USA übermittelt werden. Die Übermittlung stützt sich auf das EU-US Data Privacy Framework oder auf EU-Standardvertragsklauseln.</p>
+
+<h2>5. Speicherdauer</h2>
+<p>Wir löschen Bewerbungsdaten, Aufnahmen und Transkripte spätestens sechs Monate nach Abschluss des Auswahlverfahrens, es sei denn, du willigst in eine längere Speicherung ein oder es entsteht eine Zusammenarbeit.</p>
+
+<h2>6. Deine Rechte</h2>
+<p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, etwa bei der Behörde deines Wohnorts. Wende dich für alle Anliegen an die oben genannte Anschrift.</p>
+</div>
+
+<div class="en">
+<h1>Privacy notice</h1>
+<p class="meta">Last updated: November 2026</p>
+
+<h2>1. Controller</h2>
+<p>Frequenz Inc. (Freequenz), a Delaware corporation (File No. 10120853), c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA, represented by its Director Daniel Tobias Heer.</p>
+
+<h2>2. Visiting this website</h2>
+<p>This website is served via GitHub Pages (GitHub, Inc., USA). When you visit, GitHub processes technically necessary data such as your IP address, time of access and the page requested, to deliver the site and protect it from abuse (Art. 6(1)(f) GDPR). We use no cookies, no tracking and no analytics. Fonts are loaded from our own server, not from third parties. Your language choice (DE/EN) is stored only locally in your browser.</p>
+
+<h2>3. Applications and the AI interview</h2>
+<p>When you apply as a co-founder, we process:</p>
+<ul>
+  <li>your name, email address and LinkedIn profile,</li>
+  <li>the audio recording and transcript of the interview,</li>
+  <li>an AI-assisted summary and assessment of the transcript.</li>
+</ul>
+<p><strong>Purpose:</strong> solely the selection of co-founders for Freequenz. <strong>Legal basis:</strong> your consent (Art. 6(1)(a) GDPR) and steps prior to entering into a contract (Art. 6(1)(b) GDPR).</p>
+<p><strong>Notice under Art. 50 of the EU AI Act:</strong> the interview is conducted by an AI system, not a human. The AI only prepares a summary. Decisions about your application are made solely by a human; there is no automated decision-making within the meaning of Art. 22 GDPR.</p>
+
+<h2>4. Service providers</h2>
+<p>For the interview we use processors bound by data processing agreements under Art. 28 GDPR:</p>
+<ul>
+  <li><strong>ElevenLabs</strong> (speech recognition, voice output, conversation handling),</li>
+  <li><strong>Anthropic</strong> (AI-assisted assessment of the transcript),</li>
+  <li><strong>Supabase</strong> (storage of application data and transcripts).</li>
+</ul>
+<p>Data may be transferred to the United States. Transfers rely on the EU-US Data Privacy Framework or on EU Standard Contractual Clauses.</p>
+
+<h2>5. Retention</h2>
+<p>We delete application data, recordings and transcripts no later than six months after the selection process ends, unless you agree to longer storage or we start working together.</p>
+
+<h2>6. Your rights</h2>
+<p>You have the right of access, rectification, erasure, restriction of processing, data portability and objection. You can withdraw your consent at any time with effect for the future. You can also lodge a complaint with a data protection supervisory authority, for example in your place of residence. Please contact us at the address above for any request.</p>
+</div>
+</div>
+
+</main>
+<footer><div class="wrap">
+  <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
+  <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer</p>
+  <p><a href="/privacy"><span class="de">Datenschutz</span><span class="en">Privacy</span></a></p>
+</div></footer>
+</div>
+<script>
+const app=document.getElementById('app'),$=id=>document.getElementById(id);
+function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang',l)}catch(e){}}
+$('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
+let initial=(navigator.language||'de').toLowerCase().startsWith('de')?'de':'en';
+try{initial=localStorage.getItem('fq-lang')||initial}catch(e){}
+setLang(initial);
+</script>
+</body>
+</html>
