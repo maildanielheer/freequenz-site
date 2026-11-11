@@ -108,6 +108,38 @@ label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size
 label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
 #status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
 #agent-slot{margin-top:18px}
+.li-help{font-size:13.5px;font-weight:500}
+.f-lang{display:grid;gap:6px;margin-bottom:20px}
+.f-lang .lbl{font:500 13.5px var(--body)}
+.langpick{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.langpick button{font:500 15px var(--body);padding:10px;border:0;background:var(--bg);color:var(--muted);cursor:pointer}
+.langpick button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.btn.wide{width:100%;padding:14px 22px}
+.intro-actions .btn.wide{width:auto;flex:1 1 260px}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.linkbtn{font:500 14px var(--body);background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:6px 0}
+.thanks{font:700 24px/1.2 var(--display);margin:0 0 16px}
+.voice{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);max-width:520px}
+.orb{width:56px;height:56px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--accent) 55%,#fff),var(--accent) 70%);position:relative;flex:none}
+.orb span{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--accent);opacity:0}
+.voice.playing .orb span{animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion: reduce){.voice.playing .orb span{animation:none;opacity:.5}}
+.vtext{display:grid;gap:2px;min-width:0}
+.vtext span{font-size:13.5px;color:var(--muted)}
+.caption{font-size:15px;color:var(--muted);max-width:62ch;margin:14px 0 4px;min-height:1.5em}
+ol.agenda{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:12px;max-width:62ch}
+ol.agenda li{display:grid;gap:2px;padding-left:18px;border-left:2px solid var(--accent)}
+ol.agenda span{color:var(--muted);font-size:15px}
+.intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+@media (min-width:960px){
+  #interview .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,580px);column-gap:56px;align-items:start}
+  #interview .wrap > *{grid-column:1}
+  #interview #gate{grid-column:2;grid-row:1 / span 6;margin-top:0}
+  #interview details:first-of-type{margin-top:8px}
+  #interview .fields{grid-template-columns:1fr}
+}
+.intro-lede{color:var(--muted);max-width:52ch;margin:0 0 6px}
 
 details{border-bottom:1px solid var(--line);padding:12px 0}
 details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
@@ -215,23 +247,52 @@ footer a{color:inherit}
 </div></section>
 
 <section id="interview"><div class="wrap">
-  <h2><span class="de">Interview starten</span><span class="en">Start the interview</span></h2>
+  <h2><span class="de">Deine Bewerbung beginnt mit einem Gespräch, nicht mit einem Formular.</span><span class="en">Your application starts with a conversation, not a form.</span></h2>
+  <p class="intro-lede"><span class="de">Teile dein LinkedIn-Profil und sprich etwa 20 Minuten mit unserer KI-Interviewerin, wann es dir passt. Du kannst jederzeit eigene Fragen stellen.</span><span class="en">Share your LinkedIn profile and talk to our AI interviewer for about 20 minutes, whenever it suits you. You can ask your own questions at any time.</span></p>
   <form class="panel" id="gate" novalidate>
     <div class="notice"><p>
       <span class="de"><strong>Du sprichst mit einer KI, nicht mit einem Menschen.</strong> Das Gespräch wird aufgezeichnet, transkribiert und KI-gestützt zusammengefasst.</span>
       <span class="en"><strong>You will be talking to an AI, not a human.</strong> The conversation is recorded, transcribed and summarised with the help of AI.</span>
     </p></div>
+    <div id="step-form">
     <div class="fields">
+      <label class="f" for="f-li"><span><span class="de">LinkedIn-Profil</span><span class="en">LinkedIn profile</span></span><input id="f-li" name="linkedin" type="text" inputmode="url" autocomplete="url" placeholder="linkedin.com/in/dein-name" required>
+        <a class="li-help" href="https://www.linkedin.com/in/me/" target="_blank" rel="noopener"><span class="de">Mein LinkedIn-Profil öffnen ↗</span><span class="en">Open my LinkedIn profile ↗</span></a></label>
       <label class="f" for="f-name"><span><span class="de">Name</span><span class="en">Name</span></span><input id="f-name" name="name" autocomplete="name" required></label>
       <label class="f" for="f-mail"><span>E-Mail</span><input id="f-mail" name="email" type="email" autocomplete="email" required></label>
-      <label class="f" for="f-li"><span><span class="de">LinkedIn-Profil</span><span class="en">LinkedIn profile</span></span><input id="f-li" name="linkedin" type="url" placeholder="https://linkedin.com/in/…" required></label>
+    </div>
+    <div class="f-lang"><span class="lbl"><span class="de">Sprache des Interviews</span><span class="en">Language of the interview</span></span>
+      <div class="langpick" role="group" aria-label="Interview language">
+        <button type="button" id="il-de" data-l="de" aria-pressed="true">Deutsch</button>
+        <button type="button" id="il-en" data-l="en" aria-pressed="false">English</button>
+      </div>
     </div>
     <div class="checks">
-      <label class="c" for="c-ai"><input type="checkbox" id="c-ai" required><span><span class="de">Mir ist bewusst, dass ich das Interview mit einem KI-System führe.</span><span class="en">I understand that I will be interviewed by an AI system.</span></span></label>
-      <label class="c" for="c-rec"><input type="checkbox" id="c-rec" required><span><span class="de">Ich willige ein, dass das Gespräch aufgezeichnet, transkribiert und zur Auswahl von Mitgründer:innen ausgewertet wird. Die Einwilligung kann ich jederzeit widerrufen.</span><span class="en">I consent to the conversation being recorded, transcribed and evaluated for the purpose of selecting co-founders. I can withdraw this consent at any time.</span></span></label>
-      <label class="c" for="c-priv"><input type="checkbox" id="c-priv" required><span><span class="de">Ich habe die <a href="/privacy" target="_blank" rel="noopener">Datenschutzhinweise</a> gelesen.</span><span class="en">I have read the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>.</span></span></label>
+      <label class="c" for="c-ok"><input type="checkbox" id="c-ok" required><span>
+        <span class="de">Ich weiß, dass ich mit einer KI spreche. Ich willige ein, dass Freequenz das Gespräch aufzeichnet, transkribiert und meine Angaben zur Auswahl von Mitgründer:innen speichert und auswertet. Die Löschung kann ich jederzeit verlangen. Mehr in den <a href="/privacy" target="_blank" rel="noopener">Datenschutzhinweisen</a>.</span>
+        <span class="en">I know I will be talking to an AI. I agree that Freequenz records and transcribes the conversation and stores and evaluates my details to select co-founders. I can ask for deletion at any time. More in the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>.</span></span></label>
     </div>
-    <button class="btn" id="start" type="submit" disabled><span class="de">Interview auf Deutsch starten</span><span class="en">Start interview in English</span></button>
+    <button class="btn wide" id="start" type="submit" disabled><span class="de">Weiter</span><span class="en">Continue</span></button>
+    <p class="hint"><span class="de">Dein Browser fragt gleich nach dem Mikrofon.</span><span class="en">Your browser will ask for microphone access.</span></p>
+    </div>
+
+    <div id="step-intro" hidden>
+      <h3 class="thanks"><span id="thx-name"></span></h3>
+      <div class="voice" id="voice">
+        <button type="button" class="orb" id="orb" aria-label="Einführung abspielen oder stummschalten"><span></span></button>
+        <div class="vtext"><b><span class="de">Kurze Einführung</span><span class="en">Short introduction</span></b><span id="vstate"></span></div>
+      </div>
+      <p class="caption" id="caption"></p>
+      <ol class="agenda">
+        <li><b><span class="de">Ein Gespräch von etwa 20 Minuten</span><span class="en">A conversation of about 20 minutes</span></b><span><span class="de">Die KI fragt nach deinem Werdegang und deiner Arbeitsweise.</span><span class="en">The AI asks about your background and how you work.</span></span></li>
+        <li><b><span class="de">Deine Fragen, jederzeit</span><span class="en">Your questions, at any time</span></b><span><span class="de">Du kannst unterbrechen und alles zu Freequenz fragen.</span><span class="en">You can interrupt and ask anything about Freequenz.</span></span></li>
+        <li><b><span class="de">Daniel liest dein Transkript</span><span class="en">Daniel reads your transcript</span></b><span><span class="de">Du bekommst in jedem Fall eine Rückmeldung per E-Mail.</span><span class="en">You will hear back by e-mail either way.</span></span></li>
+      </ol>
+      <div class="intro-actions">
+        <button class="btn wide" id="go" type="button"><span class="de">Interview starten</span><span class="en">Start the interview</span></button>
+        <button class="linkbtn" id="back" type="button"><span class="de">Angaben ändern</span><span class="en">Edit my details</span></button>
+      </div>
+    </div>
     <p id="status" role="status"></p>
     <div id="agent-slot"></div>
   </form>
@@ -252,9 +313,23 @@ footer a{color:inherit}
 <script>
 /* ---- Konfiguration: nach dem Einrichten ausfüllen ---- */
 const CONFIG = {
-  ELEVENLABS_AGENT_ID: "",      // Agent-ID aus ElevenLabs
+  AGENTS: {                     // Agent-IDs aus ElevenLabs, eine pro Rolle
+    physics_cofounder: "",
+    engineering_cofounder: ""
+  },
   SERVER_LOCATION: "",          // z. B. "eu-residency", falls das Konto in der EU-Region liegt
-  INTAKE_ENDPOINT: ""           // Backend-URL, die Name/E-Mail/Einwilligung speichert
+  INTAKE_ENDPOINT: "",          // Backend-URL, die Name/E-Mail/Einwilligung speichert
+  INTRO_AUDIO: "/audio/intro-{role}-{lang}.mp3"  // vorab erzeugte Begrüßung, gleiche Stimme wie der Agent
+};
+const INTRO = {
+  physics_cofounder: {
+    de: "Hallo, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über Experimente, die du gebaut hast, und darüber, wie du eine kühne Hypothese prüfen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Wenn du so weit bist, klick auf „Interview starten“ und erlaube den Zugriff auf dein Mikrofon.",
+    en: "Hi, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the experiments you have built, and how you would test a bold hypothesis. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. When you're ready, click “Start the interview” and allow access to your microphone."
+  },
+  engineering_cofounder: {
+    de: "Hallo, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über die Hardware, die du gebaut hast, und darüber, wie du einen ersten Demonstrator angehen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Wenn du so weit bist, klick auf „Interview starten“ und erlaube den Zugriff auf dein Mikrofon.",
+    en: "Hi, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the hardware you have built, and how you would approach a first demonstrator. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. When you're ready, click “Start the interview” and allow access to your microphone."
+  }
 };
 
 const app = document.getElementById('app');
@@ -275,24 +350,84 @@ setLang(initial);
 /* ---- Einwilligung schaltet den Start frei ---- */
 const gate = $('gate'), start = $('start'), status = $('status');
 const t = (de, en) => app.dataset.lang === 'de' ? de : en;
+/* LinkedIn-Link bereinigen: akzeptiert auch "linkedin.com/in/name" ohne https und mit Anhängseln */
+function normalizeLinkedIn(v){
+  const m = String(v || '').trim().match(/linkedin\.com\/in\/([^\/?#\s]+)/i);
+  return m ? 'https://www.linkedin.com/in/' + decodeURIComponent(m[1]).replace(/\/+$/, '') + '/' : '';
+}
+let ilang = app.dataset.lang;
+function setInterviewLang(l){
+  ilang = l;
+  $('il-de').setAttribute('aria-pressed', l === 'de');
+  $('il-en').setAttribute('aria-pressed', l === 'en');
+}
+setInterviewLang(app.dataset.lang);
+$('il-de').onclick = () => setInterviewLang('de');
+$('il-en').onclick = () => setInterviewLang('en');
+$('lang-de').addEventListener('click', () => setInterviewLang('de'));
+$('lang-en').addEventListener('click', () => setInterviewLang('en'));
+
 function ready(){
-  return $('f-name').value.trim() && $('f-mail').validity.valid && $('f-mail').value &&
-         /linkedin\.com\//i.test($('f-li').value) && $('f-li').validity.valid &&
-         $('c-ai').checked && $('c-rec').checked && $('c-priv').checked;
+  return !!normalizeLinkedIn($('f-li').value) && $('f-name').value.trim() &&
+         $('f-mail').value && $('f-mail').validity.valid && $('c-ok').checked;
 }
 gate.addEventListener('input', () => { start.disabled = !ready(); });
-gate.addEventListener('submit', async e => {
+$('f-li').addEventListener('blur', () => { const n = normalizeLinkedIn($('f-li').value); if (n) $('f-li').value = n; });
+
+/* Schritt 2: Begrüßung abspielen, bevor das Interview startet */
+let candidate = null, introAudio = null, introState = 'idle';
+function paintVoice(){
+  const v = $('voice'), s = $('vstate');
+  v.classList.toggle('playing', introState === 'playing');
+  s.textContent = introState === 'playing' ? t('Läuft · tippen zum Stummschalten', 'Playing · tap to mute')
+               : introState === 'muted' ? t('Stumm · tippen zum Anhören', 'Muted · tap to listen')
+               : introState === 'done' ? t('Tippen zum erneuten Anhören', 'Tap to listen again')
+               : introState === 'text' ? t('Als Text unten', 'Shown as text below')
+               : t('Tippen zum Anhören', 'Tap to listen');
+}
+function playIntro(){
+  const role = app.dataset.role, lang = candidate.language;
+  $('caption').textContent = INTRO[role][lang];
+  if (!introAudio){
+    introAudio = new Audio(CONFIG.INTRO_AUDIO.replace('{role}', role).replace('{lang}', lang));
+    introAudio.onended = () => { introState = 'done'; paintVoice(); };
+    introAudio.onerror = () => { introState = 'text'; paintVoice(); };
+  }
+  introAudio.currentTime = 0;
+  introAudio.play().then(() => { introState = 'playing'; paintVoice(); })
+    .catch(() => { if (introState !== 'text') { introState = 'idle'; paintVoice(); } });
+}
+function stopIntro(){ if (introAudio){ introAudio.pause(); } }
+$('orb').onclick = () => {
+  if (introState === 'playing'){ stopIntro(); introState = 'muted'; paintVoice(); }
+  else if (introState !== 'text') playIntro();
+};
+
+gate.addEventListener('submit', e => {
   e.preventDefault();
   if (!ready()) return;
-  const lang = app.dataset.lang;
-  const candidate = { name: $('f-name').value.trim(), email: $('f-mail').value.trim(),
-    linkedin: $('f-li').value.trim(), language: lang, role: app.dataset.role, consent_at: new Date().toISOString() };
-  if (!CONFIG.ELEVENLABS_AGENT_ID){
+  candidate = { name: $('f-name').value.trim(), email: $('f-mail').value.trim(),
+    linkedin: normalizeLinkedIn($('f-li').value), language: ilang, role: app.dataset.role, consent_at: new Date().toISOString() };
+  $('step-form').hidden = true;
+  $('step-intro').hidden = false;
+  $('thx-name').textContent = t('Danke, ' + candidate.name.split(' ')[0] + '. So läuft es ab.', 'Thank you, ' + candidate.name.split(' ')[0] + '. Here is what happens next.');
+  status.textContent = '';
+  introAudio = null; introState = 'idle';
+  playIntro();
+  paintVoice();
+  $('step-intro').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+});
+$('back').onclick = () => { stopIntro(); $('step-intro').hidden = true; $('step-form').hidden = false; status.textContent = ''; };
+
+$('go').addEventListener('click', async () => {
+  stopIntro(); introState = 'done'; paintVoice();
+  const go = $('go'), lang = candidate.language, agentId = CONFIG.AGENTS[app.dataset.role];
+  if (!agentId){
     status.textContent = t('Vorschau: Der Sprachassistent ist noch nicht verbunden. Es wurden keine Daten gespeichert.',
                            'Preview: the voice assistant is not connected yet. No data was stored.');
     return;
   }
-  start.disabled = true;
+  go.disabled = true;
   let sessionId = '';
   if (CONFIG.INTAKE_ENDPOINT){
     try {
@@ -301,13 +436,13 @@ gate.addEventListener('submit', async e => {
     } catch(err){
       status.textContent = t('Die Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.',
                              'Your details could not be saved. Please try again.');
-      start.disabled = false; return;
+      go.disabled = false; return;
     }
   }
   const w = document.createElement('elevenlabs-convai');
-  w.setAttribute('agent-id', CONFIG.ELEVENLABS_AGENT_ID);
+  w.setAttribute('agent-id', agentId);
   w.setAttribute('override-language', lang);
-  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, session_id: sessionId, language: lang, role: app.dataset.role }));
+  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role: app.dataset.role }));
   if (CONFIG.SERVER_LOCATION) w.setAttribute('server-location', CONFIG.SERVER_LOCATION);
   $('agent-slot').appendChild(w);
   const s = document.createElement('script');
