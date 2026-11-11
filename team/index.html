@@ -47,6 +47,7 @@ a.mark{color:var(--ink);text-decoration:none}
 .topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
 .topnav a{color:var(--muted);text-decoration:none}
 .topnav a:hover,.topnav a[aria-current="page"]{color:var(--ink)}
+@media (max-width:520px){header .wrap{flex-wrap:wrap;row-gap:10px}.topnav{order:3;width:100%;margin-left:0;gap:20px}}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
 .lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -115,7 +116,7 @@ footer p{margin:0 0 6px}
 <div id="app" data-lang="de" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/team" aria-current="page">Team</a><a href="/#interview" class="de">Bewerben</a><a href="/#interview" class="en">Apply</a></nav>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team" aria-current="page">Team</a><a href="/apply" class="de">Bewerben</a><a href="/apply" class="en">Apply</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -217,7 +218,7 @@ footer p{margin:0 0 6px}
     <div>
       <h2><span class="de">Dieser Platz ist frei</span><span class="en">This seat is open</span></h2>
       <p><span class="de">Wir suchen eine unternehmerisch denkende Physikerin oder einen Physiker, die oder der die wissenschaftliche Leitung übernimmt und das Forschungsteam aufbaut.</span><span class="en">We are looking for an entrepreneurial physicist to lead the science and build the research team.</span></p>
-      <a class="btn" href="/#interview">Apply as Co-Founder</a>
+      <a class="btn" href="/apply#interview">Apply as Co-Founder</a>
     </div>
   </div>
 </div></section>
