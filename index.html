@@ -153,10 +153,10 @@ footer a{color:inherit}
 </style>
 </head>
 <body>
-<div id="app" data-lang="de" class="veil">
+<div id="app" data-lang="en" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/" class="de" aria-current="page">Über uns</a><a href="/" class="en" aria-current="page">About</a><a href="/team">Team</a><a href="/#roles" class="de">Offene Rollen</a><a href="/#roles" class="en">Open roles</a></nav>
+  <nav class="topnav"><a href="/" class="de" aria-current="page">Über uns</a><a href="/" class="en" aria-current="page">About</a><a href="/team">Team</a><a href="/#roles" class="de">Mitgründer-Rollen</a><a href="/#roles" class="en">Co-Founder Roles</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -213,7 +213,7 @@ ol.phases p{margin:0;font-size:15px;color:var(--muted)}
     </figcaption>
   </figure>
   <div class="cta-pair">
-    <a class="btn" href="#roles"><span class="de">Offene Rollen</span><span class="en">Open roles</span></a>
+    <a class="btn" href="#roles"><span class="de">Mitgründer-Rollen</span><span class="en">Co-Founder Roles</span></a>
     <a class="btn ghost" href="/team"><span class="de">Zum Team</span><span class="en">Meet the team</span></a>
   </div>
 </div>
@@ -238,7 +238,7 @@ ol.phases p{margin:0;font-size:15px;color:var(--muted)}
 <section><div class="wrap">
   <h2><span class="de">Der Weg</span><span class="en">The path</span></h2>
   <ol class="phases">
-    <li class="now"><h3><span class="de">Team &amp; Hypothesen</span><span class="en">Team &amp; hypotheses</span></h3><p><span class="de">Physik-Mitgründer:in gewinnen, Hypothesen schärfen, Experimente entwerfen.</span><span class="en">Bring on a physics co-founder, sharpen the hypotheses, design the experiments.</span></p></li>
+    <li class="now"><h3><span class="de">Team &amp; Hypothesen</span><span class="en">Team &amp; hypotheses</span></h3><p><span class="de">Das beste Gründerteam zusammenbringen, Hypothesen schärfen, Experimente entwerfen.</span><span class="en">Bring together the best co-founding team, sharpen the hypotheses, design the experiments.</span></p></li>
     <li><h3><span class="de">Große Finanzierungsrunde</span><span class="en">Major funding round</span></h3><p><span class="de">Kapital für Labor, Ausrüstung und ein interdisziplinäres Forschungsteam.</span><span class="en">Capital for a lab, equipment and an interdisciplinary research team.</span></p></li>
     <li><h3><span class="de">Validierung</span><span class="en">Validation</span></h3><p><span class="de">Tischaufbau, unabhängige Messungen, veröffentlichte Ergebnisse.</span><span class="en">Tabletop setup, independent measurements, published results.</span></p></li>
     <li><h3><span class="de">Prototyp &amp; Skalierung</span><span class="en">Prototype &amp; scale</span></h3><p><span class="de">Vom Labor zur ersten Anwendung im Energiemarkt.</span><span class="en">From the lab to a first application in the energy market.</span></p></li>
@@ -246,7 +246,7 @@ ol.phases p{margin:0;font-size:15px;color:var(--muted)}
 </div></section>
 
 <section id="roles"><div class="wrap">
-  <h2><span class="de">Offene Rollen im Gründerteam</span><span class="en">Open founding roles</span></h2>
+  <h2><span class="de">Mitgründer-Rollen</span><span class="en">Co-Founder Roles</span></h2>
   <div class="roles">
     <a class="role-card" href="/apply">
       <span class="k">Physics</span>
@@ -269,7 +269,7 @@ ol.phases p{margin:0;font-size:15px;color:var(--muted)}
     <p class="big"><span class="de">Sobald Team und Hypothesen stehen, nehmen wir in großem Umfang Kapital auf.</span><span class="en">Once the team and hypotheses are in place, we will raise capital at scale.</span></p>
     <p><span class="de">Durchbrüche in der Energie brauchen Labore, Ausrüstung und die besten Köpfe. Daniel Heer, Gründer und CEO, hat mit Zeotap bereits über 100 Mio. US-Dollar von institutionellen Investoren aus den USA und Europa eingesammelt. Freequenz wird mit derselben Entschlossenheit finanziert, sobald das Fundament steht.</span><span class="en">Breakthroughs in energy need labs, equipment and the best minds. Daniel Heer, founder and CEO, has already raised more than $100M from institutional investors in the US and Europe with Zeotap. Freequenz will be funded with the same determination once the foundation is in place.</span></p>
     <div class="cta-pair">
-      <a class="btn" href="#roles"><span class="de">Offene Rollen</span><span class="en">Open roles</span></a>
+      <a class="btn" href="#roles"><span class="de">Mitgründer-Rollen</span><span class="en">Co-Founder Roles</span></a>
       <a class="btn ghost" href="/team"><span class="de">Zum Team</span><span class="en">Meet the team</span></a>
     </div>
   </div>
@@ -284,10 +284,10 @@ ol.phases p{margin:0;font-size:15px;color:var(--muted)}
 </div>
 <script>
 const app=document.getElementById('app'),$=id=>document.getElementById(id);
-function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang',l)}catch(e){}}
+function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang2',l)}catch(e){}}
 $('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
-let initial=(navigator.language||'de').toLowerCase().startsWith('de')?'de':'en';
-try{initial=localStorage.getItem('fq-lang')||initial}catch(e){}
+let initial='en';
+try{initial=localStorage.getItem('fq-lang2')||initial}catch(e){}
 setLang(initial);
 </script>
 <script>
