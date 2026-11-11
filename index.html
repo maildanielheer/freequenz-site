@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Freequenz is looking for an entrepreneurial physicist as co-founder. Apply via a 20-minute AI interview in English or German.">
+<meta property="og:title" content="Physics Co-Founder Wanted – Freequenz">
+<meta property="og:description" content="Make the impossible a reality in energy. Apply as co-founder.">
+<meta property="og:url" content="https://freequenz.tech/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Physics Co-Founder Wanted – Freequenz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
+   every claim carries an epistemic tag, the interview sits in the single raised panel. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --ink:#0F1A2E; --muted:#55617A; --line:#D3D9E3;
+  --accent:#2440E0; --accent-ink:#FFFFFF; --trace-b:#C2410C;
+  --beleg:#1B7347; --hypo:#A15C00; --offen:#B3382C;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-attachment:local}
+.veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+#app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.mark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.mark i{font-style:normal;color:var(--accent)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.hero{padding-block:28px 12px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 24px}
+.scope{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.scope canvas{display:block;width:100%;height:170px}
+.scope figcaption{display:flex;flex-wrap:wrap;gap:6px 20px;font:400 12.5px var(--mono);color:var(--muted);padding:9px 14px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.scope .a{color:var(--accent)} .scope .b{color:var(--trace-b)}
+figure{margin:0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.btn{display:inline-block;font:600 16px var(--body);padding:13px 22px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.lang button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.facts{font:400 13px var(--mono);color:var(--muted)}
+
+section{padding-block:44px 0}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(25px,4.4vw,32px);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+h3{font:600 16px var(--body);margin:0 0 6px}
+p{margin:0 0 14px;max-width:65ch}
+a{color:var(--accent)}
+
+.claims{display:grid;gap:0;border-top:1px solid var(--line);margin-top:20px}
+.claim{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claim p{margin:0}
+.tag{font:500 12px var(--mono);letter-spacing:.04em;padding-top:4px}
+.tag.beleg{color:var(--beleg)} .tag.hypo{color:var(--hypo)} .tag.offen{color:var(--offen)}
+@media (max-width:520px){.claim{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:20px}
+.cols > div{min-width:0}
+ul{margin:0;padding-left:1.1em} li{margin-bottom:6px}
+.todo{font:400 12.5px var(--mono);color:var(--hypo)}
+
+ol.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;margin:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 13px var(--mono);color:var(--accent);padding-top:4px}
+ol.steps p{margin:0;color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 24px;margin-top:20px;box-shadow:0 14px 40px -24px color-mix(in srgb,var(--ink) 45%,transparent)}
+.notice{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:0 0 22px}
+.notice p{margin:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 16px;margin-bottom:20px}
+label.f{display:grid;gap:5px;font:500 13.5px var(--body);min-width:0}
+label.f input{font:400 16px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%}
+.checks{display:grid;gap:12px;margin-bottom:22px}
+label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;cursor:pointer}
+label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+#status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
+#agent-slot{margin-top:18px}
+
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
+summary{font-weight:600;cursor:pointer}
+details p{margin:10px 0 2px;color:var(--muted)}
+
+footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
+footer p{margin:0 0 6px}
+</style>
+
+</head>
+<body>
+<div id="app" data-lang="de" class="veil">
+<header><div class="wrap">
+  <div class="mark">Free<i>quenz</i></div>
+  <div class="lang" role="group" aria-label="Sprache / Language">
+    <button id="lang-de" type="button" aria-pressed="true">DE</button>
+    <button id="lang-en" type="button" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <p class="eyebrow"><span class="de">Mitgründer:in gesucht · Physik</span><span class="en">Co-founder wanted · Physics</span></p>
+  <h1>
+    Physics Co-Founder Wanted to make the <em>Impossible</em> a Reality in Energy.
+  </h1>
+  <p class="lede">
+    <span class="de">Freequenz untersucht, ob sich zwei resonant gekoppelte Strukturen aus identischem Material zur Energiegewinnung nutzen lassen. Die Energieerhaltung darf dabei nicht verletzt werden. Die Mitgründerin oder der Mitgründer ist eine unternehmerisch denkende Physikerin oder ein unternehmerisch denkender Physiker, macht aus Spekulation rigorose Tests, entwirft pragmatische MVPs und verantwortet den wissenschaftlichen Aufbau des Unternehmens, sodass viele anfängliche „Neins“ genauso klar herauskommen wie ein Ja.</span>
+    <span class="en">Freequenz investigates whether two resonantly coupled structures made of identical material can be used to harvest energy. Energy conservation is not to be violated. The co-founder is an entrepreneurial physicist who turns speculation into rigorous testing, designs pragmatic MVPs and oversees scientific company building, so that many initial “nos” come out as clearly as a yes.</span>
+  </p>
+  <figure class="scope">
+    <canvas id="trace" aria-label="Zwei Schwingungen, die in Phase einrasten"></canvas>
+    <figcaption>
+      <span class="a">— <span class="de">Turm A</span><span class="en">Tower A</span></span>
+      <span class="b">— <span class="de">Turm B</span><span class="en">Tower B</span></span>
+      <span>Δφ = <span id="dphi">0.00</span> rad</span>
+      <span><span class="de">Illustration, keine Messdaten</span><span class="en">Illustration, not measured data</span></span>
+    </figcaption>
+  </figure>
+  <div class="cta-row">
+    <a class="btn" href="#interview">Apply as Co-Founder</a>
+    <span class="facts"><span class="de">ca. 20 Min · Deutsch oder Englisch · jederzeit, ohne Termin</span><span class="en">approx. 20 min · German or English · any time, no appointment</span></span>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <h2><span class="de">Was wir wissen und was nicht</span><span class="en">What we know and what we don't</span></h2>
+  <p><span class="de">Wir trennen im Projekt strikt zwischen Belegtem, Hypothese und Offenem. So steht es heute:</span><span class="en">In this project we strictly separate what is established, what is hypothesis and what is open. This is where things stand today:</span></p>
+  <div class="claims">
+    <div class="claim"><span class="tag beleg">[<span class="de">Beleg</span><span class="en">Established</span>]</span><p><span class="de">Resonante Kopplung überträgt Energie zwischen abgestimmten Systemen. Metamaterialien erlauben elektromagnetische Eigenschaften, die es in natürlichen Materialien nicht gibt.</span><span class="en">Resonant coupling transfers energy between tuned systems. Metamaterials allow electromagnetic properties that do not exist in natural materials.</span></p></div>
+    <div class="claim"><span class="tag hypo">[<span class="de">Hypothese</span><span class="en">Hypothesis</span>]</span><p><span class="de">Zwei baugleiche, resonant gekoppelte Türme zeigen bei gezielter Zustandsänderung an Turm A eine messbare, lokale Reaktion an Turm B, die über klassische Kopplung hinausgeht.</span><span class="en">Two identical, resonantly coupled towers show a measurable local response at tower B, beyond classical coupling, when the state of tower A is deliberately changed.</span></p></div>
+    <div class="claim"><span class="tag offen">[<span class="de">Offen</span><span class="en">Open</span>]</span><p><span class="de">Ob dabei netto nutzbare Energie entsteht. Nach heutigem Stand der Physik spricht vieles dagegen, und Energieerhaltung gilt. Genau das soll ein sauberes Experiment klären.</span><span class="en">Whether any net usable energy results. Current physics gives strong reasons to doubt it, and conservation of energy holds. That is exactly what a clean experiment should settle.</span></p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="de">Die Rolle</span><span class="en">The role</span></h2>
+  <div class="cols">
+    <div>
+      <h3><span class="de">Was du tust</span><span class="en">What you do</span></h3>
+      <ul>
+        <li><span class="de">Die Hypothese in prüfbare Vorhersagen übersetzen</span><span class="en">Turn the hypothesis into testable predictions</span></li>
+        <li><span class="de">Einen Tischaufbau mit klaren Abbruchkriterien entwerfen</span><span class="en">Design a tabletop setup with clear kill criteria</span></li>
+        <li><span class="de">Messen, dokumentieren, veröffentlichen, auch Nullergebnisse</span><span class="en">Measure, document, publish, null results included</span></li>
+        <li><span class="de">Über die Zeit das gesamte wissenschaftliche Team aus Expertinnen und Experten unterschiedlichster Fachrichtungen mit aufbauen und leiten</span><span class="en">Over time, help build and lead the entire scientific team of experts from a wide range of disciplines</span></li>
+        <li><span class="de">Das Unternehmen gemeinsam mit Daniel (CEO) von Grund auf aufbauen, um die Realität im Energiemarkt zu verändern</span><span class="en">Build the company from scratch alongside Daniel (CEO) to change reality in the energy market</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3><span class="de">Was du mitbringst</span><span class="en">What you bring</span></h3>
+      <ul>
+        <li><span class="de">Abschluss in Physik oder Elektrotechnik, gern Promotion</span><span class="en">A degree in physics or electrical engineering, ideally a PhD</span></li>
+        <li><span class="de">Praxis in Elektrodynamik, Resonatoren, HF-Messtechnik oder Metamaterialien</span><span class="en">Hands-on experience in electrodynamics, resonators, RF metrology or metamaterials</span></li>
+        <li><span class="de">Lust, ungewöhnliche Ideen ernst zu nehmen und hart zu prüfen</span><span class="en">A taste for taking unusual ideas seriously and testing them hard</span></li>
+        <li><span class="de">Den starken Wunsch, ein dauerhaftes Energieunternehmen aufzubauen, das die Welt zum Guten verändert</span><span class="en">A strong desire to build a lasting company in energy that will change the world for good</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3><span class="de">Was du bekommst</span><span class="en">What you get</span></h3>
+      <ul>
+        <li><span class="de">Substanzielle Gründeranteile</span><span class="en">Substantial founder equity</span></li>
+        <li><span class="de">Marktführendes Gehalt nach der Finanzierungsrunde</span><span class="en">Market-leading salary post fundraising</span></li>
+        <li><span class="de">Die wissenschaftliche Leitung des Unternehmens</span><span class="en">Scientific leadership of the company</span></li>
+        <li><span class="de">Einen Seriengründer an deiner Seite: Daniel hat das Software-Unternehmen Zeotap aufgebaut und dafür über 100 Millionen von institutionellen Investoren weltweit eingesammelt</span><span class="en">A serial founder at your side: Daniel built the software company Zeotap and raised more than 100 million from institutional investors worldwide</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="de">So läuft es ab</span><span class="en">How it works</span></h2>
+  <ol class="steps">
+    <li><div><h3><span class="de">KI-Interview, etwa 20 Minuten</span><span class="en">AI interview, about 20 minutes</span></h3><p><span class="de">Ein Sprachassistent stellt dir Fragen zu Hintergrund, Denkweise und Motivation. Du kannst unterbrechen und selbst Fragen stellen.</span><span class="en">A voice assistant asks about your background, thinking and motivation. You can interrupt and ask your own questions.</span></p></div></li>
+    <li><div><h3><span class="de">Daniel liest dein Transkript</span><span class="en">Daniel reads your transcript</span></h3><p><span class="de">Eine KI erstellt eine Zusammenfassung. Die Entscheidung trifft ein Mensch.</span><span class="en">An AI prepares a summary. The decision is made by a human.</span></p></div></li>
+    <li><div><h3><span class="de">Persönliches Gespräch</span><span class="en">Personal conversation</span></h3><p><span class="de">Du bekommst in jedem Fall eine Rückmeldung.</span><span class="en">You will get a reply either way.</span></p></div></li>
+  </ol>
+</div></section>
+
+<section id="interview"><div class="wrap">
+  <h2><span class="de">Interview starten</span><span class="en">Start the interview</span></h2>
+  <form class="panel" id="gate" novalidate>
+    <div class="notice"><p>
+      <span class="de"><strong>Du sprichst mit einer KI, nicht mit einem Menschen.</strong> Das Gespräch wird aufgezeichnet, transkribiert und KI-gestützt zusammengefasst.</span>
+      <span class="en"><strong>You will be talking to an AI, not a human.</strong> The conversation is recorded, transcribed and summarised with the help of AI.</span>
+    </p></div>
+    <div class="fields">
+      <label class="f" for="f-name"><span><span class="de">Name</span><span class="en">Name</span></span><input id="f-name" name="name" autocomplete="name" required></label>
+      <label class="f" for="f-mail"><span>E-Mail</span><input id="f-mail" name="email" type="email" autocomplete="email" required></label>
+      <label class="f" for="f-li"><span><span class="de">LinkedIn-Profil</span><span class="en">LinkedIn profile</span></span><input id="f-li" name="linkedin" type="url" placeholder="https://linkedin.com/in/…" required></label>
+    </div>
+    <div class="checks">
+      <label class="c" for="c-ai"><input type="checkbox" id="c-ai" required><span><span class="de">Mir ist bewusst, dass ich das Interview mit einem KI-System führe.</span><span class="en">I understand that I will be interviewed by an AI system.</span></span></label>
+      <label class="c" for="c-rec"><input type="checkbox" id="c-rec" required><span><span class="de">Ich willige ein, dass das Gespräch aufgezeichnet, transkribiert und zur Auswahl von Mitgründer:innen ausgewertet wird. Die Einwilligung kann ich jederzeit widerrufen.</span><span class="en">I consent to the conversation being recorded, transcribed and evaluated for the purpose of selecting co-founders. I can withdraw this consent at any time.</span></span></label>
+      <label class="c" for="c-priv"><input type="checkbox" id="c-priv" required><span><span class="de">Ich habe die <a href="#datenschutz">Datenschutzhinweise</a> gelesen.</span><span class="en">I have read the <a href="#datenschutz">privacy notice</a>.</span></span></label>
+    </div>
+    <button class="btn" id="start" type="submit" disabled><span class="de">Interview auf Deutsch starten</span><span class="en">Start interview in English</span></button>
+    <p id="status" role="status"></p>
+    <div id="agent-slot"></div>
+  </form>
+
+  <details><summary><span class="de">Warum ein KI-Interview?</span><span class="en">Why an AI interview?</span></summary><p><span class="de">Jede Person bekommt dieselben Fragen und dieselbe Zeit, ohne Terminabstimmung. Das persönliche Gespräch ersetzt es nicht.</span><span class="en">Everyone gets the same questions and the same time, without scheduling. It does not replace the personal conversation.</span></p></details>
+  <details><summary><span class="de">Ist das Projekt seriös?</span><span class="en">Is this a serious project?</span></summary><p><span class="de">Die Idee liegt außerhalb des physikalischen Konsenses, und wir sagen das offen. Seriös wird sie durch die Methode: klare Vorhersagen, saubere Messung, veröffentlichte Ergebnisse.</span><span class="en">The idea sits outside the physics consensus, and we say so openly. What makes it serious is the method: clear predictions, clean measurement, published results.</span></p></details>
+  <details id="datenschutz"><summary><span class="de">Was passiert mit meinen Daten?</span><span class="en">What happens to my data?</span></summary><p class="todo">[Datenschutzhinweise folgen: Verantwortlicher, Zweck, Rechtsgrundlage Einwilligung, Auftragsverarbeiter, Speicherdauer, Widerruf]</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
+  <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer</p>
+  <p class="todo">[Daniel: Schreibweise des Firmennamens und Kontakt-E-Mail bestätigen]</p>
+</div></footer>
+</div>
+
+<script>
+/* ---- Konfiguration: nach dem Einrichten ausfüllen ---- */
+const CONFIG = {
+  ELEVENLABS_AGENT_ID: "",      // Agent-ID aus ElevenLabs
+  SERVER_LOCATION: "",          // z. B. "eu-residency", falls das Konto in der EU-Region liegt
+  INTAKE_ENDPOINT: ""           // Backend-URL, die Name/E-Mail/Einwilligung speichert
+};
+
+const app = document.getElementById('app');
+const $ = id => document.getElementById(id);
+function setLang(l){
+  app.dataset.lang = l;
+  $('lang-de').setAttribute('aria-pressed', l === 'de');
+  $('lang-en').setAttribute('aria-pressed', l === 'en');
+  document.documentElement.lang = l;
+  try { localStorage.setItem('fq-lang', l); } catch(e){}
+}
+$('lang-de').onclick = () => setLang('de');
+$('lang-en').onclick = () => setLang('en');
+let initial = (navigator.language || 'de').toLowerCase().startsWith('de') ? 'de' : 'en';
+try { initial = localStorage.getItem('fq-lang') || initial; } catch(e){}
+setLang(initial);
+
+/* ---- Einwilligung schaltet den Start frei ---- */
+const gate = $('gate'), start = $('start'), status = $('status');
+const t = (de, en) => app.dataset.lang === 'de' ? de : en;
+function ready(){
+  return $('f-name').value.trim() && $('f-mail').validity.valid && $('f-mail').value &&
+         /linkedin\.com\//i.test($('f-li').value) && $('f-li').validity.valid &&
+         $('c-ai').checked && $('c-rec').checked && $('c-priv').checked;
+}
+gate.addEventListener('input', () => { start.disabled = !ready(); });
+gate.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!ready()) return;
+  const lang = app.dataset.lang;
+  const candidate = { name: $('f-name').value.trim(), email: $('f-mail').value.trim(),
+    linkedin: $('f-li').value.trim(), language: lang, consent_at: new Date().toISOString() };
+  if (!CONFIG.ELEVENLABS_AGENT_ID){
+    status.textContent = t('Vorschau: Der Sprachassistent ist noch nicht verbunden. Es wurden keine Daten gespeichert.',
+                           'Preview: the voice assistant is not connected yet. No data was stored.');
+    return;
+  }
+  start.disabled = true;
+  let sessionId = '';
+  if (CONFIG.INTAKE_ENDPOINT){
+    try {
+      const r = await fetch(CONFIG.INTAKE_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(candidate) });
+      sessionId = (await r.json()).session_id || '';
+    } catch(err){
+      status.textContent = t('Die Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.',
+                             'Your details could not be saved. Please try again.');
+      start.disabled = false; return;
+    }
+  }
+  const w = document.createElement('elevenlabs-convai');
+  w.setAttribute('agent-id', CONFIG.ELEVENLABS_AGENT_ID);
+  w.setAttribute('override-language', lang);
+  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, session_id: sessionId, language: lang }));
+  if (CONFIG.SERVER_LOCATION) w.setAttribute('server-location', CONFIG.SERVER_LOCATION);
+  $('agent-slot').appendChild(w);
+  const s = document.createElement('script');
+  s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed@0.5.5'; s.async = true;
+  document.body.appendChild(s);
+  status.textContent = t('Der Assistent ist bereit. Bitte erlaube den Zugriff auf dein Mikrofon.',
+                         'The assistant is ready. Please allow access to your microphone.');
+});
+
+/* ---- Hero: zwei Schwingungen, die in Phase einrasten ---- */
+(function(){
+  const c = $('trace'), ctx = c.getContext('2d'), out = $('dphi');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, colA, colB, grid;
+  function size(){
+    const d = window.devicePixelRatio || 1, r = c.getBoundingClientRect();
+    W = r.width; H = r.height; c.width = W * d; c.height = H * d; ctx.setTransform(d,0,0,d,0,0);
+    const cs = getComputedStyle(document.documentElement);
+    colA = cs.getPropertyValue('--accent'); colB = cs.getPropertyValue('--trace-b'); grid = cs.getPropertyValue('--line');
+  }
+  function wave(phase, amp, color){
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 2){
+      const y = H/2 + Math.sin(x / W * Math.PI * 6 + phase) * amp;
+      x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+  }
+  function frame(ms){
+    const cycle = 9000, p = still ? 1 : (ms % cycle) / cycle;       // 0..1
+    const dphi = Math.PI * 0.9 * Math.exp(-5 * p);                    // Phasendifferenz klingt ab
+    const amp = H * (0.22 + 0.12 * (1 - dphi / Math.PI));             // Amplitude wächst beim Einrasten
+    const drift = still ? 0 : ms / 600;
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle = grid; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0,H/2); ctx.lineTo(W,H/2); ctx.stroke();
+    wave(drift, amp, colA); wave(drift + dphi, amp, colB);
+    out.textContent = dphi.toFixed(2);
+    if (!still) requestAnimationFrame(frame);
+  }
+  size(); addEventListener('resize', () => { size(); if (still) frame(0); });
+  setInterval(size, 2000);   // folgt einem Theme-Wechsel
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
