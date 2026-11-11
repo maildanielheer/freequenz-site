@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Team – Freequenz</title>
+<meta name="description" content="The founding team behind Freequenz: Daniel Heer, founder and CEO, and an open seat for a physics co-founder.">
+<meta property="og:title" content="Team – Freequenz">
+<meta property="og:description" content="The founding team behind Freequenz: Daniel Heer, founder and CEO, and an open seat for a physics co-founder.">
+<meta property="og:url" content="https://freequenz.tech/team">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
+   every claim carries an epistemic tag, the interview sits in the single raised panel. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --ink:#0F1A2E; --muted:#55617A; --line:#D3D9E3;
+  --accent:#2440E0; --accent-ink:#FFFFFF; --trace-b:#C2410C;
+  --beleg:#1B7347; --hypo:#A15C00; --offen:#B3382C;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-attachment:local}
+.veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+#app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.mark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.mark i{font-style:normal;color:var(--accent)}
+a.mark{color:var(--ink);text-decoration:none}
+.topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.hero{padding-block:28px 12px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 24px}
+.scope{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.scope canvas{display:block;width:100%;height:170px}
+.scope figcaption{display:flex;flex-wrap:wrap;gap:6px 20px;font:400 12.5px var(--mono);color:var(--muted);padding:9px 14px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.scope .a{color:var(--accent)} .scope .b{color:var(--trace-b)}
+figure{margin:0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.btn{display:inline-block;font:600 16px var(--body);padding:13px 22px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.lang button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.facts{font:400 13px var(--mono);color:var(--muted)}
+
+section{padding-block:44px 0}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(25px,4.4vw,32px);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+h3{font:600 16px var(--body);margin:0 0 6px}
+p{margin:0 0 14px;max-width:65ch}
+a{color:var(--accent)}
+
+.claims{display:grid;gap:0;border-top:1px solid var(--line);margin-top:20px}
+.claim{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claim p{margin:0}
+.tag{font:500 12px var(--mono);letter-spacing:.04em;padding-top:4px}
+.tag.beleg{color:var(--beleg)} .tag.hypo{color:var(--hypo)} .tag.offen{color:var(--offen)}
+@media (max-width:520px){.claim{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:20px}
+.cols > div{min-width:0}
+ul{margin:0;padding-left:1.1em} li{margin-bottom:6px}
+.todo{font:400 12.5px var(--mono);color:var(--hypo)}
+
+ol.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;margin:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 13px var(--mono);color:var(--accent);padding-top:4px}
+ol.steps p{margin:0;color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 24px;margin-top:20px;box-shadow:0 14px 40px -24px color-mix(in srgb,var(--ink) 45%,transparent)}
+.notice{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:0 0 22px}
+.notice p{margin:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 16px;margin-bottom:20px}
+label.f{display:grid;gap:5px;font:500 13.5px var(--body);min-width:0}
+label.f input{font:400 16px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%}
+.checks{display:grid;gap:12px;margin-bottom:22px}
+label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;cursor:pointer}
+label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+#status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
+#agent-slot{margin-top:18px}
+
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
+summary{font-weight:600;cursor:pointer}
+details p{margin:10px 0 2px;color:var(--muted)}
+
+footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
+footer p{margin:0 0 6px}
+</style>
+</head>
+<body>
+<div id="app" data-lang="de" class="veil">
+<header><div class="wrap">
+  <a class="mark" href="/">Free<i>quenz</i></a>
+  <nav class="topnav"><a href="/team" aria-current="page">Team</a><a href="/#interview" class="de">Bewerben</a><a href="/#interview" class="en">Apply</a></nav>
+  <div class="lang" role="group" aria-label="Sprache / Language">
+    <button id="lang-de" type="button" aria-pressed="true">DE</button>
+    <button id="lang-en" type="button" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+<main>
+<style>
+.team-hero{padding-block:28px 8px}
+.person{display:grid;grid-template-columns:168px minmax(0,1fr);gap:28px;align-items:start;margin-top:24px}
+.person img{width:168px;height:168px;border-radius:12px;object-fit:cover;display:block;border:1px solid var(--line);background:var(--surface)}
+.person h2{margin:0 0 4px}
+.role{font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:15px;margin-top:4px}
+@media (max-width:560px){.person{grid-template-columns:1fr;gap:16px}.person img{width:132px;height:132px}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:28px}
+.stat{background:var(--surface);padding:16px 18px;min-width:0}
+.stat b{display:block;font:700 26px/1.1 var(--display);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.stat > span{font-size:13.5px;line-height:1.4;color:var(--muted);display:block}
+.timeline{list-style:none;padding:0;margin:20px 0 0;border-left:2px solid var(--line)}
+.timeline li{position:relative;padding:0 0 22px 22px;margin:0}
+.timeline li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.timeline .when{font:500 12.5px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.timeline h3{margin:2px 0 6px;font-size:17px}
+.timeline ul{margin:0;padding-left:1.1em;color:var(--muted);font-size:15.5px}
+.timeline li li{padding:0;margin-bottom:4px}
+.timeline li li::before{display:none}
+.open-seat{display:grid;grid-template-columns:168px minmax(0,1fr);gap:28px;align-items:center}
+.seat{width:168px;height:168px;border-radius:12px;border:2px dashed var(--accent);display:grid;place-items:center;font:500 13px var(--mono);color:var(--accent);text-align:center;padding:12px}
+@media (max-width:560px){.open-seat{grid-template-columns:1fr;gap:16px}.seat{width:132px;height:132px}}
+</style>
+
+<div class="wrap team-hero">
+  <p class="eyebrow">Team</p>
+  <h1>
+    <span class="de">Wer Freequenz aufbaut</span>
+    <span class="en">Who is building Freequenz</span>
+  </h1>
+  <p class="lede">
+    <span class="de">Freequenz verbindet eine ambitionierte Forschungsfrage mit erprobter Unternehmensaufbau-Erfahrung. Die wissenschaftliche Seite des Gründerteams ist noch offen.</span>
+    <span class="en">Freequenz pairs an ambitious research question with proven company-building experience. The scientific side of the founding team is still open.</span>
+  </p>
+
+  <div class="person">
+    <img src="/daniel-heer.jpg" alt="Daniel Heer" width="168" height="168">
+    <div>
+      <h2>Daniel Heer</h2>
+      <p class="role"><span class="de">Gründer &amp; CEO</span><span class="en">Founder &amp; CEO</span></p>
+      <p>
+        <span class="de">Seriengründer, erste Gründung 2006 noch während des Studiums. Daniel hat Zeotap gegründet und in mehr als zehn Jahren als CEO zur führenden Enterprise-Customer-Data-Platform mit Fokus auf Europa gemacht. Dafür hat er über 100 Mio. US-Dollar von institutionellen Investoren aus den USA und Europa eingesammelt.</span>
+        <span class="en">Serial founder who started his first company in 2006, while still at university. Daniel founded Zeotap and, over more than ten years as CEO, built it into the leading EMEA-focused enterprise customer data platform, raising more than $100M from institutional investors in the US and Europe.</span>
+      </p>
+      <div class="links"><a href="https://www.linkedin.com/in/daniel-heer-14728567/" target="_blank" rel="noopener">LinkedIn</a></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>$100M+</b><span class="de">eingesammeltes Kapital</span><span class="en">capital raised</span></div>
+    <div class="stat"><b>150+</b><span class="de">Mitarbeitende aufgebaut</span><span class="en">employees scaled</span></div>
+    <div class="stat"><b><span class="de">9-stellig</span><span class="en">9-figure</span></b><span class="de">Unternehmensbewertung</span><span class="en">company valuation</span></div>
+    <div class="stat"><b>7</b><span class="de">Standorte in Europa und Indien</span><span class="en">offices in Europe and India</span></div>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <h2><span class="de">Werdegang</span><span class="en">Track record</span></h2>
+  <ol class="timeline">
+    <li>
+      <div class="when">2014 – 2025</div>
+      <h3><span class="de">Zeotap · Gründer &amp; CEO, Chairman of the Board</span><span class="en">Zeotap · Founder &amp; CEO, Chairman of the Board</span></h3>
+      <ul>
+        <li><span class="de">Aufbau zur führenden Enterprise-CDP in EMEA mit neunstelliger Bewertung</span><span class="en">Built the leading EMEA enterprise customer data platform, reaching a nine-figure valuation</span></li>
+        <li><span class="de">Über 100 Mio. US-Dollar von SignalFire, NewScience Ventures, Innov8, AngelList, Capnamic, Coparion und Iris Capital</span><span class="en">Raised $100M+ from SignalFire, NewScience Ventures, Innov8, AngelList, Capnamic, Coparion and Iris Capital</span></li>
+        <li><span class="de">Über 150 Mitarbeitende in Berlin, London, Paris, Mailand, Madrid/Barcelona, Bangalore und Mumbai</span><span class="en">Scaled to 150+ employees across Berlin, London, Paris, Milan, Madrid/Barcelona, Bangalore and Mumbai</span></li>
+        <li><span class="de">Mehrjährige Enterprise-Verträge u. a. mit Carrefour, McDonald’s und Telefónica; größter CDP-Vertrag in EMEA zu der Zeit (über 4 Mio. US-Dollar pro Jahr)</span><span class="en">Multi-year enterprise contracts with Carrefour, McDonald’s, Telefónica and others; the largest CDP contract in EMEA at the time (>$4M ACV)</span></li>
+        <li><span class="de">Strategische Partnerschaft mit Google Cloud; Verkauf der Data-Sparte an einen strategischen Käufer 2025</span><span class="en">Strategic Google Cloud partnership; divestiture of the data business unit to a strategic buyer in 2025</span></li>
+        <li><span class="de">Sprecher u. a. auf dem Web Summit und der NOAH Conference</span><span class="en">Speaker at Web Summit, NOAH Conference and others</span></li>
+      </ul>
+    </li>
+    <li>
+      <div class="when"><span class="de">seit 2023</span><span class="en">since 2023</span></div>
+      <h3><span class="de">Angel-Investor</span><span class="en">Angel investor</span></h3>
+      <ul><li>Minoa, Piper.AI, Rivan Industries, Toku</li></ul>
+    </li>
+    <li>
+      <div class="when">2017 – 2023</div>
+      <h3><span class="de">I-COM Global · Advisory Board</span><span class="en">I-COM Global · Advisory Board member</span></h3>
+    </li>
+    <li>
+      <div class="when">2013 – 2014</div>
+      <h3>AppLift · Director Strategic Partnerships</h3>
+      <ul><li><span class="de">Partnerschaften mit Deutsche Telekom, Telefónica und The Mirror aufgebaut</span><span class="en">Built the global strategic alliances function; partnerships with Deutsche Telekom, Telefónica and The Mirror</span></li></ul>
+    </li>
+    <li>
+      <div class="when">2008 – 2013</div>
+      <h3><span class="de">Vodafone Deutschland · Marketing, Strategie-Projektleiter für den Chief Sales Officer</span><span class="en">Vodafone Germany · Marketing, strategy project lead to the Chief Sales Officer</span></h3>
+      <ul><li><span class="de">Teil einer Taskforce mit neunstelliger Umsatzverbesserung; Neugestaltung des Filialnetzes mit über 4.000 Shops</span><span class="en">Part of a task force delivering a nine-figure topline improvement; redesigned a retail footprint of 4,000+ stores</span></li></ul>
+    </li>
+    <li>
+      <div class="when">2006 – 2008</div>
+      <h3><span class="de">MyFaible · Mitgründer &amp; Geschäftsführer</span><span class="en">MyFaible · Co-founder &amp; Managing Director</span></h3>
+      <ul><li><span class="de">Erste Gründung während des Studiums, sechsstellige Seed-Finanzierung von Business Angels</span><span class="en">First company, founded during university; six-figure seed funding from business angels</span></li></ul>
+    </li>
+    <li>
+      <div class="when">2003 – 2010</div>
+      <h3><span class="de">Universität Witten/Herdecke · Diplom-Ökonom, summa cum laude</span><span class="en">Witten/Herdecke University · Diplom-Oeconom, summa cum laude</span></h3>
+      <ul><li><span class="de">Unter den besten 5 %; Summer School der London School of Economics 2009</span><span class="en">Top 5% of the cohort; London School of Economics summer school 2009</span></li></ul>
+    </li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <div class="open-seat">
+    <div class="seat"><span class="de">Physik-Mitgründer:in</span><span class="en">Physics co-founder</span></div>
+    <div>
+      <h2><span class="de">Dieser Platz ist frei</span><span class="en">This seat is open</span></h2>
+      <p><span class="de">Wir suchen eine unternehmerisch denkende Physikerin oder einen Physiker, die oder der die wissenschaftliche Leitung übernimmt und das Forschungsteam aufbaut.</span><span class="en">We are looking for an entrepreneurial physicist to lead the science and build the research team.</span></p>
+      <a class="btn" href="/#interview">Apply as Co-Founder</a>
+    </div>
+  </div>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+  <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
+  <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer</p>
+  <p class="todo">[Daniel: Schreibweise des Firmennamens und Kontakt-E-Mail bestätigen]</p>
+</div></footer>
+</div>
+<script>
+const app=document.getElementById('app'),$=id=>document.getElementById(id);
+function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang',l)}catch(e){}}
+$('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
+let initial=(navigator.language||'de').toLowerCase().startsWith('de')?'de':'en';
+try{initial=localStorage.getItem('fq-lang')||initial}catch(e){}
+setLang(initial);
+</script>
+</body>
+</html>
