@@ -108,6 +108,38 @@ label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size
 label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
 #status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
 #agent-slot{margin-top:18px}
+.li-help{font-size:13.5px;font-weight:500}
+.f-lang{display:grid;gap:6px;margin-bottom:20px}
+.f-lang .lbl{font:500 13.5px var(--body)}
+.langpick{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.langpick button{font:500 15px var(--body);padding:10px;border:0;background:var(--bg);color:var(--muted);cursor:pointer}
+.langpick button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.btn.wide{width:100%;padding:14px 22px}
+.intro-actions .btn.wide{width:auto;flex:1 1 260px}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.linkbtn{font:500 14px var(--body);background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:6px 0}
+.thanks{font:700 24px/1.2 var(--display);margin:0 0 16px}
+.voice{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);max-width:520px}
+.orb{width:56px;height:56px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--accent) 55%,#fff),var(--accent) 70%);position:relative;flex:none}
+.orb span{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--accent);opacity:0}
+.voice.playing .orb span{animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion: reduce){.voice.playing .orb span{animation:none;opacity:.5}}
+.vtext{display:grid;gap:2px;min-width:0}
+.vtext span{font-size:13.5px;color:var(--muted)}
+.caption{font-size:15px;color:var(--muted);max-width:62ch;margin:14px 0 4px;min-height:1.5em}
+ol.agenda{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:12px;max-width:62ch}
+ol.agenda li{display:grid;gap:2px;padding-left:18px;border-left:2px solid var(--accent)}
+ol.agenda span{color:var(--muted);font-size:15px}
+.intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+@media (min-width:960px){
+  #interview .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,580px);column-gap:56px;align-items:start}
+  #interview .wrap > *{grid-column:1}
+  #interview #gate{grid-column:2;grid-row:1 / span 6;margin-top:0}
+  #interview details:first-of-type{margin-top:8px}
+  #interview .fields{grid-template-columns:1fr}
+}
+.intro-lede{color:var(--muted);max-width:52ch;margin:0 0 6px}
 
 details{border-bottom:1px solid var(--line);padding:12px 0}
 details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
