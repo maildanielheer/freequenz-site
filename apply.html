@@ -116,13 +116,16 @@ label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
 .langpick button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .btn.wide{width:100%;padding:14px 22px}
 .intro-actions .btn.wide{width:auto;flex:1 1 260px}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.voice.listening .orb{opacity:.75}
+.voice.connecting .orb span{animation:pulse 1.2s ease-out infinite}
 .hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
 .linkbtn{font:500 14px var(--body);background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:6px 0}
 .thanks{font:700 24px/1.2 var(--display);margin:0 0 16px}
 .voice{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);max-width:520px}
-.orb{width:56px;height:56px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--accent) 55%,#fff),var(--accent) 70%);position:relative;flex:none}
+.orb{width:56px;height:56px;border-radius:50%;border:0;padding:0;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--accent) 55%,#fff),var(--accent) 70%);position:relative;flex:none}
 .orb span{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--accent);opacity:0}
-.voice.playing .orb span{animation:pulse 1.6s ease-out infinite}
+.voice.playing .orb span,.voice.connecting .orb span{animation:pulse 1.6s ease-out infinite}
 @keyframes pulse{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.35);opacity:0}}
 @media (prefers-reduced-motion: reduce){.voice.playing .orb span{animation:none;opacity:.5}}
 .vtext{display:grid;gap:2px;min-width:0}
@@ -276,29 +279,30 @@ footer a{color:inherit}
         <span class="en">I know I will be talking to an AI. I agree that Freequenz records and transcribes the conversation and stores and evaluates my details to select co-founders. I can ask for deletion at any time. More in the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>.</span></span></label>
     </div>
     <button class="btn wide" id="start" type="submit" disabled><span class="de">Weiter</span><span class="en">Continue</span></button>
-    <p class="hint"><span class="de">Dein Browser fragt gleich nach dem Mikrofon.</span><span class="en">Your browser will ask for microphone access.</span></p>
+    <p class="hint"><span class="de">Nach „Weiter“ fragt dein Browser nach dem Mikrofon, dann beginnt das Gespräch.</span><span class="en">After “Continue” your browser asks for your microphone, then the conversation begins.</span></p>
     </div>
 
     <div id="step-intro" hidden>
       <h3 class="thanks"><span id="thx-name"></span></h3>
       <div class="voice" id="voice">
-        <button type="button" class="orb" id="orb" aria-label="Einführung abspielen oder stummschalten"><span></span></button>
-        <div class="vtext"><b><span class="de">Kurze Einführung</span><span class="en">Short introduction</span></b><span id="vstate"></span></div>
+        <div class="orb" aria-hidden="true"><span></span></div>
+        <div class="vtext"><b><span class="de">KI-Interview</span><span class="en">AI interview</span></b><span id="vstate"></span></div>
       </div>
-      <p class="caption" id="caption"></p>
+      <p class="caption" id="caption" aria-live="polite"></p>
       <ol class="agenda">
         <li><b><span class="de">Ein Gespräch von etwa 20 Minuten</span><span class="en">A conversation of about 20 minutes</span></b><span><span class="de">Die KI fragt nach deinem Werdegang und deiner Arbeitsweise.</span><span class="en">The AI asks about your background and how you work.</span></span></li>
         <li><b><span class="de">Deine Fragen, jederzeit</span><span class="en">Your questions, at any time</span></b><span><span class="de">Du kannst unterbrechen und alles zu Freequenz fragen.</span><span class="en">You can interrupt and ask anything about Freequenz.</span></span></li>
         <li><b><span class="de">Daniel liest dein Transkript</span><span class="en">Daniel reads your transcript</span></b><span><span class="de">Du bekommst in jedem Fall eine Rückmeldung per E-Mail.</span><span class="en">You will hear back by e-mail either way.</span></span></li>
       </ol>
       <div class="intro-actions">
-        <button class="btn wide" id="go" type="button"><span class="de">Interview starten</span><span class="en">Start the interview</span></button>
+        <button class="btn wide" id="go" type="button" hidden><span class="de">Erneut verbinden</span><span class="en">Try again</span></button>
+        <button class="btn ghost" id="mute" type="button" hidden><span class="de">Mikrofon stumm</span><span class="en">Mute microphone</span></button>
+        <button class="btn ghost" id="end" type="button" hidden><span class="de">Interview beenden</span><span class="en">End interview</span></button>
         <button class="linkbtn" id="back" type="button"><span class="de">Angaben ändern</span><span class="en">Edit my details</span></button>
       </div>
     </div>
     <p id="status" role="status"></p>
-    <div id="agent-slot"></div>
-  </form>
+      </form>
 
   <details><summary><span class="de">Warum ein KI-Interview?</span><span class="en">Why an AI interview?</span></summary><p><span class="de">Jede Person bekommt dieselben Fragen und dieselbe Zeit, ohne Terminabstimmung. Das persönliche Gespräch ersetzt es nicht.</span><span class="en">Everyone gets the same questions and the same time, without scheduling. It does not replace the personal conversation.</span></p></details>
   <details><summary><span class="de">Ist das Projekt seriös?</span><span class="en">Is this a serious project?</span></summary><p><span class="de">Die Idee liegt außerhalb des physikalischen Konsenses, und wir sagen das offen. Seriös wird sie durch die Methode: klare Vorhersagen, saubere Messung, veröffentlichte Ergebnisse.</span><span class="en">The idea sits outside the physics consensus, and we say so openly. What makes it serious is the method: clear predictions, clean measurement, published results.</span></p></details>
@@ -321,17 +325,17 @@ const CONFIG = {
     engineering_cofounder: "agent_3501m75z7j8nfjzvdryez3grjnjw"
   },
   SERVER_LOCATION: "",          // z. B. "eu-residency", falls das Konto in der EU-Region liegt
-  INTAKE_ENDPOINT: "",          // Backend-URL, die Name/E-Mail/Einwilligung speichert
-  INTRO_AUDIO: "/audio/intro-{role}-{lang}.mp3"  // vorab erzeugte Begrüßung, gleiche Stimme wie der Agent
+  INTAKE_ENDPOINT: ""           // Backend-URL, die Name/E-Mail/Einwilligung speichert
 };
+/* Spiegel der „First message“ der beiden ElevenLabs-Agenten (dort mit {{first_name}}); wird hier nur als Referenz geführt */
 const INTRO = {
   physics_cofounder: {
-    de: "Hallo, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über Experimente, die du gebaut hast, und darüber, wie du eine kühne Hypothese prüfen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Wenn du so weit bist, klick auf „Interview starten“ und erlaube den Zugriff auf dein Mikrofon.",
-    en: "Hi, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the experiments you have built, and how you would test a bold hypothesis. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. When you're ready, click “Start the interview” and allow access to your microphone."
+    de: "Hallo {name}, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über Experimente, die du gebaut hast, und darüber, wie du eine kühne Hypothese prüfen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Lass uns direkt anfangen: Erzähl mir in zwei, drei Minuten von deinem Werdegang.",
+    en: "Hi {name}, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the experiments you have built, and how you would test a bold hypothesis. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. Let's get started: tell me about your background in two or three minutes."
   },
   engineering_cofounder: {
-    de: "Hallo, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über die Hardware, die du gebaut hast, und darüber, wie du einen ersten Demonstrator angehen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Wenn du so weit bist, klick auf „Interview starten“ und erlaube den Zugriff auf dein Mikrofon.",
-    en: "Hi, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the hardware you have built, and how you would approach a first demonstrator. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. When you're ready, click “Start the interview” and allow access to your microphone."
+    de: "Hallo {name}, schön, dass du da bist. Ich bin die KI-Interviewerin von Freequenz, also eine KI und kein Mensch. Kurz, was gleich passiert: Wir sprechen etwa zwanzig Minuten über deinen Werdegang, über die Hardware, die du gebaut hast, und darüber, wie du einen ersten Demonstrator angehen würdest. Du kannst mich jederzeit unterbrechen und selbst Fragen stellen. Das Gespräch wird aufgezeichnet und transkribiert. Daniel, unser Gründer, liest jedes Transkript selbst, und du bekommst in jedem Fall eine Rückmeldung. Lass uns direkt anfangen: Erzähl mir in zwei, drei Minuten von deinem Werdegang.",
+    en: "Hi {name}, good to have you here. I'm the AI interviewer for Freequenz, so an AI and not a human. Here is what happens next: we'll talk for about twenty minutes about your background, the hardware you have built, and how you would approach a first demonstrator. You can interrupt me and ask your own questions at any time. The conversation is recorded and transcribed. Daniel, our founder, reads every transcript himself, and you will hear back either way. Let's get started: tell me about your background in two or three minutes."
   }
 };
 
@@ -377,35 +381,95 @@ function ready(){
 gate.addEventListener('input', () => { start.disabled = !ready(); });
 $('f-li').addEventListener('blur', () => { const n = normalizeLinkedIn($('f-li').value); if (n) $('f-li').value = n; });
 
-/* Schritt 2: Begrüßung abspielen, bevor das Interview startet */
-let candidate = null, introAudio = null, introState = 'idle';
-function paintVoice(){
-  const v = $('voice'), s = $('vstate');
-  v.classList.toggle('playing', introState === 'playing');
-  s.textContent = introState === 'playing' ? t('Läuft · tippen zum Stummschalten', 'Playing · tap to mute')
-               : introState === 'muted' ? t('Stumm · tippen zum Anhören', 'Muted · tap to listen')
-               : introState === 'done' ? t('Tippen zum erneuten Anhören', 'Tap to listen again')
-               : introState === 'text' ? t('Als Text unten', 'Shown as text below')
-               : t('Tippen zum Anhören', 'Tap to listen');
+/* Schritt 2: Nach „Weiter“ fragt der Browser nach dem Mikrofon, dann spricht die KI die Einführung und startet das Interview */
+let candidate = null, conv = null, muted = false, connecting = false;
+function setVoice(state){
+  const v = $('voice');
+  v.classList.toggle('playing', state === 'speaking');
+  v.classList.toggle('listening', state === 'listening');
+  v.classList.toggle('connecting', state === 'connecting');
+  $('vstate').textContent = {
+    connecting: t('Verbinde … bitte erlaube den Zugriff auf dein Mikrofon', 'Connecting … please allow access to your microphone'),
+    speaking:   t('Die KI spricht', 'The AI is speaking'),
+    listening:  muted ? t('Mikrofon stumm', 'Microphone muted') : t('Die KI hört zu', 'The AI is listening'),
+    ended:      t('Interview beendet. Danke!', 'Interview ended. Thank you!'),
+    failed:     t('Nicht verbunden', 'Not connected'),
+    preview:    t('Vorschau', 'Preview')
+  }[state] || '';
 }
-function playIntro(){
-  const role = app.dataset.role, lang = candidate.language;
-  $('caption').textContent = INTRO[role][lang];
-  if (!introAudio){
-    introAudio = new Audio(CONFIG.INTRO_AUDIO.replace('{role}', role).replace('{lang}', lang));
-    introAudio.onended = () => { introState = 'done'; paintVoice(); };
-    introAudio.onerror = () => { introState = 'text'; paintVoice(); };
+function showButtons(live){
+  $('mute').hidden = !live; $('end').hidden = !live;
+  $('back').hidden = live;
+}
+let sdk = null;
+function loadSdk(){
+  if (sdk) return sdk;
+  // selbst gehostet (keine Drittanbieter-Anfrage), CDN nur als Rückfall
+  const srcs = ['/js/elevenlabs-client-1.31.0.js', 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.31.0/dist/lib.iife.js'];
+  sdk = new Promise((res, rej) => {
+    const next = i => {
+      if (i >= srcs.length){ sdk = null; return rej(new Error('sdk')); }
+      const s = document.createElement('script');
+      s.src = srcs[i];
+      s.onload = () => window.ElevenLabsClient ? res(window.ElevenLabsClient) : next(i + 1);
+      s.onerror = () => next(i + 1);
+      document.head.appendChild(s);
+    };
+    next(0);
+  });
+  return sdk;
+}
+function micHelp(){
+  return t('Ohne Mikrofon geht es leider nicht. Erlaube den Zugriff über das Schloss- oder Kamera-Symbol links in der Adresszeile und klicke dann auf „Erneut verbinden“.',
+           'The interview needs your microphone. Allow access via the lock or camera icon on the left of the address bar, then click “Try again”.');
+}
+async function startInterview(){
+  if (connecting || conv) return;
+  const role = app.dataset.role, lang = candidate.language, agentId = CONFIG.AGENTS[role];
+  $('caption').textContent = '';
+  if (!agentId){ setVoice('preview'); status.textContent = t('Vorschau: Der Sprachassistent ist noch nicht verbunden.', 'Preview: the voice assistant is not connected yet.'); return; }
+  connecting = true; $('go').hidden = true; setVoice('connecting');
+  status.textContent = '';
+  // Mikrofon direkt anfragen: so erscheint die Browser-Abfrage sofort
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach(tr => tr.stop());
+  } catch(err){
+    connecting = false; setVoice('failed'); $('go').hidden = false; status.textContent = micHelp(); return;
   }
-  introAudio.currentTime = 0;
-  introAudio.play().then(() => { introState = 'playing'; paintVoice(); })
-    .catch(() => { if (introState !== 'text') { introState = 'idle'; paintVoice(); } });
+  let sessionId = '';
+  if (CONFIG.INTAKE_ENDPOINT){
+    try {
+      const r = await fetch(CONFIG.INTAKE_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(candidate) });
+      sessionId = (await r.json()).session_id || '';
+    } catch(err){
+      connecting = false; setVoice('failed'); $('go').hidden = false;
+      status.textContent = t('Die Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.', 'Your details could not be saved. Please try again.');
+      return;
+    }
+  }
+  try {
+    const { Conversation } = await loadSdk();
+    const first = candidate.name.split(' ')[0];
+    const opts = {
+      agentId,
+      connectionType: 'webrtc',
+      dynamicVariables: { candidate_name: candidate.name, first_name: first, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role },
+      overrides: { agent: { language: lang } },
+      onConnect: () => { connecting = false; showButtons(true); setVoice('speaking'); },
+      onModeChange: ({ mode }) => setVoice(mode === 'speaking' ? 'speaking' : 'listening'),
+      onMessage: ({ message, source }) => { if (source === 'ai' && message) $('caption').textContent = message; },
+      onError: (msg) => { status.textContent = t('Verbindungsfehler: ', 'Connection error: ') + msg; },
+      onDisconnect: () => { conv = null; connecting = false; showButtons(false); setVoice('ended'); $('back').hidden = true; }
+    };
+    if (CONFIG.SERVER_LOCATION) opts.serverLocation = CONFIG.SERVER_LOCATION;
+    conv = await Conversation.startSession(opts);
+  } catch(err){
+    conv = null; connecting = false; setVoice('failed'); $('go').hidden = false;
+    status.textContent = /permission|notallowed|denied/i.test(String(err && (err.name + err.message))) ? micHelp()
+      : t('Die Verbindung zum Interview ist fehlgeschlagen. Bitte versuche es erneut.', 'Could not connect to the interview. Please try again.');
+  }
 }
-function stopIntro(){ if (introAudio){ introAudio.pause(); } }
-$('orb').onclick = () => {
-  if (introState === 'playing'){ stopIntro(); introState = 'muted'; paintVoice(); }
-  else if (introState !== 'text') playIntro();
-};
-
 gate.addEventListener('submit', e => {
   e.preventDefault();
   if (!ready()) return;
@@ -413,47 +477,18 @@ gate.addEventListener('submit', e => {
     linkedin: normalizeLinkedIn($('f-li').value), language: ilang, role: app.dataset.role, consent_at: new Date().toISOString() };
   $('step-form').hidden = true;
   $('step-intro').hidden = false;
-  $('thx-name').textContent = t('Danke, ' + candidate.name.split(' ')[0] + '. So läuft es ab.', 'Thank you, ' + candidate.name.split(' ')[0] + '. Here is what happens next.');
-  status.textContent = '';
-  introAudio = null; introState = 'idle';
-  playIntro();
-  paintVoice();
+  $('thx-name').textContent = t('Danke, ' + candidate.name.split(' ')[0] + '. Es geht los.', 'Thank you, ' + candidate.name.split(' ')[0] + '. Here we go.');
+  status.textContent = ''; showButtons(false);
   $('step-intro').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  startInterview();
 });
-$('back').onclick = () => { stopIntro(); $('step-intro').hidden = true; $('step-form').hidden = false; status.textContent = ''; };
-
-$('go').addEventListener('click', async () => {
-  stopIntro(); introState = 'done'; paintVoice();
-  const go = $('go'), lang = candidate.language, agentId = CONFIG.AGENTS[app.dataset.role];
-  if (!agentId){
-    status.textContent = t('Vorschau: Der Sprachassistent ist noch nicht verbunden. Es wurden keine Daten gespeichert.',
-                           'Preview: the voice assistant is not connected yet. No data was stored.');
-    return;
-  }
-  go.disabled = true;
-  let sessionId = '';
-  if (CONFIG.INTAKE_ENDPOINT){
-    try {
-      const r = await fetch(CONFIG.INTAKE_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(candidate) });
-      sessionId = (await r.json()).session_id || '';
-    } catch(err){
-      status.textContent = t('Die Anmeldung konnte nicht gespeichert werden. Bitte versuche es erneut.',
-                             'Your details could not be saved. Please try again.');
-      go.disabled = false; return;
-    }
-  }
-  const w = document.createElement('elevenlabs-convai');
-  w.setAttribute('agent-id', agentId);
-  w.setAttribute('override-language', lang);
-  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role: app.dataset.role }));
-  if (CONFIG.SERVER_LOCATION) w.setAttribute('server-location', CONFIG.SERVER_LOCATION);
-  $('agent-slot').appendChild(w);
-  const s = document.createElement('script');
-  s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed@0.5.5'; s.async = true;
-  document.body.appendChild(s);
-  status.textContent = t('Der Assistent ist bereit. Bitte erlaube den Zugriff auf dein Mikrofon.',
-                         'The assistant is ready. Please allow access to your microphone.');
-});
+$('go').onclick = startInterview;
+$('mute').onclick = () => { if (!conv) return; muted = !muted; conv.setMicMuted(muted);
+  $('mute').innerHTML = muted ? '<span class="de">Mikrofon an</span><span class="en">Unmute microphone</span>' : '<span class="de">Mikrofon stumm</span><span class="en">Mute microphone</span>';
+  setVoice('listening'); };
+$('end').onclick = async () => { if (conv) { const c = conv; conv = null; await c.endSession(); } };
+$('back').onclick = () => { $('step-intro').hidden = true; $('step-form').hidden = false; status.textContent = ''; $('go').hidden = true; };
+window.addEventListener('pagehide', () => { if (conv) conv.endSession(); });
 
 /* ---- Hero: zwei Schwingungen, die in Phase einrasten ---- */
 (function(){
