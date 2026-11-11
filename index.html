@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<title>Physics Co-Founder Wanted – Freequenz</title>
 <meta name="description" content="Freequenz is looking for an entrepreneurial physicist as co-founder. Apply via a 20-minute AI interview in English or German.">
 <meta property="og:title" content="Physics Co-Founder Wanted – Freequenz">
-<meta property="og:description" content="Make the impossible a reality in energy. Apply as co-founder.">
+<meta property="og:description" content="Freequenz is looking for an entrepreneurial physicist as co-founder. Apply via a 20-minute AI interview in English or German.">
 <meta property="og:url" content="https://freequenz.tech/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Physics Co-Founder Wanted – Freequenz</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
@@ -43,6 +43,10 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17p
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
 .mark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
 .mark i{font-style:normal;color:var(--accent)}
+a.mark{color:var(--ink);text-decoration:none}
+.topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--ink)}
 .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
 .lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
@@ -106,12 +110,12 @@ details p{margin:10px 0 2px;color:var(--muted)}
 footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
 footer p{margin:0 0 6px}
 </style>
-
 </head>
 <body>
 <div id="app" data-lang="de" class="veil">
 <header><div class="wrap">
-  <div class="mark">Free<i>quenz</i></div>
+  <a class="mark" href="/">Free<i>quenz</i></a>
+  <nav class="topnav"><a href="/team">Team</a><a href="/#interview" class="de">Bewerben</a><a href="/#interview" class="en">Apply</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -181,7 +185,7 @@ footer p{margin:0 0 6px}
         <li><span class="de">Substanzielle Gründeranteile</span><span class="en">Substantial founder equity</span></li>
         <li><span class="de">Marktführendes Gehalt nach der Finanzierungsrunde</span><span class="en">Market-leading salary post fundraising</span></li>
         <li><span class="de">Die wissenschaftliche Leitung des Unternehmens</span><span class="en">Scientific leadership of the company</span></li>
-        <li><span class="de">Einen Seriengründer an deiner Seite: Daniel hat das Software-Unternehmen Zeotap aufgebaut und dafür über 100 Millionen von institutionellen Investoren weltweit eingesammelt</span><span class="en">A serial founder at your side: Daniel built the software company Zeotap and raised more than 100 million from institutional investors worldwide</span></li>
+        <li><span class="de">Einen Seriengründer an deiner Seite: Daniel hat das Software-Unternehmen Zeotap aufgebaut und dafür über 100 Mio. US-Dollar von institutionellen Investoren weltweit eingesammelt (<a href="/team">mehr zum Team</a>)</span><span class="en">A serial founder at your side: Daniel built the software company Zeotap and raised more than $100M from institutional investors worldwide (<a href="/team">meet the team</a>)</span></li>
       </ul>
     </div>
   </div>
@@ -334,5 +338,6 @@ gate.addEventListener('submit', async e => {
   requestAnimationFrame(frame);
 })();
 </script>
+
 </body>
 </html>
