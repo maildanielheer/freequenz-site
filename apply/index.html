@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://freequenz.tech/apply">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 /* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
    every claim carries an epistemic tag, the interview sits in the single raised panel. */
@@ -37,11 +37,17 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17p
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:32px 32px;background-attachment:local}
 .veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
-.wrap{max-width:760px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(clamp(20px,4vw,56px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,4vw,56px),env(safe-area-inset-right,0px))}
+@media (min-width:1000px){
+  .hero,.about-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:64px;align-items:start}
+  .hero>*,.about-hero>*{grid-column:1}
+  .hero>.scope,.about-hero>.scope{grid-column:2;grid-row:1 / span 5;align-self:center;margin-top:24px}
+  .hero .scope canvas,.about-hero .scope canvas{height:300px}
+}
 #app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
 
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
-.mark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.mark{font-family:var(--display);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em}
 .mark i{font-style:normal;color:var(--accent)}
 a.mark{color:var(--ink);text-decoration:none}
 .topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
@@ -110,13 +116,15 @@ details p{margin:10px 0 2px;color:var(--muted)}
 
 footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
 footer p{margin:0 0 6px}
+footer a{color:inherit}
+.xrole{font-size:15px;color:var(--muted);margin-top:14px}
 </style>
 </head>
 <body>
-<div id="app" data-lang="de" class="veil">
+<div id="app" data-lang="de" data-role="physics_cofounder" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team">Team</a><a href="/apply" class="de" aria-current="page">Bewerben</a><a href="/apply" class="en" aria-current="page">Apply</a></nav>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team">Team</a><a href="/#roles" class="de" aria-current="page">Offene Rollen</a><a href="/#roles" class="en" aria-current="page">Open roles</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -146,6 +154,7 @@ footer p{margin:0 0 6px}
     <a class="btn" href="#interview">Apply as Co-Founder</a>
     <span class="facts"><span class="de">ca. 20 Min · Deutsch oder Englisch · jederzeit, ohne Termin</span><span class="en">approx. 20 min · German or English · any time, no appointment</span></span>
   </div>
+  <p class="xrole"><span class="de">Eher Ingenieur:in? Wir suchen auch eine:n <a href="/apply/engineer">Engineering Co-Founder</a>.</span><span class="en">More of an engineer? We are also looking for an <a href="/apply/engineer">Engineering Co-Founder</a>.</span></p>
 </div>
 
 <section><div class="wrap">
@@ -220,7 +229,7 @@ footer p{margin:0 0 6px}
     <div class="checks">
       <label class="c" for="c-ai"><input type="checkbox" id="c-ai" required><span><span class="de">Mir ist bewusst, dass ich das Interview mit einem KI-System führe.</span><span class="en">I understand that I will be interviewed by an AI system.</span></span></label>
       <label class="c" for="c-rec"><input type="checkbox" id="c-rec" required><span><span class="de">Ich willige ein, dass das Gespräch aufgezeichnet, transkribiert und zur Auswahl von Mitgründer:innen ausgewertet wird. Die Einwilligung kann ich jederzeit widerrufen.</span><span class="en">I consent to the conversation being recorded, transcribed and evaluated for the purpose of selecting co-founders. I can withdraw this consent at any time.</span></span></label>
-      <label class="c" for="c-priv"><input type="checkbox" id="c-priv" required><span><span class="de">Ich habe die <a href="#datenschutz">Datenschutzhinweise</a> gelesen.</span><span class="en">I have read the <a href="#datenschutz">privacy notice</a>.</span></span></label>
+      <label class="c" for="c-priv"><input type="checkbox" id="c-priv" required><span><span class="de">Ich habe die <a href="/privacy" target="_blank" rel="noopener">Datenschutzhinweise</a> gelesen.</span><span class="en">I have read the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>.</span></span></label>
     </div>
     <button class="btn" id="start" type="submit" disabled><span class="de">Interview auf Deutsch starten</span><span class="en">Start interview in English</span></button>
     <p id="status" role="status"></p>
@@ -229,14 +238,14 @@ footer p{margin:0 0 6px}
 
   <details><summary><span class="de">Warum ein KI-Interview?</span><span class="en">Why an AI interview?</span></summary><p><span class="de">Jede Person bekommt dieselben Fragen und dieselbe Zeit, ohne Terminabstimmung. Das persönliche Gespräch ersetzt es nicht.</span><span class="en">Everyone gets the same questions and the same time, without scheduling. It does not replace the personal conversation.</span></p></details>
   <details><summary><span class="de">Ist das Projekt seriös?</span><span class="en">Is this a serious project?</span></summary><p><span class="de">Die Idee liegt außerhalb des physikalischen Konsenses, und wir sagen das offen. Seriös wird sie durch die Methode: klare Vorhersagen, saubere Messung, veröffentlichte Ergebnisse.</span><span class="en">The idea sits outside the physics consensus, and we say so openly. What makes it serious is the method: clear predictions, clean measurement, published results.</span></p></details>
-  <details id="datenschutz"><summary><span class="de">Was passiert mit meinen Daten?</span><span class="en">What happens to my data?</span></summary><p class="todo">[Datenschutzhinweise folgen: Verantwortlicher, Zweck, Rechtsgrundlage Einwilligung, Auftragsverarbeiter, Speicherdauer, Widerruf]</p></details>
+  <details id="datenschutz"><summary><span class="de">Was passiert mit meinen Daten?</span><span class="en">What happens to my data?</span></summary><p><span class="de">Wir nutzen deine Angaben, die Aufnahme und das Transkript nur für die Auswahl von Mitgründer:innen und löschen sie spätestens sechs Monate nach Abschluss des Verfahrens. Alle Details stehen in den <a href="/privacy">Datenschutzhinweisen</a>.</span><span class="en">We use your details, the recording and the transcript only to select co-founders and delete them no later than six months after the process ends. All details are in the <a href="/privacy">privacy notice</a>.</span></p></details>
 </div></section>
 </main>
 
 <footer><div class="wrap">
   <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
   <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer</p>
-  <p class="todo">[Daniel: Schreibweise des Firmennamens und Kontakt-E-Mail bestätigen]</p>
+  <p><a href="/privacy"><span class="de">Datenschutz</span><span class="en">Privacy</span></a></p>
 </div></footer>
 </div>
 
@@ -277,7 +286,7 @@ gate.addEventListener('submit', async e => {
   if (!ready()) return;
   const lang = app.dataset.lang;
   const candidate = { name: $('f-name').value.trim(), email: $('f-mail').value.trim(),
-    linkedin: $('f-li').value.trim(), language: lang, consent_at: new Date().toISOString() };
+    linkedin: $('f-li').value.trim(), language: lang, role: app.dataset.role, consent_at: new Date().toISOString() };
   if (!CONFIG.ELEVENLABS_AGENT_ID){
     status.textContent = t('Vorschau: Der Sprachassistent ist noch nicht verbunden. Es wurden keine Daten gespeichert.',
                            'Preview: the voice assistant is not connected yet. No data was stored.');
@@ -298,7 +307,7 @@ gate.addEventListener('submit', async e => {
   const w = document.createElement('elevenlabs-convai');
   w.setAttribute('agent-id', CONFIG.ELEVENLABS_AGENT_ID);
   w.setAttribute('override-language', lang);
-  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, session_id: sessionId, language: lang }));
+  w.setAttribute('dynamic-variables', JSON.stringify({ candidate_name: candidate.name, session_id: sessionId, language: lang, role: app.dataset.role }));
   if (CONFIG.SERVER_LOCATION) w.setAttribute('server-location', CONFIG.SERVER_LOCATION);
   $('agent-slot').appendChild(w);
   const s = document.createElement('script');
