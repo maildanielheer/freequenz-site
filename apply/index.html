@@ -153,10 +153,10 @@ footer a{color:inherit}
 </style>
 </head>
 <body>
-<div id="app" data-lang="de" data-role="physics_cofounder" class="veil">
+<div id="app" data-lang="en" data-role="physics_cofounder" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team">Team</a><a href="/#roles" class="de" aria-current="page">Offene Rollen</a><a href="/#roles" class="en" aria-current="page">Open roles</a></nav>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team">Team</a><a href="/#roles" class="de" aria-current="page">Mitgründer-Rollen</a><a href="/#roles" class="en" aria-current="page">Co-Founder Roles</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -228,10 +228,13 @@ footer a{color:inherit}
     <div>
       <h3><span class="de">Was du bekommst</span><span class="en">What you get</span></h3>
       <ul>
-        <li><span class="de">Substanzielle Gründeranteile</span><span class="en">Substantial founder equity</span></li>
+        <li><span class="de">Echte Gründeranteile in substanzieller Höhe, keine Mitarbeiter-Optionen</span><span class="en">Substantial co-founder equity, not early-employee stock</span></li>
         <li><span class="de">Marktführendes Gehalt nach der Finanzierungsrunde</span><span class="en">Market-leading salary post fundraising</span></li>
-        <li><span class="de">Die wissenschaftliche Leitung des Unternehmens</span><span class="en">Scientific leadership of the company</span></li>
+        <li><span class="de">Die wissenschaftliche Leitung des Unternehmens: Experimente, Roadmap und Aufbau des wissenschaftlichen Teams</span><span class="en">Scientific leadership of the company: experiments, roadmap and building the scientific team</span></li>
         <li><span class="de">Einen Seriengründer an deiner Seite: Daniel hat das Software-Unternehmen Zeotap aufgebaut und dafür über 100 Mio. US-Dollar von institutionellen Investoren weltweit eingesammelt (<a href="/team">mehr zum Team</a>)</span><span class="en">A serial founder at your side: Daniel built the software company Zeotap and raised more than $100M from institutional investors worldwide (<a href="/team">meet the team</a>)</span></li>
+        <li><span class="de">Zugang zu Daniels Netzwerk aus Investoren und Beratern</span><span class="en">Access to Daniel’s network of investors and advisors</span></li>
+        <li><span class="de">Die Chance, eines der ambitioniertesten Deep-Tech-Unternehmen dieses Jahrzehnts zu bauen</span><span class="en">The chance to build one of the most ambitious deep-tech companies of this decade</span></li>
+        <li><span class="de">Eine Kultur aus Intelligenz, Tempo, Integrität und Authentizität; Arbeitsort flexibel</span><span class="en">A culture of intelligence, speed, integrity and authenticity; flexible location</span></li>
       </ul>
     </div>
   </div>
@@ -339,12 +342,12 @@ function setLang(l){
   $('lang-de').setAttribute('aria-pressed', l === 'de');
   $('lang-en').setAttribute('aria-pressed', l === 'en');
   document.documentElement.lang = l;
-  try { localStorage.setItem('fq-lang', l); } catch(e){}
+  try { localStorage.setItem('fq-lang2', l); } catch(e){}
 }
 $('lang-de').onclick = () => setLang('de');
 $('lang-en').onclick = () => setLang('en');
-let initial = (navigator.language || 'de').toLowerCase().startsWith('de') ? 'de' : 'en';
-try { initial = localStorage.getItem('fq-lang') || initial; } catch(e){}
+let initial = 'en';
+try { initial = localStorage.getItem('fq-lang2') || initial; } catch(e){}
 setLang(initial);
 
 /* ---- Einwilligung schaltet den Start frei ---- */
