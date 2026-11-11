@@ -382,7 +382,7 @@ gate.addEventListener('input', () => { start.disabled = !ready(); });
 $('f-li').addEventListener('blur', () => { const n = normalizeLinkedIn($('f-li').value); if (n) $('f-li').value = n; });
 
 /* Schritt 2: Nach „Weiter“ fragt der Browser nach dem Mikrofon, dann spricht die KI die Einführung und startet das Interview */
-let candidate = null, conv = null, muted = false, connecting = false;
+let candidate = null, conv = null, muted = false, connecting = false, connectedAt = 0;
 function setVoice(state){
   const v = $('voice');
   v.classList.toggle('playing', state === 'speaking');
@@ -453,14 +453,17 @@ async function startInterview(){
     const first = candidate.name.split(' ')[0];
     const opts = {
       agentId,
-      connectionType: 'webrtc',
+      connectionType: 'websocket',   // WebRTC trennt beim Free-Plan sofort; WebSocket funktioniert
       dynamicVariables: { candidate_name: candidate.name, first_name: first, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role },
       overrides: { agent: { language: lang } },
-      onConnect: () => { connecting = false; showButtons(true); setVoice('speaking'); },
+      onConnect: () => { connecting = false; connectedAt = Date.now(); showButtons(true); setVoice('speaking'); },
       onModeChange: ({ mode }) => setVoice(mode === 'speaking' ? 'speaking' : 'listening'),
       onMessage: ({ message, source }) => { if (source === 'ai' && message) $('caption').textContent = message; },
       onError: (msg) => { status.textContent = t('Verbindungsfehler: ', 'Connection error: ') + msg; },
-      onDisconnect: () => { conv = null; connecting = false; showButtons(false); setVoice('ended'); $('back').hidden = true; }
+      onDisconnect: (d) => { conv = null; connecting = false; showButtons(false);
+        const early = !d || d.reason !== 'user' && Date.now() - connectedAt < 15000;
+        if (early){ setVoice('failed'); $('go').hidden = false; status.textContent = t('Die Verbindung wurde unterbrochen. Bitte versuche es erneut.', 'The connection dropped. Please try again.'); }
+        else { setVoice('ended'); $('back').hidden = true; } }
     };
     if (CONFIG.SERVER_LOCATION) opts.serverLocation = CONFIG.SERVER_LOCATION;
     conv = await Conversation.startSession(opts);
