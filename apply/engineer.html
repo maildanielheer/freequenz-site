@@ -382,8 +382,9 @@ function setInterviewLang(l){
   $('il-en').setAttribute('aria-pressed', l === 'en');
 }
 setInterviewLang(app.dataset.lang);
-$('il-de').onclick = () => setInterviewLang('de');
-$('il-en').onclick = () => setInterviewLang('en');
+// Interviewsprache und Seitensprache laufen gemeinsam: so steht auch die Einwilligung in der gewählten Sprache
+$('il-de').onclick = () => { setLang('de'); setInterviewLang('de'); };
+$('il-en').onclick = () => { setLang('en'); setInterviewLang('en'); };
 $('lang-de').addEventListener('click', () => setInterviewLang('de'));
 $('lang-en').addEventListener('click', () => setInterviewLang('en'));
 
@@ -467,7 +468,7 @@ async function startInterview(){
     const opts = {
       agentId,
       connectionType: 'websocket',   // WebRTC trennt beim Free-Plan sofort; WebSocket funktioniert
-      dynamicVariables: { candidate_name: candidate.name, first_name: first, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role },
+      dynamicVariables: { candidate_name: candidate.name, first_name: first, candidate_email: candidate.email, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role },
       overrides: { agent: { language: lang } },
       onConnect: () => { connecting = false; connectedAt = Date.now(); showButtons(true); setVoice('speaking'); },
       onModeChange: ({ mode }) => setVoice(mode === 'speaking' ? 'speaking' : 'listening'),
