@@ -153,10 +153,10 @@ footer a{color:inherit}
 </style>
 </head>
 <body>
-<div id="app" data-lang="de" class="veil">
+<div id="app" data-lang="en" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team" aria-current="page">Team</a><a href="/#roles" class="de">Offene Rollen</a><a href="/#roles" class="en">Open roles</a></nav>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team" aria-current="page">Team</a><a href="/#roles" class="de">Mitgründer-Rollen</a><a href="/#roles" class="en">Co-Founder Roles</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -282,10 +282,10 @@ footer a{color:inherit}
 </div>
 <script>
 const app=document.getElementById('app'),$=id=>document.getElementById(id);
-function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang',l)}catch(e){}}
+function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang2',l)}catch(e){}}
 $('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
-let initial=(navigator.language||'de').toLowerCase().startsWith('de')?'de':'en';
-try{initial=localStorage.getItem('fq-lang')||initial}catch(e){}
+let initial='en';
+try{initial=localStorage.getItem('fq-lang2')||initial}catch(e){}
 setLang(initial);
 </script>
 </body>
