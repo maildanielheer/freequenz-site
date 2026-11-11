@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://freequenz.tech/team">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 /* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
    every claim carries an epistemic tag, the interview sits in the single raised panel. */
@@ -37,11 +37,17 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17p
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:32px 32px;background-attachment:local}
 .veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
-.wrap{max-width:760px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(clamp(20px,4vw,56px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,4vw,56px),env(safe-area-inset-right,0px))}
+@media (min-width:1000px){
+  .hero,.about-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:64px;align-items:start}
+  .hero>*,.about-hero>*{grid-column:1}
+  .hero>.scope,.about-hero>.scope{grid-column:2;grid-row:1 / span 5;align-self:center;margin-top:24px}
+  .hero .scope canvas,.about-hero .scope canvas{height:300px}
+}
 #app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
 
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
-.mark{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.mark{font-family:var(--display);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em}
 .mark i{font-style:normal;color:var(--accent)}
 a.mark{color:var(--ink);text-decoration:none}
 .topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
@@ -110,13 +116,15 @@ details p{margin:10px 0 2px;color:var(--muted)}
 
 footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
 footer p{margin:0 0 6px}
+footer a{color:inherit}
+.xrole{font-size:15px;color:var(--muted);margin-top:14px}
 </style>
 </head>
 <body>
 <div id="app" data-lang="de" class="veil">
 <header><div class="wrap">
   <a class="mark" href="/">Free<i>quenz</i></a>
-  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team" aria-current="page">Team</a><a href="/apply" class="de">Bewerben</a><a href="/apply" class="en">Apply</a></nav>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/team" aria-current="page">Team</a><a href="/#roles" class="de">Offene Rollen</a><a href="/#roles" class="en">Open roles</a></nav>
   <div class="lang" role="group" aria-label="Sprache / Language">
     <button id="lang-de" type="button" aria-pressed="true">DE</button>
     <button id="lang-en" type="button" aria-pressed="false">EN</button>
@@ -143,8 +151,9 @@ footer p{margin:0 0 6px}
 .timeline ul{margin:0;padding-left:1.1em;color:var(--muted);font-size:15.5px}
 .timeline li li{padding:0;margin-bottom:4px}
 .timeline li li::before{display:none}
-.open-seat{display:grid;grid-template-columns:168px minmax(0,1fr);gap:28px;align-items:center}
-.seat{width:168px;height:168px;border-radius:12px;border:2px dashed var(--accent);display:grid;place-items:center;font:500 13px var(--mono);color:var(--accent);text-align:center;padding:12px}
+.seats{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;margin-top:18px}
+.open-seat{display:grid;grid-template-columns:140px minmax(0,1fr);gap:22px;align-items:center}
+.seat{width:140px;height:140px;border-radius:12px;border:2px dashed var(--accent);display:grid;place-items:center;font:500 13px var(--mono);color:var(--accent);text-align:center;padding:12px}
 @media (max-width:560px){.open-seat{grid-template-columns:1fr;gap:16px}.seat{width:132px;height:132px}}
 </style>
 
@@ -213,12 +222,21 @@ footer p{margin:0 0 6px}
 </div></section>
 
 <section><div class="wrap">
-  <div class="open-seat">
-    <div class="seat"><span class="de">Physik-Mitgründer:in</span><span class="en">Physics co-founder</span></div>
-    <div>
-      <h2><span class="de">Dieser Platz ist frei</span><span class="en">This seat is open</span></h2>
-      <p><span class="de">Wir suchen eine unternehmerisch denkende Physikerin oder einen Physiker, die oder der die wissenschaftliche Leitung übernimmt und das Forschungsteam aufbaut.</span><span class="en">We are looking for an entrepreneurial physicist to lead the science and build the research team.</span></p>
-      <a class="btn" href="/apply#interview">Apply as Co-Founder</a>
+  <h2><span class="de">Zwei Plätze sind frei</span><span class="en">Two seats are open</span></h2>
+  <div class="seats">
+    <div class="open-seat">
+      <div class="seat"><span class="de">Physik-Mitgründer:in</span><span class="en">Physics co-founder</span></div>
+      <div>
+        <p><span class="de">Leitet die Wissenschaft und baut das Forschungsteam auf.</span><span class="en">Leads the science and builds the research team.</span></p>
+        <a class="btn" href="/apply">Physics Co-Founder</a>
+      </div>
+    </div>
+    <div class="open-seat">
+      <div class="seat"><span class="de">Engineering-Mitgründer:in</span><span class="en">Engineering co-founder</span></div>
+      <div>
+        <p><span class="de">Verantwortet die Hardware vom Labor bis zum skalierten System.</span><span class="en">Owns the hardware from the lab to scaled systems.</span></p>
+        <a class="btn" href="/apply/engineer">Engineering Co-Founder</a>
+      </div>
     </div>
   </div>
 </div></section>
@@ -227,7 +245,7 @@ footer p{margin:0 0 6px}
 <footer><div class="wrap">
   <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
   <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer</p>
-  <p class="todo">[Daniel: Schreibweise des Firmennamens und Kontakt-E-Mail bestätigen]</p>
+  <p><a href="/privacy"><span class="de">Datenschutz</span><span class="en">Privacy</span></a></p>
 </div></footer>
 </div>
 <script>
