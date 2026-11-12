@@ -320,6 +320,13 @@ footer a{color:inherit}
 
 <script>
 /* ---- Konfiguration: nach dem Einrichten ausfüllen ---- */
+// Herkunft für den Kampagnenvergleich im Cockpit: ?src=li-p1 (oder utm_campaign); bleibt beim Wechsel zwischen Seiten im selben Tab erhalten
+const SOURCE = (() => {
+  let v = '';
+  try { const p = new URLSearchParams(location.search); v = (p.get('src') || p.get('utm_campaign') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40); } catch(e){}
+  try { if (v) sessionStorage.setItem('fq_src', v); else v = sessionStorage.getItem('fq_src') || ''; } catch(e){}
+  return v || 'direct';
+})();
 const CONFIG = {
   AGENTS: {                     // Agent-IDs aus ElevenLabs, eine pro Rolle
     physics_cofounder: "agent_9701m75yrvahfkk9vw1vhga5tsad",
@@ -456,7 +463,7 @@ async function startInterview(){
     const opts = {
       agentId,
       connectionType: 'websocket',   // WebRTC trennt beim Free-Plan sofort; WebSocket funktioniert
-      dynamicVariables: { candidate_name: candidate.name, first_name: first, candidate_email: candidate.email, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role },
+      dynamicVariables: { candidate_name: candidate.name, first_name: first, candidate_email: candidate.email, linkedin_url: candidate.linkedin, session_id: sessionId, language: lang, role, source: SOURCE },
       overrides: { agent: { language: lang } },
       onConnect: () => { connecting = false; connectedAt = Date.now(); showButtons(true); setVoice('speaking'); },
       onModeChange: ({ mode }) => setVoice(mode === 'speaking' ? 'speaking' : 'listening'),
