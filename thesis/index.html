@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="index, follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The Thesis – Freequenz</title>
+<meta name="description" content="The theses behind Freequenz: coherent coupling, local energy release and the bounds of non-locality, with the peer-reviewed research they build on.">
+<meta property="og:title" content="The Thesis – Freequenz">
+<meta property="og:description" content="The theses behind Freequenz: coherent coupling, local energy release and the bounds of non-locality, with the peer-reviewed research they build on.">
+<meta property="og:url" content="https://freequenz.tech/thesis">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232440E0'/%3E%3Cpath d='M4 16c3-8 6-8 8 0s5 8 8 0 5-8 8 0' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Layout: one narrow reading column on cool lab-paper; the hero is a live two-oscillator trace,
+   every claim carries an epistemic tag, the interview sits in the single raised panel. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --ink:#0F1A2E; --muted:#55617A; --line:#D3D9E3;
+  --accent:#2440E0; --accent-ink:#FFFFFF; --trace-b:#C2410C;
+  --beleg:#1B7347; --hypo:#A15C00; --offen:#B3382C;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --trace-b:#FF9A62;
+  --beleg:#5FD39A; --hypo:#F0B14A; --offen:#FF8A7A; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:32px 32px;background-attachment:local}
+.veil{background:color-mix(in srgb,var(--bg) 88%,transparent)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(clamp(20px,4vw,56px),env(safe-area-inset-left,0px));padding-right:max(clamp(20px,4vw,56px),env(safe-area-inset-right,0px))}
+@media (min-width:1000px){
+  .hero,.about-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:64px;align-items:start}
+  .hero>*,.about-hero>*{grid-column:1}
+  .hero>.scope,.about-hero>.scope{grid-column:2;grid-row:2 / span 4;align-self:start;margin-top:10px}
+  .hero .scope canvas,.about-hero .scope canvas{height:300px}
+}
+#app[data-lang="de"] .en,#app[data-lang="en"] .de{display:none!important}
+
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.mark{font-family:var(--display);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em}
+.mark i{font-style:normal;color:var(--accent)}
+a.mark{color:var(--ink);text-decoration:none}
+.mark{display:inline-flex;align-items:center;gap:8px}.mark-icon{height:42px;width:auto;flex:none}
+@media (max-width:520px){.mark-icon{height:34px}}
+.topnav{display:flex;gap:18px;margin-left:auto;font:500 14px var(--body)}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--ink)}
+@media (max-width:520px){header .wrap{flex-wrap:wrap;row-gap:10px}.topnav{order:3;width:100%;margin-left:0;gap:20px}}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.lang button{font:500 13px var(--mono);padding:7px 14px;border:0;background:none;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+.hero{padding-block:28px 12px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,58px);line-height:1.04;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 24px}
+.scope{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.scope canvas{display:block;width:100%;height:170px}
+.scope figcaption{display:flex;flex-wrap:wrap;gap:6px 20px;font:400 12.5px var(--mono);color:var(--muted);padding:9px 14px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.scope .a{color:var(--accent)} .scope .b{color:var(--trace-b)}
+figure{margin:0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px}
+.btn{display:inline-block;font:600 16px var(--body);padding:13px 22px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.lang button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.facts{font:400 13px var(--mono);color:var(--muted)}
+
+section{padding-block:44px 0}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(25px,4.4vw,32px);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px;text-wrap:balance}
+h3{font:600 16px var(--body);margin:0 0 6px}
+p{margin:0 0 14px;max-width:65ch}
+a{color:var(--accent)}
+
+.claims{display:grid;gap:0;border-top:1px solid var(--line);margin-top:20px}
+.claim{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claim p{margin:0}
+.tag{font:500 12px var(--mono);letter-spacing:.04em;padding-top:4px}
+.tag.beleg{color:var(--beleg)} .tag.hypo{color:var(--hypo)} .tag.offen{color:var(--offen)}
+@media (max-width:520px){.claim{grid-template-columns:1fr;gap:2px}}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:20px}
+.cols > div{min-width:0}
+ul{margin:0;padding-left:1.1em} li{margin-bottom:6px}
+.todo{font:400 12.5px var(--mono);color:var(--hypo)}
+
+ol.steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;margin:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 13px var(--mono);color:var(--accent);padding-top:4px}
+ol.steps p{margin:0;color:var(--muted)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 24px;margin-top:20px;box-shadow:0 14px 40px -24px color-mix(in srgb,var(--ink) 45%,transparent)}
+.notice{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:0 0 22px}
+.notice p{margin:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 16px;margin-bottom:20px}
+label.f{display:grid;gap:5px;font:500 13.5px var(--body);min-width:0}
+label.f input{font:400 16px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink);width:100%}
+.checks{display:grid;gap:12px;margin-bottom:22px}
+label.c{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.5;cursor:pointer}
+label.c input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+#status{font:400 13.5px var(--mono);color:var(--muted);margin:14px 0 0;min-height:1.5em}
+#agent-slot{margin-top:18px}
+.li-help{font-size:13.5px;font-weight:500}
+.f-lang{display:grid;gap:6px;margin-bottom:20px}
+.f-lang .lbl{font:500 13.5px var(--body)}
+.langpick{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.langpick button{font:500 15px var(--body);padding:10px;border:0;background:var(--bg);color:var(--muted);cursor:pointer}
+.langpick button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.btn.wide{width:100%;padding:14px 22px}
+.intro-actions .btn.wide{width:auto;flex:1 1 260px}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.voice.listening .orb{opacity:.75}
+.voice.connecting .orb span{animation:pulse 1.2s ease-out infinite}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+.linkbtn{font:500 14px var(--body);background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:6px 0}
+.thanks{font:700 24px/1.2 var(--display);margin:0 0 16px}
+.voice{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);max-width:520px}
+.orb{width:56px;height:56px;border-radius:50%;border:0;padding:0;background:radial-gradient(circle at 35% 35%,color-mix(in srgb,var(--accent) 55%,#fff),var(--accent) 70%);position:relative;flex:none}
+.orb span{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--accent);opacity:0}
+.voice.playing .orb span,.voice.connecting .orb span{animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+@media (prefers-reduced-motion: reduce){.voice.playing .orb span{animation:none;opacity:.5}}
+.vtext{display:grid;gap:2px;min-width:0}
+.vtext span{font-size:13.5px;color:var(--muted)}
+.caption{font-size:15px;color:var(--muted);max-width:62ch;margin:14px 0 4px;min-height:1.5em}
+ol.agenda{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:12px;max-width:62ch}
+ol.agenda li{display:grid;gap:2px;padding-left:18px;border-left:2px solid var(--accent)}
+ol.agenda span{color:var(--muted);font-size:15px}
+.intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+@media (min-width:960px){
+  #interview .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,580px);column-gap:56px;align-items:start}
+  #interview .wrap > *{grid-column:1}
+  #interview #gate{grid-column:2;grid-row:1 / span 6;margin-top:0}
+  #interview details:first-of-type{margin-top:8px}
+  #interview .fields{grid-template-columns:1fr}
+}
+.intro-lede{color:var(--muted);max-width:52ch;margin:0 0 6px}
+
+details{border-bottom:1px solid var(--line);padding:12px 0}
+details:first-of-type{border-top:1px solid var(--line);margin-top:20px}
+summary{font-weight:600;cursor:pointer}
+details p{margin:10px 0 2px;color:var(--muted)}
+
+footer .wrap{padding-block:40px 48px;font-size:14px;color:var(--muted)}
+footer p{margin:0 0 6px}
+footer a{color:inherit}
+.xrole{font-size:15px;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<div id="app" data-lang="en" class="veil">
+<header><div class="wrap">
+  <a class="mark" href="/" aria-label="Freequenz"><svg class="mark-icon" viewBox="-3 -3 106 50.9" aria-hidden="true"><g fill="none" stroke-width="1.05" stroke-linecap="round"><path style="stroke:color-mix(in srgb,var(--accent) 22%,var(--surface))" d="M4.4 33.4L7.4 33.7M7.4 33.7L10.4 33.9M85.4 39.4L88.4 39.4M88.4 39.4L91.4 39.5M5.9 28.0L8.9 28.4M8.9 28.4L11.9 28.9M89.8 34.1L92.8 34.0M7.3 22.8L10.3 23.5M91.3 28.7L94.3 28.5M8.7 17.4L11.7 18.5M92.7 23.0L95.7 22.9M10.2 11.8L13.2 12.6M91.1 17.1L94.1 17.2M94.1 17.2L97.1 17.3M11.6 5.9L14.6 6.4M14.6 6.4L17.6 7.0M92.6 11.3L95.6 11.5M95.6 11.5L98.6 11.7M8.5 35.4L9.0 33.5M9.0 33.5L9.5 31.7M9.5 31.7L10.0 29.9M10.0 29.9L10.5 28.1M10.5 28.1L11.0 26.5M11.0 26.5L11.5 24.9M11.5 24.9L12.0 23.3M12.0 23.3L12.5 21.7M12.5 21.7L13.0 20.0M13.0 20.0L13.5 18.1M14.0 16.0L14.5 13.8M14.5 13.8L15.0 11.5M15.0 11.5L15.5 9.2M15.5 9.2L16.0 7.0M16.0 7.0L16.6 4.8M16.6 4.8L17.1 2.7M16.0 36.0L16.5 34.2M16.5 34.2L17.0 32.6M24.5 3.8L25.1 1.4M23.5 36.6L24.0 34.9M24.0 34.9L24.5 33.4M32.0 4.7L32.5 2.2M31.0 37.1L31.5 35.3M31.5 35.3L32.0 33.6M39.5 4.8L40.0 2.5M38.5 37.5L39.0 35.6M39.0 35.6L39.5 33.7M39.5 33.7L40.0 31.9M40.0 31.9L40.5 30.2M40.5 30.2L41.0 28.5M46.5 6.8L47.0 4.7M46.0 38.0L46.5 36.1M46.5 36.1L47.0 34.2M47.0 34.2L47.5 32.3M47.5 32.3L48.0 30.5M48.0 30.5L48.5 28.6M48.5 28.6L49.0 26.7M49.0 26.7L49.5 24.8M49.5 24.8L50.0 22.9M50.0 22.9L50.5 20.9M50.5 20.9L51.0 18.9M51.0 18.9L51.5 17.0M51.5 17.0L52.0 15.0M52.0 15.0L52.5 12.9M52.5 12.9L53.0 11.0M53.0 11.0L53.5 9.0M53.5 9.0L54.0 7.0M54.0 7.0L54.5 5.0M53.5 38.9L54.0 37.2M59.5 15.7L60.0 13.6M60.0 13.6L60.5 11.5M60.5 11.5L61.0 9.5M61.0 9.5L61.5 7.5M61.5 7.5L62.0 5.5M60.5 41.7L61.0 40.4M68.5 10.2L69.0 8.1M69.0 8.1L69.5 6.1M68.0 42.7L68.5 41.7M76.0 10.8L76.5 8.7M76.5 8.7L77.0 6.6M75.5 42.8L76.0 41.5M83.5 11.2L84.0 9.1M84.0 9.1L84.5 7.1M83.4 40.9L84.0 39.2M84.0 39.2L84.5 37.6M84.5 37.6L85.0 36.1M85.0 36.1L85.5 34.5M85.5 34.5L86.0 32.8M86.0 32.8L86.5 31.0M87.0 29.0L87.5 26.8M87.5 26.8L88.0 24.6M88.0 24.6L88.5 22.3M88.5 22.3L89.0 20.0M89.0 20.0L89.5 17.8M89.5 17.8L90.0 15.6M90.0 15.6L90.5 13.5M90.5 13.5L91.0 11.5M91.0 11.5L91.5 9.6M91.5 9.6L92.0 7.6"/><path style="stroke:color-mix(in srgb,var(--accent) 38%,var(--surface))" d="M10.4 33.9L13.4 34.2M13.4 34.2L16.4 34.5M16.4 34.5L19.4 34.8M19.4 34.8L22.4 35.0M22.4 35.0L25.4 35.2M25.4 35.2L28.4 35.4M28.4 35.4L31.4 35.5M31.4 35.5L34.4 35.6M34.4 35.6L37.4 35.8M37.4 35.8L40.4 35.9M40.4 35.9L43.4 36.1M43.4 36.1L46.4 36.4M46.4 36.4L49.4 36.7M49.4 36.7L52.4 37.1M52.4 37.1L55.4 37.8M82.4 39.6L85.4 39.4M11.9 28.9L14.9 29.5M41.8 30.7L44.8 30.7M44.8 30.7L47.8 31.0M47.8 31.0L50.8 31.5M50.8 31.5L53.8 32.3M83.8 35.4L86.8 34.5M86.8 34.5L89.8 34.1M10.3 23.5L13.3 24.6M13.3 24.6L16.3 26.2M46.3 25.5L49.3 25.6M49.3 25.6L52.3 26.1M88.3 29.3L91.3 28.7M11.7 18.5L14.7 20.1M50.7 20.1L53.7 20.4M53.7 20.4L56.7 21.0M86.7 24.0L89.7 23.3M89.7 23.3L92.7 23.0M13.2 12.6L16.2 13.9M16.2 13.9L19.2 15.7M49.2 14.4L52.2 14.4M52.2 14.4L55.2 14.5M55.2 14.5L58.2 14.9M58.2 14.9L61.1 15.4M88.1 17.2L91.1 17.1M17.6 7.0L20.6 7.8M47.6 8.6L50.6 8.6M50.6 8.6L53.6 8.7M53.6 8.7L56.6 8.9M56.6 8.9L59.6 9.1M59.6 9.1L62.6 9.3M62.6 9.3L65.6 9.6M65.6 9.6L68.6 9.9M68.6 9.9L71.6 10.2M71.6 10.2L74.6 10.4M74.6 10.4L77.6 10.6M77.6 10.6L80.6 10.8M80.6 10.8L83.6 10.9M83.6 10.9L86.6 11.0M86.6 11.0L89.6 11.2M89.6 11.2L92.6 11.3M13.5 18.1L14.0 16.0M17.0 32.6L17.5 31.1M17.5 31.1L18.0 29.9M18.0 29.9L18.5 29.0M23.5 9.2L24.0 6.3M24.0 6.3L24.5 3.8M24.5 33.4L25.0 32.2M25.0 32.2L25.5 31.4M31.5 7.6L32.0 4.7M32.0 33.6L32.5 32.2M32.5 32.2L33.0 31.0M33.0 31.0L33.5 30.1M38.5 10.2L39.0 7.4M39.0 7.4L39.5 4.8M41.0 28.5L41.5 26.9M41.5 26.9L42.0 25.4M42.0 25.4L42.5 23.8M42.5 23.8L43.0 22.0M43.0 22.0L43.5 20.2M43.5 20.2L44.0 18.1M44.0 18.1L44.5 15.9M44.5 15.9L45.0 13.6M45.0 13.6L45.5 11.3M45.5 11.3L46.0 9.0M46.0 9.0L46.5 6.8M54.0 37.2L54.5 35.6M54.5 35.6L55.0 34.0M55.0 34.0L55.5 32.4M55.5 32.4L56.0 30.7M56.0 30.7L56.5 28.9M56.5 28.9L57.0 26.9M57.0 26.9L57.5 24.8M57.5 24.8L58.0 22.5M58.0 22.5L58.5 20.2M58.5 20.2L59.0 17.9M59.0 17.9L59.5 15.7M61.0 40.4L61.5 39.4M61.5 39.4L62.0 38.7M67.0 17.5L67.5 14.8M67.5 14.8L68.0 12.4M68.0 12.4L68.5 10.2M68.5 41.7L69.0 41.2M75.0 15.9L75.5 13.2M75.5 13.2L76.0 10.8M76.0 41.5L76.5 40.5M76.5 40.5L77.0 39.7M82.0 18.5L82.5 15.9M82.5 15.9L83.0 13.4M83.0 13.4L83.5 11.2M86.5 31.0L87.0 29.0"/><path style="stroke:color-mix(in srgb,var(--accent) 55%,var(--surface))" d="M55.4 37.8L58.4 38.6M58.4 38.6L61.4 39.6M61.4 39.6L64.4 40.5M76.4 40.6L79.4 40.0M79.4 40.0L82.4 39.6M14.9 29.5L17.9 30.3M17.9 30.3L20.9 31.0M20.9 31.0L23.9 31.5M23.9 31.5L26.9 31.7M26.9 31.7L29.9 31.6M29.9 31.6L32.9 31.3M32.9 31.3L35.9 31.0M35.9 31.0L38.9 30.7M38.9 30.7L41.8 30.7M53.8 32.3L56.8 33.6M56.8 33.6L59.8 35.4M40.3 26.5L43.3 25.8M43.3 25.8L46.3 25.5M52.3 26.1L55.3 27.1M55.3 27.1L58.3 28.7M85.3 30.6L88.3 29.3M14.7 20.1L17.7 22.4M44.7 20.7L47.7 20.2M47.7 20.2L50.7 20.1M56.7 21.0L59.7 22.2M59.7 22.2L62.7 23.7M43.2 15.7L46.2 14.8M46.2 14.8L49.2 14.4M61.1 15.4L64.1 16.0M64.1 16.0L67.1 16.7M67.1 16.7L70.1 17.4M70.1 17.4L73.1 17.9M73.1 17.9L76.1 18.1M76.1 18.1L79.1 18.0M79.1 18.0L82.1 17.7M82.1 17.7L85.1 17.4M85.1 17.4L88.1 17.2M20.6 7.8L23.6 8.8M23.6 8.8L26.6 9.7M38.6 9.8L41.6 9.3M41.6 9.3L44.6 8.8M44.6 8.8L47.6 8.6M18.5 29.0L19.0 28.4M19.0 28.4L19.5 27.8M23.0 12.3L23.5 9.2M25.5 31.4L26.0 31.1M26.0 31.1L26.5 31.1M31.0 11.0L31.5 7.6M33.5 30.1L34.0 29.4M34.0 29.4L34.5 28.8M38.0 13.4L38.5 10.2M62.0 38.7L62.5 38.1M66.0 23.7L66.5 20.5M66.5 20.5L67.0 17.5M69.0 41.2L69.5 41.1M74.0 22.5L74.5 19.0M74.5 19.0L75.0 15.9M77.0 39.7L77.5 39.1M81.0 24.7L81.5 21.5M81.5 21.5L82.0 18.5"/><path style="stroke:color-mix(in srgb,var(--accent) 75%,var(--surface))" d="M64.4 40.5L67.4 41.1M67.4 41.1L70.4 41.3M70.4 41.3L73.4 41.1M73.4 41.1L76.4 40.6M59.8 35.4L62.8 37.6M80.8 36.9L83.8 35.4M16.3 26.2L19.3 28.0M37.3 27.6L40.3 26.5M58.3 28.7L61.3 31.1M82.3 32.5L85.3 30.6M17.7 22.4L20.7 25.2M41.7 22.0L44.7 20.7M62.7 23.7L65.7 25.6M83.7 25.2L86.7 24.0M19.2 15.7L22.2 17.9M40.2 17.2L43.2 15.7M26.6 9.7L29.6 10.3M29.6 10.3L32.6 10.5M32.6 10.5L35.6 10.3M35.6 10.3L38.6 9.8M19.5 27.8L20.0 27.0M20.0 27.0L20.5 25.9M22.0 18.8L22.5 15.6M22.5 15.6L23.0 12.3M26.5 31.1L27.0 31.3M30.5 14.8L31.0 11.0M34.5 28.8L35.0 28.1M35.0 28.1L35.5 26.9M37.0 19.9L37.5 16.6M37.5 16.6L38.0 13.4M62.5 38.1L63.0 37.4M63.0 37.4L63.5 36.5M65.0 30.1L65.5 27.0M65.5 27.0L66.0 23.7M69.5 41.1L70.0 41.3M73.5 26.4L74.0 22.5M77.5 39.1L78.0 38.5M78.0 38.5L78.5 37.5M80.0 31.2L80.5 28.0M80.5 28.0L81.0 24.7"/><path style="stroke:color-mix(in srgb,var(--accent) 100%,var(--surface))" d="M62.8 37.6L65.8 39.7M65.8 39.7L68.8 41.1M68.8 41.1L71.8 41.3M71.8 41.3L74.8 40.3M74.8 40.3L77.8 38.7M77.8 38.7L80.8 36.9M19.3 28.0L22.3 29.8M22.3 29.8L25.3 31.0M25.3 31.0L28.3 31.2M28.3 31.2L31.3 30.4M31.3 30.4L34.3 29.1M34.3 29.1L37.3 27.6M61.3 31.1L64.3 33.9M64.3 33.9L67.3 36.5M67.3 36.5L70.3 38.2M70.3 38.2L73.3 38.4M73.3 38.4L76.3 37.1M76.3 37.1L79.3 34.9M79.3 34.9L82.3 32.5M20.7 25.2L23.7 27.9M23.7 27.9L26.7 29.6M26.7 29.6L29.7 29.8M29.7 29.8L32.7 28.5M32.7 28.5L35.7 26.3M35.7 26.3L38.7 23.9M38.7 23.9L41.7 22.0M65.7 25.6L68.7 27.4M68.7 27.4L71.7 28.5M71.7 28.5L74.7 28.7M74.7 28.7L77.7 28.0M77.7 28.0L80.7 26.6M80.7 26.6L83.7 25.2M22.2 17.9L25.2 20.0M25.2 20.0L28.2 21.4M28.2 21.4L31.2 21.6M31.2 21.6L34.2 20.6M34.2 20.6L37.2 19.0M37.2 19.0L40.2 17.2M20.5 25.9L21.0 24.2M21.0 24.2L21.5 21.8M21.5 21.8L22.0 18.8M27.0 31.3L27.5 31.2M27.5 31.2L28.0 30.5M28.0 30.5L28.5 28.8M28.5 28.8L29.0 26.2M29.0 26.2L29.5 22.7M29.5 22.7L30.0 18.8M30.0 18.8L30.5 14.8M35.5 26.9L36.0 25.2M36.0 25.2L36.5 22.8M36.5 22.8L37.0 19.9M63.5 36.5L64.0 35.0M64.0 35.0L64.5 32.9M64.5 32.9L65.0 30.1M70.0 41.3L70.5 41.3M70.5 41.3L71.0 40.9M71.0 40.9L71.5 39.7M71.5 39.7L72.0 37.4M72.0 37.4L72.5 34.3M72.5 34.3L73.0 30.5M73.0 30.5L73.5 26.4M78.5 37.5L79.0 36.0M79.0 36.0L79.5 33.9M79.5 33.9L80.0 31.2"/></g><circle cx="28.4" cy="29.2" r="5.2" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.4"/><circle cx="71.6" cy="39.3" r="5.2" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.4"/></svg><span>Fr<i>ee</i>quenz</span></a>
+  <nav class="topnav"><a href="/" class="de">Über uns</a><a href="/" class="en">About</a><a href="/thesis" class="de" aria-current="page">These</a><a href="/thesis" class="en" aria-current="page">Thesis</a><a href="/team">Team</a><a href="/#roles" class="de">Mitgründer-Rollen</a><a href="/#roles" class="en">Co-Founder Roles</a></nav>
+  <div class="lang" role="group" aria-label="Sprache / Language">
+    <button id="lang-de" type="button" aria-pressed="true">DE</button>
+    <button id="lang-en" type="button" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+<main>
+<style>
+.th-hero{padding-block:36px 4px}
+.th-hero h1{font-size:clamp(36px,7.5vw,64px);max-width:16ch}
+.question{border-left:3px solid var(--accent);padding:6px 0 6px 18px;margin:8px 0 0;font:500 clamp(19px,2.6vw,23px)/1.45 var(--display);max-width:58ch;color:var(--ink)}
+.theses{display:grid;gap:18px;margin-top:22px}
+.thesis{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:24px 24px 20px;min-width:0}
+.thesis .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:8px}
+.thesis .n{font:500 12.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.thesis h3{font:700 clamp(20px,2.8vw,24px)/1.2 var(--display);letter-spacing:-.01em;margin:0;flex-basis:100%}
+.thesis > p{color:var(--muted);margin:0 0 14px;max-width:68ch}
+.chip{font:500 11.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid currentColor}
+.chip.beleg{color:var(--beleg)} .chip.hypo{color:var(--hypo)} .chip.offen{color:var(--offen)}
+.refs{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:9px}
+.refs li{font-size:15px;line-height:1.45;min-width:0;overflow-wrap:anywhere}
+.refs a{color:var(--ink);font-weight:600;text-decoration-color:color-mix(in srgb,var(--accent) 55%,transparent);text-underline-offset:3px}
+.refs a:hover{color:var(--accent)}
+.refs .src{display:block;font:400 12.5px var(--mono);color:var(--muted)}
+.refs .why{display:block;color:var(--muted)}
+.notclaim{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.notclaim div{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--surface);min-width:0}
+.notclaim strong{display:block;font:600 16px var(--body);margin-bottom:4px}
+.notclaim p{margin:0;color:var(--muted);font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px;font-size:14.5px;color:var(--muted);align-items:center}
+.cta-pair{display:flex;flex-wrap:wrap;gap:12px 14px;margin-top:20px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+</style>
+
+<div class="wrap th-hero">
+  <p class="eyebrow"><span class="de">Die These</span><span class="en">The thesis</span></p>
+  <h1>
+    <span class="de">Kohärenz statt <em>Leitung</em>.</span>
+    <span class="en">Coherence instead of <em>wires</em>.</span>
+  </h1>
+  <p class="lede">
+    <span class="de">Auf dieser Seite steht, was wir prüfen wollen, worauf es in der veröffentlichten Forschung aufbaut und wo die offenen Fragen liegen. Die Details zu Aufbau und Material bespricht Daniel nach einer Vertraulichkeitsvereinbarung.</span>
+    <span class="en">This page sets out what we want to test, which published research it builds on, and where the open questions are. Daniel shares the details of the setup and materials under an NDA.</span>
+  </p>
+  <p class="question">
+    <span class="de">Können zwei identisch aufgebaute, kohärent gekoppelte Strukturen so zusammenwirken, dass eine Zustandsänderung bei der einen eine lokale Energiefreisetzung bei der anderen auslöst, ohne dass Energie zwischen ihnen transportiert wird?</span>
+    <span class="en">Can two identically built, coherently coupled structures interact so that a change of state in one triggers a local release of energy in the other, without energy being transported between them?</span>
+  </p>
+  <div class="legend">
+    <span class="chip beleg"><span class="de">Belegt</span><span class="en">Established</span></span><span class="de">in begutachteter Forschung gezeigt</span><span class="en">shown in peer-reviewed research</span>
+    <span class="chip hypo"><span class="de">Hypothese</span><span class="en">Hypothesis</span></span><span class="de">plausibel, ungeprüft</span><span class="en">plausible, untested</span>
+    <span class="chip offen"><span class="de">Offen</span><span class="en">Open</span></span><span class="de">gegen den heutigen Konsens, muss gemessen werden</span><span class="en">against today’s consensus, must be measured</span>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <h2><span class="de">Vier Thesen</span><span class="en">Four theses</span></h2>
+  <div class="theses">
+
+    <article class="thesis">
+      <div class="top"><span class="n"><span class="de">These 1</span><span class="en">Thesis 1</span></span><span class="chip beleg"><span class="de">Belegt</span><span class="en">Established</span></span>
+        <h3><span class="de">Kohärenz lässt sich in makroskopische Strukturen tragen.</span><span class="en">Coherence can be carried into macroscopic structures.</span></h3></div>
+      <p><span class="de">Gekoppelte Resonatoren synchronisieren sich, Energie lässt sich über abgestimmte Resonanz effizient koppeln, und 2021 wurden erstmals zwei mechanische Oszillatoren mit Billionen Atomen miteinander verschränkt. Epsilon-near-zero-Metamaterialien halten die Phase über eine ganze Struktur gleich. Für uns heißt das: Gleichtakt über ein ganzes Bauteil ist kein Gedankenspiel mehr.</span><span class="en">Coupled resonators synchronise, energy can be coupled efficiently through matched resonance, and in 2021 two mechanical oscillators made of trillions of atoms were entangled for the first time. Epsilon-near-zero metamaterials keep the phase uniform across an entire structure. For us this means: lock-step behaviour across a whole component is no longer a thought experiment.</span></p>
+      <ul class="refs">
+        <li><a href="https://arxiv.org/abs/2004.05515" target="_blank" rel="noopener">Direct observation of deterministic macroscopic entanglement</a><span class="src">Kotler et al. · Science 372, 622 (2021) · NIST</span></li>
+        <li><a href="https://arxiv.org/abs/2009.12902" target="_blank" rel="noopener">Quantum mechanics–free subsystem with mechanical oscillators</a><span class="src">Mercier de Lépinay et al. · Science 372, 625 (2021) · Aalto University</span></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/17556549/" target="_blank" rel="noopener">Wireless power transfer via strongly coupled magnetic resonances</a><span class="src">Kurs et al. · Science 317, 83 (2007) · MIT</span></li>
+        <li><a href="https://arxiv.org/abs/0705.2612" target="_blank" rel="noopener">Theory of supercoupling, squeezing wave energy, and field confinement … using epsilon-near-zero metamaterials</a><span class="src">Silveirinha &amp; Engheta · Phys. Rev. B 76, 245109 (2007)</span></li>
+      </ul>
+    </article>
+
+    <article class="thesis">
+      <div class="top"><span class="n"><span class="de">These 2</span><span class="en">Thesis 2</span></span><span class="chip hypo"><span class="de">Hypothese</span><span class="en">Hypothesis</span></span>
+        <h3><span class="de">Die Energie kommt aus dem Material selbst, nicht über eine Leitung.</span><span class="en">The energy comes from the material itself, not through a wire.</span></h3></div>
+      <p><span class="de">Freisetzen lässt sich nur Energie, die lokal in einem höheren Zustand gespeichert ist. Ein kleiner, präzise abgestimmter Auslöser kann eine große gespeicherte Menge freigeben: Das zeigen Laser, mehrstabile Metamaterialien und die erste resonante Laseranregung eines Atomkerns 2024. Quantum Energy Teleportation zeigt außerdem, dass ein Empfänger Energie aus seiner eigenen Umgebung entnehmen kann, ermöglicht durch Verschränkung. Unsere Hypothese: Diese Bausteine lassen sich zu einem fernausgelösten Speicher verbinden.</span><span class="en">Only energy that is stored locally in a higher state can be released. A small, precisely tuned trigger can release a large stored amount: lasers, multistable metamaterials and the first resonant laser excitation of an atomic nucleus in 2024 all show this. Quantum energy teleportation also shows that a receiver can extract energy from its own surroundings, enabled by entanglement. Our hypothesis: these building blocks can be combined into a remotely triggered store.</span></p>
+      <ul class="refs">
+        <li><a href="https://arxiv.org/abs/0803.0348" target="_blank" rel="noopener">Quantum energy teleportation in spin chain systems</a><span class="src">Hotta · J. Phys. Soc. Jpn. 78, 034001 (2009) · arXiv 2008</span></li>
+        <li><a href="https://arxiv.org/abs/2301.02666" target="_blank" rel="noopener">Demonstration of quantum energy teleportation on superconducting quantum hardware</a><span class="src">Ikeda · Phys. Rev. Applied 20, 024051 (2023)</span></li>
+        <li><a href="https://www.tuwien.at/en/all-news/news/lange-erhoffter-durchbruch-erstmals-atomkern-mit-laser-angeregt" target="_blank" rel="noopener">Laser excitation of the Th-229 nucleus</a><span class="src">Tiedau et al. · Phys. Rev. Lett. 132, 182501 (2024) · TU Wien, PTB</span></li>
+        <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5024640" target="_blank" rel="noopener">Stable propagation of mechanical signals in soft media using stored elastic energy</a><span class="src">Raney, Daraio, Lewis et al. · PNAS 113, 9722 (2016)</span></li>
+      </ul>
+    </article>
+
+    <article class="thesis">
+      <div class="top"><span class="n"><span class="de">These 3</span><span class="en">Thesis 3</span></span><span class="chip beleg"><span class="de">Belegt</span><span class="en">Established</span></span>
+        <h3><span class="de">Nichtlokale Verbundenheit ist real, aber streng begrenzt.</span><span class="en">Non-local connectedness is real, but strictly bounded.</span></h3></div>
+      <p><span class="de">Bell-Tests zeigen ohne Schlupflöcher, dass verschränkte Systeme stärker korreliert sind, als jede lokale Theorie erlaubt (Nobelpreis 2022). Selbst Netzwerke aus unabhängigen Quellen zeigen echte Nichtlokalität. Zugleich verbietet das No-Signalling-Theorem, dass eine Wahl bei A eine lokale Messgröße bei B verändert. Wer etwas anderes behauptet, muss diese Grenze direkt adressieren. Genau das tun wir.</span><span class="en">Loophole-free Bell tests show that entangled systems are more strongly correlated than any local theory allows (Nobel Prize 2022). Even networks of independent sources show genuine non-locality. At the same time, the no-signalling theorem forbids a choice at A from changing any local observable at B. Anyone who claims otherwise has to address this bound head-on. That is exactly what we do.</span></p>
+      <ul class="refs">
+        <li><a href="https://www.nobelprize.org/prizes/physics/2022/summary/" target="_blank" rel="noopener">Nobel Prize in Physics 2022: Aspect, Clauser, Zeilinger</a><span class="src">nobelprize.org</span></li>
+        <li><a href="https://arxiv.org/abs/1508.05949" target="_blank" rel="noopener">Loophole-free Bell inequality violation using electron spins separated by 1.3 km</a><span class="src">Hensen et al. · Nature 526, 682 (2015) · TU Delft</span></li>
+        <li><a href="https://physics.aps.org/featured-article-pdf/10.1103/PhysRevLett.123.140401" target="_blank" rel="noopener">Genuine quantum nonlocality in the triangle network</a><span class="src">Renou, Gisin et al. · Phys. Rev. Lett. 123, 140401 (2019)</span></li>
+      </ul>
+    </article>
+
+    <article class="thesis">
+      <div class="top"><span class="n"><span class="de">These 4</span><span class="en">Thesis 4</span></span><span class="chip offen"><span class="de">Offen</span><span class="en">Open</span></span>
+        <h3><span class="de">An der Grenze der Quantenmechanik gibt es eine schmale, messbare Lücke.</span><span class="en">At the edge of quantum mechanics there is a narrow, measurable gap.</span></h3></div>
+      <p><span class="de">Ob die Quantenmechanik exakt linear ist, ist eine experimentelle Frage. Gisin zeigte 1990, dass Nichtlinearität schnelle Signale erlauben würde. Neuere Arbeiten untersuchen, unter welchen Bedingungen das gilt, und schlagen kausale nichtlineare Erweiterungen vor, die sich im Labor testen lassen. Die heutigen Grenzen sind noch weit. Diese Lücke wollen wir mit sauberen Messungen und klaren Abbruchkriterien vermessen. Auch ein Nullergebnis wird veröffentlicht.</span><span class="en">Whether quantum mechanics is exactly linear is an experimental question. Gisin showed in 1990 that non-linearity would allow fast signalling. More recent work examines under which conditions this holds and proposes causal non-linear extensions that can be tested in the lab. Today’s bounds are still loose. We want to map this gap with clean measurements and clear kill criteria. A null result will be published too.</span></p>
+      <ul class="refs">
+        <li><a href="https://doi.org/10.1016/0375-9601(90)90786-N" target="_blank" rel="noopener">Weinberg’s non-linear quantum mechanics and supraluminal communications</a><span class="src">Gisin · Phys. Lett. A 143, 1 (1990)</span></li>
+        <li><a href="https://arxiv.org/abs/2106.10576" target="_blank" rel="noopener">A causal framework for non-linear quantum mechanics</a><span class="src">Kaplan &amp; Rajendran · Phys. Rev. D 105, 055002 (2022) · Johns Hopkins</span></li>
+        <li><a href="https://arxiv.org/abs/2412.20854" target="_blank" rel="noopener">Superluminal signalling and chaos in nonlinear quantum dynamics</a><span class="src">Bielińska, Eckstein &amp; Horodecki · arXiv (2024)</span></li>
+        <li><a href="https://sqmscenter.fnal.gov/?p=30772" target="_blank" rel="noopener">Testing the linearity of quantum mechanics on a superconducting qubit</a><span class="src">SQMS Center · Fermilab</span></li>
+      </ul>
+    </article>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2><span class="de">Was wir nicht behaupten</span><span class="en">What we do not claim</span></h2>
+  <div class="notclaim">
+    <div><strong><span class="de">Kein Perpetuum mobile</span><span class="en">No perpetual motion</span></strong><p><span class="de">Energieerhaltung gilt. Freigesetzt wird nur, was vorher gespeichert war.</span><span class="en">Conservation of energy holds. Only what was stored beforehand is released.</span></p></div>
+    <div><strong><span class="de">Kein Signal schneller als Licht</span><span class="en">No faster-than-light signalling</span></strong><p><span class="de">Wir behaupten nicht, das No-Signalling-Theorem zu umgehen. Wir prüfen, wo seine Voraussetzungen enden.</span><span class="en">We do not claim to circumvent the no-signalling theorem. We test where its assumptions end.</span></p></div>
+    <div><strong><span class="de">Noch kein Ergebnis</span><span class="en">No result yet</span></strong><p><span class="de">Es gibt keine Messdaten, die den Effekt zeigen. Genau dafür bauen wir das Team.</span><span class="en">There is no measured data showing the effect. That is exactly why we are building the team.</span></p></div>
+  </div>
+  <div class="cta-pair">
+    <a class="btn" href="/#roles"><span class="de">Mitgründer-Rollen</span><span class="en">Co-Founder Roles</span></a>
+    <a class="btn ghost" href="/team"><span class="de">Zum Team</span><span class="en">Meet the team</span></a>
+  </div>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+  <p><strong>Frequenz Inc.</strong> (Freequenz) · Delaware corporation, File No. 10120853</p>
+  <p>c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA · Director: Daniel Tobias Heer · <a href="mailto:danielh@freequenz.tech">danielh@freequenz.tech</a></p>
+  <p><a href="/privacy"><span class="de">Datenschutz</span><span class="en">Privacy</span></a></p>
+</div></footer>
+</div>
+<script>
+const app=document.getElementById('app'),$=id=>document.getElementById(id);
+function setLang(l){app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;try{localStorage.setItem('fq-lang2',l)}catch(e){}}
+$('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
+let initial='en';
+try{initial=localStorage.getItem('fq-lang2')||initial}catch(e){}
+setLang(initial);
+</script>
+</body>
+</html>
