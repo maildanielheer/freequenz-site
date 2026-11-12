@@ -52,6 +52,10 @@ input[type="search"]{min-width:0;flex:1 1 180px;max-width:280px}
 label.chk{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--muted);cursor:pointer}
 button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,tr:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
+.camp{margin:24px 0 8px}
+.camp h2{font:700 18px var(--display);margin:0 0 4px}
+.camp p.sub{margin:0 0 10px}
+.src{font:500 12px var(--mono);color:var(--muted)}
 .notice{font-size:13.5px;color:var(--muted);background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin-bottom:12px}
 .notice strong{color:var(--ink)}
 
@@ -166,6 +170,7 @@ ul.q{margin:0;padding-left:1.1em}
       <option value="invited">Eingeladen</option>
       <option value="rejected">Abgesagt</option>
     </select>
+    <select id="f-src" aria-label="Quelle"><option value="all">Alle Quellen</option></select>
     <input type="search" id="f-q" placeholder="Name oder Stichwort suchen" aria-label="Suche">
     <label class="chk" for="f-ex"><input type="checkbox" id="f-ex"> Beispiele ausblenden</label>
   </div>
@@ -176,11 +181,22 @@ ul.q{margin:0;padding-left:1.1em}
     <table>
       <thead><tr>
         <th style="width:36px"><span class="sr" hidden>Vergleich</span></th>
-        <th>Kandidat:in</th><th>Rolle</th><th>Interview</th><th>Fit</th><th>Warnsignale</th><th>Status</th>
+        <th>Kandidat:in</th><th>Rolle</th><th>Quelle</th><th>Interview</th><th>Fit</th><th>Warnsignale</th><th>Status</th>
       </tr></thead>
-      <tbody id="rows"><tr><td colspan="7" class="empty" id="loading">Lade Interviews …</td></tr></tbody>
+      <tbody id="rows"><tr><td colspan="8" class="empty" id="loading">Lade Interviews …</td></tr></tbody>
     </table>
   </div>
+
+  <section class="camp" aria-labelledby="camp-h">
+    <h2 id="camp-h">Kampagnen-Vergleich</h2>
+    <p class="sub">Je Quelle: abgeschlossene Interviews, durchschnittlicher Fit und starke Kandidat:innen (Fit ab 70). Beispiele zählen nicht mit.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Quelle</th><th>Interviews</th><th>Physik / Engineering</th><th>Ø Fit</th><th>Fit ab 70</th><th>Bester Fit</th></tr></thead>
+        <tbody id="camp"><tr><td colspan="6" class="empty">Noch keine Daten.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="compare" id="compare" hidden>
     <h2>Vergleich</h2>
@@ -196,6 +212,14 @@ const SUPABASE_URL = "https://dxydtiqlklihdqpromra.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_A4USUX2EyunoomgZkSVoMw__sbNu7dr";  // öffentlicher Schlüssel; Zugriff schützt Row Level Security
 const ROLE = { physics_cofounder: 'Physik', engineering_cofounder: 'Engineering' };
 const STATUS = { new: 'Neu', shortlist: 'Shortlist', invited: 'Eingeladen', rejected: 'Abgesagt' };
+const SRC = {
+  'li-p1': 'P1 · Physik-PhDs Resonanz', 'li-p2': 'P2 · Physik-PhDs Metamaterialien', 'li-p3': 'P3 · Physik-PhDs Quantenoptik',
+  'li-p4': 'P4 · Physik Quantum-Firmen', 'li-p5': 'P5 · Physik Fusion & Energie', 'li-e1': 'E1 · Engineers Top-TUs',
+  'li-e2': 'E2 · Engineers Deep-Tech-Hardware', 'li-e3': 'E3 · Engineers Präzisionshardware',
+  'li-job': 'LinkedIn-Stellenanzeige', 'li-post': 'LinkedIn-Post', 'direct': 'Direkt (ohne Link)'
+};
+function srcKey(c){ return c.source || 'vor-tracking'; }
+function srcLabel(k){ return k === 'vor-tracking' ? 'Vor dem Tracking' : (SRC[k] || k); }
 const SAL = { ok: 'Klar überbrückbar', vague: 'Vage', no: 'Nicht überbrückbar', missing: 'Nicht gefragt' };
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -205,8 +229,8 @@ function fmtDate(iso){ try { return new Date(iso).toLocaleDateString('de-DE', {d
 function flagsOf(c){ return Array.isArray(c.red_flags) ? c.red_flags : []; }
 
 function filtered(){
-  const st = $('f-status').value, q = $('f-q').value.trim().toLowerCase(), hideEx = $('f-ex').checked;
-  return all.filter(c => (role === 'all' || c.role === role) && (st === 'all' || (c.status || 'new') === st) && !(hideEx && c.is_example) &&
+  const sr = $('f-src').value, st = $('f-status').value, q = $('f-q').value.trim().toLowerCase(), hideEx = $('f-ex').checked;
+  return all.filter(c => (role === 'all' || c.role === role) && (st === 'all' || (c.status || 'new') === st) && (sr === 'all' || srcKey(c) === sr) && !(hideEx && c.is_example) &&
     (!q || [c.name, c.summary, c.linkedin, ...(flagsOf(c))].join(' ').toLowerCase().includes(q)))
     .sort((a, b) => (b.total ?? -1) - (a.total ?? -1));
 }
@@ -229,14 +253,15 @@ function salaryChip(c){
 
 function renderRows(){
   const list = filtered(), tb = $('rows');
-  if (!all.length){ tb.innerHTML = '<tr><td colspan="7" class="empty">Noch keine Interviews. Sobald Kandidat:innen das KI-Interview auf freequenz.tech abschließen, erscheinen sie hier mit Bewertung und Transkript.</td></tr>'; return; }
-  if (!list.length){ tb.innerHTML = '<tr><td colspan="7" class="empty">Keine Treffer für diese Filter.</td></tr>'; return; }
+  if (!all.length){ tb.innerHTML = '<tr><td colspan="8" class="empty">Noch keine Interviews. Sobald Kandidat:innen das KI-Interview auf freequenz.tech abschließen, erscheinen sie hier mit Bewertung und Transkript.</td></tr>'; return; }
+  if (!list.length){ tb.innerHTML = '<tr><td colspan="8" class="empty">Keine Treffer für diese Filter.</td></tr>'; return; }
   tb.innerHTML = list.map(c => {
     const t = c.total ?? null, fl = flagsOf(c);
     return `<tr data-id="${esc(c.id)}" tabindex="0" class="${picked.has(c.id) ? 'sel' : ''}">
       <td><input type="checkbox" class="pick" data-id="${esc(c.id)}" ${picked.has(c.id) ? 'checked' : ''} aria-label="${esc(c.name)} vergleichen"></td>
       <td class="name">${esc(c.name)}${c.is_example ? '<span class="ex">Beispiel</span>' : ''}<small>${esc(c.headline || '')}</small></td>
       <td>${esc(ROLE[c.role] || c.role || '–')}</td>
+      <td class="src">${esc(srcLabel(srcKey(c)))}</td>
       <td class="num">${esc(fmtDate(c.interviewed_at))}${c.language ? ' · ' + esc(String(c.language).toUpperCase()) : ''}</td>
       <td>${t == null ? '<span class="sub">ausstehend</span>' : `<div class="score"><div class="track"><div class="fill" style="width:${Math.max(0, Math.min(100, t))}%"></div></div><b>${Math.round(t)}</b></div>`}</td>
       <td><div class="flags">${salaryChip(c)}${fl.slice(0, 2).map(f => `<span class="flag">${esc(f)}</span>`).join('')}${fl.length > 2 ? `<span class="flag">+${fl.length - 2}</span>` : ''}</div></td>
@@ -316,14 +341,33 @@ function renderPanel(){
   };
 }
 
-function renderAll(){ renderStrip(); renderRows(); renderCompare(); renderPanel(); }
+function renderCamp(){
+  const real = all.filter(c => !c.is_example), groups = {};
+  real.forEach(c => { (groups[srcKey(c)] ||= []).push(c); });
+  const keys = Object.keys(groups);
+  const sel = $('f-src'), cur = sel.value;
+  sel.innerHTML = '<option value="all">Alle Quellen</option>' + keys.sort().map(k => `<option value="${esc(k)}">${esc(srcLabel(k))}</option>`).join('');
+  sel.value = keys.includes(cur) ? cur : 'all';
+  const tb = $('camp');
+  if (!keys.length){ tb.innerHTML = '<tr><td colspan="6" class="empty">Noch keine Interviews mit Quelle. Die Kampagnen-Links (?src=li-p1 usw.) erscheinen hier automatisch.</td></tr>'; return; }
+  const rows = keys.map(k => {
+    const g = groups[k], fits = g.map(c => c.total).filter(t => typeof t === 'number');
+    const avg = fits.length ? fits.reduce((a, b) => a + b, 0) / fits.length : null;
+    return { k, n: g.length, p: g.filter(c => c.role === 'physics_cofounder').length, e: g.filter(c => c.role === 'engineering_cofounder').length,
+             avg, strong: fits.filter(t => t >= 70).length, best: fits.length ? Math.max(...fits) : null };
+  }).sort((a, b) => (b.strong - a.strong) || ((b.avg ?? -1) - (a.avg ?? -1)) || (b.n - a.n));
+  tb.innerHTML = rows.map(r => `<tr><td class="name">${esc(srcLabel(r.k))}<small class="src">${esc(r.k)}</small></td><td class="num">${r.n}</td><td class="num">${r.p} / ${r.e}</td>
+    <td class="num">${r.avg == null ? '–' : Math.round(r.avg)}</td><td class="num"><b>${r.strong}</b></td><td class="num">${r.best == null ? '–' : Math.round(r.best)}</td></tr>`).join('');
+}
+
+function renderAll(){ renderStrip(); renderCamp(); renderRows(); renderCompare(); renderPanel(); }
 
 document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
   role = b.dataset.role;
   document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
   renderRows();
 });
-['f-status', 'f-q', 'f-ex'].forEach(id => $(id).addEventListener('input', renderRows));
+['f-status', 'f-src', 'f-q', 'f-ex'].forEach(id => $(id).addEventListener('input', renderRows));
 $('rows').addEventListener('click', e => {
   const cb = e.target.closest('.pick');
   if (cb){ e.stopPropagation(); cb.checked ? (picked.size < 3 ? picked.add(cb.dataset.id) : (cb.checked = false)) : picked.delete(cb.dataset.id); renderRows(); renderCompare(); return; }
