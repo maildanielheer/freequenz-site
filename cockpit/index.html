@@ -351,7 +351,7 @@ function show(view){ $('login').hidden = view !== 'login'; $('main').hidden = vi
     e.preventDefault();
     const m = $('login-msg'); m.textContent = 'Sende Link …';
     const { error } = await db.auth.signInWithOtp({ email: $('login-mail').value.trim(), options: { shouldCreateUser: false, emailRedirectTo: location.origin + '/cockpit/' } });
-    m.textContent = error ? 'Das hat nicht geklappt. Ist die Adresse freigegeben?' : 'Link ist unterwegs. Bitte im Postfach öffnen.';
+    m.textContent = !error ? 'Link ist unterwegs. Bitte im Postfach öffnen.' : /signups not allowed|otp_disabled/i.test(error.message + error.code) ? 'Diese Adresse ist nicht freigegeben.' : /rate|too many/i.test(error.message + error.code) ? 'Zu viele Anmeldelinks in kurzer Zeit. Bitte in einer Stunde erneut versuchen oder den letzten Link aus dem Postfach nutzen.' : 'Das hat nicht geklappt: ' + error.message;
   });
   $('logout').onclick = async () => { await db.auth.signOut(); all = []; show('login'); };
   $('reload').onclick = load;
