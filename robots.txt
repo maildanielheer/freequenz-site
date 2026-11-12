@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /cockpit/
+
+Sitemap: https://freequenz.tech/sitemap.xml
