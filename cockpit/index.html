@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Freequenz Bewerber-Cockpit</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+/* Layout: one working screen — summary strip, filter bar, ranked candidate table;
+   a side panel opens per candidate, a compare matrix appears when 2–3 are ticked. */
+:root{
+  --bg:#F1F3F6; --surface:#FFFFFF; --sunk:#E8ECF2; --ink:#0F1A2E; --muted:#55617A; --line:#D3D9E3;
+  --accent:#2440E0; --accent-ink:#FFFFFF; --accent-soft:#E3E8FD;
+  --good:#1B7347; --warn:#A15C00; --bad:#B3382C; --good-soft:#DDF1E6; --warn-soft:#F8EBD4; --bad-soft:#F7E0DC;
+  --display:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0C1220; --surface:#141C2E; --sunk:#10182A; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --accent-soft:#1E2850;
+  --good:#5FD39A; --warn:#F0B14A; --bad:#FF8A7A; --good-soft:#12301F; --warn-soft:#33270F; --bad-soft:#3A1A17; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0C1220; --surface:#141C2E; --sunk:#10182A; --ink:#E8ECF4; --muted:#9AA5BC; --line:#27324B;
+  --accent:#8196FF; --accent-ink:#0C1220; --accent-soft:#1E2850;
+  --good:#5FD39A; --warn:#F0B14A; --bad:#FF8A7A; --good-soft:#12301F; --warn-soft:#33270F; --bad-soft:#3A1A17; color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+.shell{max-width:1440px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:18px}
+.mark{font:700 26px/1 var(--display);letter-spacing:-.02em}
+.mark i{font-style:normal;color:var(--accent)}
+.sub{color:var(--muted);font-size:14px}
+.private{margin-left:auto;font:500 12px var(--mono);color:var(--muted);letter-spacing:.04em}
+.mono{font-family:var(--mono)}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.tile{background:var(--surface);padding:12px 16px;min-width:0}
+.tile b{display:block;font:700 26px/1.1 var(--display);font-variant-numeric:tabular-nums}
+.tile span{font-size:13px;color:var(--muted)}
+.tile.flag b{color:var(--bad)}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:12px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 13px var(--body);padding:7px 12px;border:0;background:none;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+select,input[type="search"],textarea{font:400 14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+input[type="search"]{min-width:0;flex:1 1 180px;max-width:280px}
+label.chk{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--muted);cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,tr:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.notice{font-size:13.5px;color:var(--muted);background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.notice strong{color:var(--ink)}
+
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;min-width:820px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface);position:sticky;top:0}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--sunk)}
+tbody tr.sel{background:var(--accent-soft)}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums}
+.name{font-weight:600}
+.name small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.ex{font:500 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--warn);border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:2px}
+.score{display:flex;align-items:center;gap:8px;min-width:130px}
+.score .track{flex:1;height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
+.score .fill{height:100%;background:var(--accent)}
+.score b{font:600 14px var(--mono);width:30px;text-align:right}
+.pill{display:inline-block;font:500 12px var(--body);padding:2px 9px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.pill.new{background:var(--accent-soft);color:var(--accent)}
+.pill.shortlist{background:var(--good-soft);color:var(--good)}
+.pill.invited{background:var(--good);color:var(--surface)}
+.pill.rejected{background:var(--sunk);color:var(--muted);text-decoration:line-through}
+.flags{display:flex;flex-wrap:wrap;gap:4px}
+.flag{font:500 11.5px var(--body);padding:1px 7px;border-radius:4px;background:var(--bad-soft);color:var(--bad);white-space:nowrap}
+.flag.ok{background:var(--good-soft);color:var(--good)}
+.empty{padding:36px 20px;text-align:center;color:var(--muted)}
+
+.compare{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.compare h2,.panel h2{font:700 20px/1.2 var(--display);margin:0 0 10px}
+.cmpgrid{overflow-x:auto}
+.cmpgrid table{min-width:560px}
+.cmpgrid td,.cmpgrid th{border-bottom:1px solid var(--line)}
+.cell{display:flex;align-items:center;gap:8px}
+.dots{display:flex;gap:3px}
+.dots i{width:10px;height:10px;border-radius:2px;background:var(--sunk);display:block}
+.dots i.on{background:var(--accent)}
+.best{font-weight:600}
+
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-20px 0 50px -30px color-mix(in srgb,var(--ink) 50%,transparent);overflow-y:auto;z-index:20;
+  padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));padding-left:22px;padding-right:max(22px,env(safe-area-inset-right,0px))}
+.panel .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));font:500 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer}
+.panel h3{font:600 13px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.meta a{color:var(--accent)}
+.crit{border-top:1px solid var(--line);padding:10px 0}
+.crit .row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.crit .row span{font-weight:600}
+.crit .w{font:400 12px var(--mono);color:var(--muted);margin-left:6px}
+.crit q{display:block;color:var(--muted);font-size:14px;margin-top:4px;quotes:"„" "“"}
+.salary{border-radius:8px;padding:10px 14px;background:var(--warn-soft);font-size:14.5px}
+.salary.ok{background:var(--good-soft)}
+.salary.bad{background:var(--bad-soft)}
+.salary b{display:block;font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.transcript{max-height:360px;overflow-y:auto;background:var(--sunk);border-radius:8px;padding:10px 14px;font-size:14px}
+.transcript p{margin:0 0 8px}
+.transcript .who{font:500 11.5px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-right:6px}
+.decide{display:grid;gap:10px}
+.decide textarea{width:100%;min-height:90px;resize:vertical}
+.decide .rowb{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:600 14px var(--body);padding:8px 16px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn:disabled{opacity:.5;cursor:default}
+.saved{font-size:13px;color:var(--muted)}
+ul.q{margin:0;padding-left:1.1em}
+.login{max-width:420px;margin:12vh auto 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px}
+.login h1{font:700 22px/1.2 var(--display);margin:0 0 6px}
+.login form{display:grid;gap:10px;margin-top:14px}
+.login input{font:400 15px var(--body);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.linkbtn{font:500 13px var(--body);background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0}
+</style>
+</head>
+<body>
+<div class="shell" id="login" hidden>
+  <div class="login">
+    <div class="mark">Free<i>quenz</i></div>
+    <h1>Bewerber-Cockpit</h1>
+    <p class="sub">Nur für freigegebene Adressen. Du bekommst einen Anmeldelink per E-Mail.</p>
+    <form id="login-form">
+      <input type="email" id="login-mail" required autocomplete="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse">
+      <button class="btn" type="submit">Anmeldelink senden</button>
+      <p class="sub" id="login-msg" role="status"></p>
+    </form>
+  </div>
+</div>
+
+<div class="shell" id="main" hidden>
+  <header class="top">
+    <div class="mark">Free<i>quenz</i></div>
+    <div class="sub">Bewerber-Cockpit · Mitgründer-Interviews</div>
+    <div class="private">INTERN · NUR DANIEL · <button class="linkbtn" id="reload" type="button">Aktualisieren</button> · <button class="linkbtn" id="logout" type="button">Abmelden</button></div>
+  </header>
+
+  <div class="strip" id="strip">
+    <div class="tile"><b id="t-all">–</b><span>Interviews gesamt</span></div>
+    <div class="tile"><b id="t-phys">–</b><span>Physics Co-Founder</span></div>
+    <div class="tile"><b id="t-eng">–</b><span>Engineering Co-Founder</span></div>
+    <div class="tile"><b id="t-new">–</b><span>noch nicht gesichtet</span></div>
+    <div class="tile flag"><b id="t-flag">–</b><span>mit Warnsignal</span></div>
+  </div>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Rolle">
+      <button type="button" data-role="all" aria-pressed="true">Alle Rollen</button>
+      <button type="button" data-role="physics_cofounder" aria-pressed="false">Physik</button>
+      <button type="button" data-role="engineering_cofounder" aria-pressed="false">Engineering</button>
+    </div>
+    <select id="f-status" aria-label="Status">
+      <option value="all">Alle Status</option>
+      <option value="new">Neu</option>
+      <option value="shortlist">Shortlist</option>
+      <option value="invited">Eingeladen</option>
+      <option value="rejected">Abgesagt</option>
+    </select>
+    <input type="search" id="f-q" placeholder="Name oder Stichwort suchen" aria-label="Suche">
+    <label class="chk" for="f-ex"><input type="checkbox" id="f-ex"> Beispiele ausblenden</label>
+  </div>
+
+  <div class="notice" id="notice" hidden></div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th style="width:36px"><span class="sr" hidden>Vergleich</span></th>
+        <th>Kandidat:in</th><th>Rolle</th><th>Interview</th><th>Fit</th><th>Warnsignale</th><th>Status</th>
+      </tr></thead>
+      <tbody id="rows"><tr><td colspan="7" class="empty" id="loading">Lade Interviews …</td></tr></tbody>
+    </table>
+  </div>
+
+  <section class="compare" id="compare" hidden>
+    <h2>Vergleich</h2>
+    <div class="cmpgrid" id="cmp"></div>
+  </section>
+</div>
+
+<aside class="panel" id="panel" hidden aria-label="Kandidatendetails"></aside>
+
+<script src="/js/supabase-2.118.0.js"></script>
+<script>
+const SUPABASE_URL = "";       // https://<projekt>.supabase.co
+const SUPABASE_ANON_KEY = "";  // öffentlicher "anon"-Schlüssel; Zugriff schützt Row Level Security
+const ROLE = { physics_cofounder: 'Physik', engineering_cofounder: 'Engineering' };
+const STATUS = { new: 'Neu', shortlist: 'Shortlist', invited: 'Eingeladen', rejected: 'Abgesagt' };
+const SAL = { ok: 'Klar überbrückbar', vague: 'Vage', no: 'Nicht überbrückbar', missing: 'Nicht gefragt' };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let all = [], role = 'all', picked = new Set(), openId = null, db = null, canWrite = false;
+
+function fmtDate(iso){ try { return new Date(iso).toLocaleDateString('de-DE', {day:'2-digit', month:'2-digit', year:'numeric'}); } catch(e){ return ''; } }
+function flagsOf(c){ return Array.isArray(c.red_flags) ? c.red_flags : []; }
+
+function filtered(){
+  const st = $('f-status').value, q = $('f-q').value.trim().toLowerCase(), hideEx = $('f-ex').checked;
+  return all.filter(c => (role === 'all' || c.role === role) && (st === 'all' || (c.status || 'new') === st) && !(hideEx && c.is_example) &&
+    (!q || [c.name, c.summary, c.linkedin, ...(flagsOf(c))].join(' ').toLowerCase().includes(q)))
+    .sort((a, b) => (b.total ?? -1) - (a.total ?? -1));
+}
+
+function renderStrip(){
+  const real = all;
+  $('t-all').textContent = real.length;
+  $('t-phys').textContent = real.filter(c => c.role === 'physics_cofounder').length;
+  $('t-eng').textContent = real.filter(c => c.role === 'engineering_cofounder').length;
+  $('t-new').textContent = real.filter(c => (c.status || 'new') === 'new').length;
+  $('t-flag').textContent = real.filter(c => flagsOf(c).length || c.salary_runway === 'no' || c.salary_runway === 'vague').length;
+}
+
+function salaryChip(c){
+  if (c.salary_runway === 'no') return '<span class="flag">Kein Gehalt: nicht machbar</span>';
+  if (c.salary_runway === 'vague') return '<span class="flag">Kein Gehalt: vage</span>';
+  if (c.salary_runway === 'ok') return '<span class="flag ok">Kein Gehalt: ok</span>';
+  return '';
+}
+
+function renderRows(){
+  const list = filtered(), tb = $('rows');
+  if (!all.length){ tb.innerHTML = '<tr><td colspan="7" class="empty">Noch keine Interviews. Sobald Kandidat:innen das KI-Interview auf freequenz.tech abschließen, erscheinen sie hier mit Bewertung und Transkript.</td></tr>'; return; }
+  if (!list.length){ tb.innerHTML = '<tr><td colspan="7" class="empty">Keine Treffer für diese Filter.</td></tr>'; return; }
+  tb.innerHTML = list.map(c => {
+    const t = c.total ?? null, fl = flagsOf(c);
+    return `<tr data-id="${esc(c.id)}" tabindex="0" class="${picked.has(c.id) ? 'sel' : ''}">
+      <td><input type="checkbox" class="pick" data-id="${esc(c.id)}" ${picked.has(c.id) ? 'checked' : ''} aria-label="${esc(c.name)} vergleichen"></td>
+      <td class="name">${esc(c.name)}${c.is_example ? '<span class="ex">Beispiel</span>' : ''}<small>${esc(c.headline || '')}</small></td>
+      <td>${esc(ROLE[c.role] || c.role || '–')}</td>
+      <td class="num">${esc(fmtDate(c.interviewed_at))}${c.language ? ' · ' + esc(String(c.language).toUpperCase()) : ''}</td>
+      <td>${t == null ? '<span class="sub">ausstehend</span>' : `<div class="score"><div class="track"><div class="fill" style="width:${Math.max(0, Math.min(100, t))}%"></div></div><b>${Math.round(t)}</b></div>`}</td>
+      <td><div class="flags">${salaryChip(c)}${fl.slice(0, 2).map(f => `<span class="flag">${esc(f)}</span>`).join('')}${fl.length > 2 ? `<span class="flag">+${fl.length - 2}</span>` : ''}</div></td>
+      <td><span class="pill ${esc(c.status || 'new')}">${esc(STATUS[c.status || 'new'])}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function dots(n){ return `<span class="dots">${[1,2,3,4,5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span>`; }
+
+function renderCompare(){
+  const sel = all.filter(c => picked.has(c.id));
+  $('compare').hidden = sel.length < 2;
+  if (sel.length < 2) return;
+  const crits = [];
+  sel.forEach(c => (c.scores || []).forEach(s => { if (!crits.includes(s.criterion)) crits.push(s.criterion); }));
+  const val = (c, k) => (c.scores || []).find(s => s.criterion === k)?.score ?? null;
+  const row = (label, cells) => `<tr><th scope="row" style="text-transform:none;letter-spacing:0;font:600 14px var(--body);color:var(--ink)">${label}</th>${cells}</tr>`;
+  let html = `<table><thead><tr><th>Kriterium</th>${sel.map(c => `<th>${esc(c.name)}<br><span style="text-transform:none">${esc(ROLE[c.role] || '')}</span></th>`).join('')}</tr></thead><tbody>`;
+  const totals = sel.map(c => c.total ?? -1), maxT = Math.max(...totals);
+  html += row('Fit (0–100)', sel.map(c => `<td class="num ${c.total === maxT ? 'best' : ''}">${c.total == null ? '–' : Math.round(c.total)}</td>`).join(''));
+  crits.forEach(k => {
+    const vs = sel.map(c => val(c, k)), mx = Math.max(...vs.map(v => v ?? -1));
+    html += row(esc(k), sel.map((c, i) => `<td>${vs[i] == null ? '<span class="sub">nicht beurteilbar</span>' : `<span class="cell ${vs[i] === mx ? 'best' : ''}">${dots(vs[i])} ${vs[i]}</span>`}</td>`).join(''));
+  });
+  html += row('Monate ohne Gehalt', sel.map(c => `<td>${esc(SAL[c.salary_runway] || '–')}</td>`).join(''));
+  html += row('Warnsignale', sel.map(c => `<td>${flagsOf(c).length ? flagsOf(c).map(esc).join('<br>') : '–'}</td>`).join(''));
+  html += row('Status', sel.map(c => `<td><span class="pill ${esc(c.status || 'new')}">${esc(STATUS[c.status || 'new'])}</span></td>`).join(''));
+  $('cmp').innerHTML = html + '</tbody></table>';
+}
+
+function renderPanel(){
+  const p = $('panel'), c = all.find(x => x.id === openId);
+  if (!c){ p.hidden = true; return; }
+  p.hidden = false;
+  const sal = c.salary_runway || 'missing';
+  p.innerHTML = `
+    <button class="x" type="button" id="close">Schließen</button>
+    <h2>${esc(c.name)}${c.is_example ? '<span class="ex">Beispiel</span>' : ''}</h2>
+    <div class="meta">
+      <span>${esc(ROLE[c.role] || c.role || '')}</span>
+      <span>${esc(fmtDate(c.interviewed_at))}${c.duration_min ? ' · ' + esc(c.duration_min) + ' Min' : ''}</span>
+      ${c.linkedin ? `<a href="${esc(c.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>` : ''}
+      ${c.email ? `<span class="mono">${esc(c.email)}</span>` : ''}
+    </div>
+    <h3>Gesamteindruck</h3>
+    <p>${esc(c.summary || 'Noch keine Auswertung.')}</p>
+    <h3>Monate ohne Gehalt</h3>
+    <div class="salary ${sal === 'ok' ? 'ok' : sal === 'no' ? 'bad' : ''}"><b>${esc(SAL[sal])}</b>${c.salary_quote ? '„' + esc(c.salary_quote) + '“' : 'Keine Antwort im Transkript.'}</div>
+    <h3>Fit · ${c.total == null ? '–' : Math.round(c.total) + ' / 100'}</h3>
+    ${(c.scores || []).map(s => `<div class="crit"><div class="row"><span>${esc(s.criterion)}<span class="w">${esc(s.weight ?? '')}%</span></span>${s.score == null ? '<span class="sub">nicht beurteilbar</span>' : dots(s.score)}</div>${s.quote ? `<q>${esc(s.quote)}</q>` : ''}</div>`).join('') || '<p class="sub">Keine Kriterien.</p>'}
+    ${flagsOf(c).length ? `<h3>Warnsignale</h3><div class="flags">${flagsOf(c).map(f => `<span class="flag">${esc(f)}</span>`).join('')}</div>` : ''}
+    ${(c.followups || []).length ? `<h3>Fragen fürs persönliche Gespräch</h3><ul class="q">${c.followups.map(q => `<li>${esc(q)}</li>`).join('')}</ul>` : ''}
+    <h3>Transkript</h3>
+    <div class="transcript">${(c.transcript || []).map(t => `<p><span class="who">${t.speaker === 'agent' ? 'KI' : 'Kandidat'}</span>${esc(t.text)}</p>`).join('') || '<p class="sub">Kein Transkript gespeichert.</p>'}</div>
+    <h3>Deine Entscheidung</h3>
+    <div class="decide">
+      <div class="rowb">
+        <select id="d-status" aria-label="Status" ${canWrite ? '' : 'disabled'}>${Object.entries(STATUS).map(([k, v]) => `<option value="${k}" ${(c.status || 'new') === k ? 'selected' : ''}>${v}</option>`).join('')}</select>
+      </div>
+      <textarea id="d-notes" placeholder="Notizen zu ${esc(c.name)}" ${canWrite ? '' : 'disabled'}>${esc(c.notes || '')}</textarea>
+      <div class="rowb"><button class="btn" id="d-save" type="button" ${canWrite ? '' : 'disabled'}>Speichern</button><span class="saved" id="d-msg">${canWrite ? '' : 'Nur lesend geöffnet.'}</span></div>
+    </div>`;
+  $('close').onclick = () => { openId = null; renderPanel(); };
+  if (canWrite) $('d-save').onclick = async () => {
+    const btn = $('d-save'), msg = $('d-msg'); btn.disabled = true; msg.textContent = 'Speichere …';
+    try {
+      const upd = { status: $('d-status').value, notes: $('d-notes').value, reviewed_at: new Date().toISOString() };
+      const { error } = await db.from('candidates').update(upd).eq('id', c.id);
+      if (error) throw error;
+      Object.assign(c, upd); renderRows(); renderCompare();
+      msg.textContent = 'Gespeichert.';
+    } catch (e) {
+      msg.textContent = 'Speichern fehlgeschlagen: ' + (e && e.message ? e.message : 'bitte noch einmal versuchen.');
+    }
+    btn.disabled = false;
+  };
+}
+
+function renderAll(){ renderStrip(); renderRows(); renderCompare(); renderPanel(); }
+
+document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
+  role = b.dataset.role;
+  document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  renderRows();
+});
+['f-status', 'f-q', 'f-ex'].forEach(id => $(id).addEventListener('input', renderRows));
+$('rows').addEventListener('click', e => {
+  const cb = e.target.closest('.pick');
+  if (cb){ e.stopPropagation(); cb.checked ? (picked.size < 3 ? picked.add(cb.dataset.id) : (cb.checked = false)) : picked.delete(cb.dataset.id); renderRows(); renderCompare(); return; }
+  const tr = e.target.closest('tr[data-id]'); if (tr){ openId = tr.dataset.id; renderPanel(); }
+});
+$('rows').addEventListener('keydown', e => { const tr = e.target.closest('tr[data-id]'); if (tr && e.key === 'Enter'){ openId = tr.dataset.id; renderPanel(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && openId){ openId = null; renderPanel(); } });
+
+async function load(){
+  const notice = $('notice');
+  const { data, error } = await db.from('candidates').select('*').order('total', { ascending: false, nullsFirst: false });
+  if (error){ notice.hidden = false; notice.textContent = 'Die Bewerberdaten konnten nicht geladen werden: ' + error.message; return; }
+  all = data || [];
+  picked.forEach(id => { if (!all.some(c => c.id === id)) picked.delete(id); });
+  notice.hidden = true;
+  if (!all.length){ notice.hidden = false; notice.innerHTML = 'Noch keine Interviews. Jedes abgeschlossene KI-Interview auf freequenz.tech landet automatisch hier, meist innerhalb einer Minute.'; }
+  renderAll();
+}
+function show(view){ $('login').hidden = view !== 'login'; $('main').hidden = view !== 'main'; }
+(async () => {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY){ show('login'); $('login-msg').textContent = 'Das Backend ist noch nicht verbunden.'; return; }
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: true, detectSessionInUrl: true } });
+  canWrite = true;
+  $('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const m = $('login-msg'); m.textContent = 'Sende Link …';
+    const { error } = await db.auth.signInWithOtp({ email: $('login-mail').value.trim(), options: { shouldCreateUser: false, emailRedirectTo: location.origin + '/cockpit/' } });
+    m.textContent = error ? 'Das hat nicht geklappt. Ist die Adresse freigegeben?' : 'Link ist unterwegs. Bitte im Postfach öffnen.';
+  });
+  $('logout').onclick = async () => { await db.auth.signOut(); all = []; show('login'); };
+  $('reload').onclick = load;
+  const start = async session => { if (session){ show('main'); await load(); } else show('login'); };
+  db.auth.onAuthStateChange((_ev, session) => start(session));
+  const { data } = await db.auth.getSession();
+  await start(data.session);
+  setInterval(() => { if (!$('main').hidden) load(); }, 60000);
+})();
+</script>
+</body>
+</html>
