@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://freequenz.tech/</loc></url>
-  <url><loc>https://freequenz.tech/thesis</loc></url>
-  <url><loc>https://freequenz.tech/team</loc></url>
-  <url><loc>https://freequenz.tech/apply</loc></url>
-  <url><loc>https://freequenz.tech/apply/engineer</loc></url>
-  <url><loc>https://freequenz.tech/privacy</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://freequenz.tech/</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/"/></url>
+  <url><loc>https://freequenz.tech/de/</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/"/></url>
+  <url><loc>https://freequenz.tech/thesis</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/thesis"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/thesis"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/thesis"/></url>
+  <url><loc>https://freequenz.tech/de/thesis</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/thesis"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/thesis"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/thesis"/></url>
+  <url><loc>https://freequenz.tech/team</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/team"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/team"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/team"/></url>
+  <url><loc>https://freequenz.tech/de/team</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/team"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/team"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/team"/></url>
+  <url><loc>https://freequenz.tech/apply</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/apply"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/apply"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/apply"/></url>
+  <url><loc>https://freequenz.tech/de/apply</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/apply"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/apply"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/apply"/></url>
+  <url><loc>https://freequenz.tech/apply/engineer</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/apply/engineer"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/apply/engineer"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/apply/engineer"/></url>
+  <url><loc>https://freequenz.tech/de/apply/engineer</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/apply/engineer"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/apply/engineer"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/apply/engineer"/></url>
+  <url><loc>https://freequenz.tech/privacy</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/privacy"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/privacy"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/privacy"/></url>
+  <url><loc>https://freequenz.tech/de/privacy</loc><xhtml:link rel="alternate" hreflang="en" href="https://freequenz.tech/privacy"/><xhtml:link rel="alternate" hreflang="de" href="https://freequenz.tech/de/privacy"/><xhtml:link rel="alternate" hreflang="x-default" href="https://freequenz.tech/privacy"/></url>
 </urlset>

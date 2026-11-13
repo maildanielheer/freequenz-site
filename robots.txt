@@ -1,5 +1,26 @@
+# Suchmaschinen und KI-Suche: erlaubt
 User-agent: *
 Allow: /
 Disallow: /cockpit/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /cockpit/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /cockpit/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /cockpit/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /cockpit/
+
+# Nutzung der Inhalte für das Training von OpenAI-Modellen: nicht erlaubt
+User-agent: GPTBot
+Disallow: /
 
 Sitemap: https://freequenz.tech/sitemap.xml
