@@ -187,6 +187,24 @@ ul.q{margin:0;padding-left:1.1em}
     </table>
   </div>
 
+  <section class="camp" aria-labelledby="kpi-h">
+    <h2 id="kpi-h">Website-KPIs</h2>
+    <p class="sub">Anonyme Zählung ohne Cookies und ohne Besucher-ID. Gezählt werden Seitenaufrufe, nicht Personen. Zeitraum:
+      <select id="kpi-days" aria-label="Zeitraum"><option value="7">7 Tage</option><option value="30" selected>30 Tage</option><option value="90">90 Tage</option></select></p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>KPI</th><th>Wert</th><th>Berechnung</th></tr></thead>
+        <tbody id="kpi"><tr><td colspan="3" class="empty">Noch keine Daten.</td></tr></tbody>
+      </table>
+    </div>
+    <div class="tablewrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Kampagne / Quelle</th><th>Aufrufe</th><th>Thesis gelesen</th><th>Rollenseiten</th><th>Interview gestartet</th><th>Interviews fertig</th></tr></thead>
+        <tbody id="kpi-src"><tr><td colspan="6" class="empty">Noch keine Daten.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="camp" aria-labelledby="camp-h">
     <h2 id="camp-h">Kampagnen-Vergleich</h2>
     <p class="sub">Je Quelle: abgeschlossene Interviews, durchschnittlicher Fit und starke Kandidat:innen (Fit ab 70). Beispiele zählen nicht mit.</p>
@@ -376,6 +394,41 @@ $('rows').addEventListener('click', e => {
 $('rows').addEventListener('keydown', e => { const tr = e.target.closest('tr[data-id]'); if (tr && e.key === 'Enter'){ openId = tr.dataset.id; renderPanel(); } });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && openId){ openId = null; renderPanel(); } });
 
+let stats = [];
+async function loadStats(){
+  const days = +$('kpi-days').value, since = new Date(Date.now() - days * 864e5).toISOString().slice(0, 10);
+  const { data, error } = await db.from('page_stats').select('*').gte('day', since).limit(20000);
+  if (error){ $('kpi').innerHTML = '<tr><td colspan="3" class="empty">Statistik nicht ladbar: ' + esc(error.message) + '</td></tr>'; return; }
+  stats = data || []; renderKpi(days);
+}
+function renderKpi(days){
+  const sum = f => stats.filter(f).reduce((a, r) => a + r.n, 0);
+  const role = r => r.page === 'apply' || r.page === 'engineer';
+  const pct = (a, b) => b ? Math.round(1000 * a / b) / 10 + ' %' : '–';
+  const since = Date.now() - days * 864e5;
+  const cand = all.filter(c => !c.is_example && new Date(c.interviewed_at || c.created_at).getTime() >= since);
+  const views = sum(r => r.event === 'view'), camp = sum(r => r.event === 'view' && r.src !== 'direct');
+  const thV = sum(r => r.event === 'view' && r.page === 'thesis'), thE = sum(r => r.event === 'engaged' && r.page === 'thesis');
+  const roleV = sum(r => r.event === 'view' && role(r)), entry = sum(r => r.event === 'view' && !role(r) && r.ref !== 'intern');
+  const contact = sum(r => r.event === 'contact_click'), start = sum(r => r.event === 'interview_start');
+  const qual = cand.filter(c => (c.total || 0) >= 70).length, prog = cand.filter(c => c.status === 'shortlist' || c.status === 'invited').length;
+  const rows = [
+    ['Qualified visitors', camp + ' aus Kampagnen · ' + views + ' Aufrufe gesamt', 'Seitenaufrufe mit Kampagnenkennung (?src=…)'],
+    ['Research engagement', pct(thE, thV) + ' (' + thE + ' von ' + thV + ')', 'Thesis-Seite mind. 30 s gelesen oder zu 75 % gescrollt'],
+    ['Role-page conversion', pct(roleV, views) + ' (' + roleV + ' Rollenseiten-Aufrufe)', 'Aufrufe der Rollenseiten je Seitenaufruf gesamt'],
+    ['Contact conversion', pct(contact, views) + ' (' + contact + ' Klicks)', 'Klicks auf E-Mail oder LinkedIn je Seitenaufruf'],
+    ['Interview conversion', pct(start, roleV) + ' gestartet · ' + pct(cand.length, start) + ' abgeschlossen', 'Gestartete Interviews je Rollenseiten-Aufruf; fertige Interviews (' + cand.length + ') je Start (' + start + ')'],
+    ['Qualified candidates', String(qual), 'Abgeschlossene Interviews mit Fit ab 70'],
+    ['Co-Founder progression', String(prog), 'Status Shortlist oder Eingeladen']
+  ];
+  $('kpi').innerHTML = rows.map(r => '<tr><td><strong>' + r[0] + '</strong></td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('');
+  const g = {};
+  const get = k => g[k] || (g[k] = { v: 0, th: 0, ro: 0, st: 0, done: 0 });
+  stats.forEach(r => { const o = get(r.src || 'direct'); if (r.event === 'view'){ o.v += r.n; if (role(r)) o.ro += r.n; } if (r.event === 'engaged' && r.page === 'thesis') o.th += r.n; if (r.event === 'interview_start') o.st += r.n; });
+  cand.forEach(c => { get(c.source || 'direct').done++; });
+  const keys = Object.keys(g).sort((a, b) => g[b].v - g[a].v);
+  $('kpi-src').innerHTML = keys.length ? keys.map(k => '<tr><td>' + esc(k) + '</td><td>' + g[k].v + '</td><td>' + g[k].th + '</td><td>' + g[k].ro + '</td><td>' + g[k].st + '</td><td>' + g[k].done + '</td></tr>').join('') : '<tr><td colspan="6" class="empty">Noch keine Daten.</td></tr>';
+}
 async function load(){
   const notice = $('notice');
   const { data, error } = await db.from('candidates').select('*').order('total', { ascending: false, nullsFirst: false });
@@ -385,6 +438,7 @@ async function load(){
   notice.hidden = true;
   if (!all.length){ notice.hidden = false; notice.innerHTML = 'Noch keine Interviews. Jedes abgeschlossene KI-Interview auf freequenz.tech landet automatisch hier, meist innerhalb einer Minute.'; }
   renderAll();
+  loadStats();
 }
 function show(view){ $('login').hidden = view !== 'login'; $('main').hidden = view !== 'main'; }
 (async () => {
@@ -399,6 +453,7 @@ function show(view){ $('login').hidden = view !== 'login'; $('main').hidden = vi
   });
   $('logout').onclick = async () => { await db.auth.signOut(); all = []; show('login'); };
   $('reload').onclick = load;
+  $('kpi-days').onchange = loadStats;
   const start = async session => { if (session){ show('main'); await load(); } else show('login'); };
   db.auth.onAuthStateChange((_ev, session) => start(session));
   const { data } = await db.auth.getSession();
