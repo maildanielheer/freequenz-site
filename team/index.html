@@ -313,10 +313,28 @@ footer a{color:inherit}
 </div>
 <script>
 const app=document.getElementById('app'),$=id=>document.getElementById(id);
-function setLang(l){if(l!=='en'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY))}catch(e){}location.href='/de/team'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
+function setLang(l){if(l!=='en'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY));sessionStorage.setItem('fq-sw','1')}catch(e){}location.href='/de/team'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
 $('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
 let initial='en';try{const y=sessionStorage.getItem('fq-scroll');if(y!==null){sessionStorage.removeItem('fq-scroll');addEventListener('load',()=>scrollTo(0,+y))}}catch(e){}
 setLang(initial);
+</script>
+<script>
+/* Anonyme Seitenstatistik: nur Tageszaehler, keine Cookies, keine IP, keine Besucher-ID */
+(function(){
+  var off=function(){window.fqTrack=function(){}};
+  try{if(navigator.webdriver||navigator.doNotTrack==='1'||navigator.globalPrivacyControl||/bot|crawl|spider|headless/i.test(navigator.userAgent))return off()}catch(e){}
+  var U='https://dxydtiqlklihdqpromra.supabase.co/rest/v1/rpc/track_event',K='sb_publishable_A4USUX2EyunoomgZkSVoMw__sbNu7dr',P='team',L='en',s='',r='',sw=false,sent={};
+  try{var q=new URLSearchParams(location.search);s=(q.get('src')||q.get('utm_campaign')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40);if(s)sessionStorage.setItem('fq_src',s);else s=sessionStorage.getItem('fq_src')||'';sw=sessionStorage.getItem('fq-sw')==='1';sessionStorage.removeItem('fq-sw')}catch(e){}
+  try{var me=location.hostname.replace(/^www\./,''),h=document.referrer?new URL(document.referrer).hostname.replace(/^www\./,''):'';r=h===me?'intern':h}catch(e){}
+  window.fqTrack=function(ev){if(sent[ev])return;sent[ev]=1;try{fetch(U,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:K},body:JSON.stringify({p_event:ev,p_page:P,p_lang:L,p_src:s||'direct',p_ref:r})}).catch(function(){})}catch(e){}};
+  if(!sw)fqTrack('view');
+  var vis=0,last=document.visibilityState==='visible'?Date.now():0;
+  var tick=setInterval(function(){if(document.visibilityState==='visible'){vis+=1;if(vis>=30){fqTrack('engaged');clearInterval(tick)}}},1000);
+  addEventListener('scroll',function(){var d=document.documentElement;if((scrollY+innerHeight)/d.scrollHeight>0.75&&vis>=8)fqTrack('engaged')},{passive:true});
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    if(/^mailto:|linkedin\.com\/(in|company)\//.test(h)&&!a.classList.contains('li-help'))fqTrack('contact_click');
+    else if(/\/apply/.test(h)&&P!=='apply'&&P!=='engineer')fqTrack('apply_click')},true);
+})();
 </script>
 </body>
 </html>
