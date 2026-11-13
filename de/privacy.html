@@ -198,7 +198,7 @@ footer a{color:inherit}
 <p>Frequenz Inc. (Marke: Freequenz), eine Gesellschaft nach dem Recht von Delaware (File No. 10120853), c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA, vertreten durch den Director Daniel Tobias Heer. E-Mail: <a href="mailto:danielh@freequenz.tech">danielh@freequenz.tech</a></p>
 
 <h2>2. Besuch dieser Website</h2>
-<p>Die Website wird über GitHub Pages (GitHub, Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Zeitpunkt und abgerufene Seite, um die Seite auszuliefern und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Wir setzen keine Cookies, kein Tracking und keine Analyse-Tools ein. Schriften werden von unserem eigenen Server geladen, nicht von Drittanbietern. Deine Sprachwahl (DE/EN) wird nur lokal in deinem Browser gespeichert.</p>
+<p>Die Website wird über GitHub Pages (GitHub, Inc., USA) bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Zeitpunkt und abgerufene Seite, um die Seite auszuliefern und vor Missbrauch zu schützen (Art. 6 Abs. 1 lit. f DSGVO). Wir setzen keine Cookies und keine Analyse-Dienste von Drittanbietern ein. Um zu verstehen, welche Seiten gelesen werden, führen wir eine eigene, anonyme Zählung: Pro Tag wird nur gezählt, wie oft eine Seite aufgerufen, länger gelesen oder ein Bewerbungs- bzw. Kontaktlink genutzt wurde, zusammen mit Sprache, Kampagnenkennung des Links (falls vorhanden) und der Domain der verweisenden Seite. Wir speichern dabei keine IP-Adresse, keine Kennung deines Geräts und kein Profil; einzelne Besucher sind nicht wiedererkennbar. Die Zähler liegen bei Supabase in der EU (Irland); bei der Übermittlung verarbeitet Supabase technisch bedingt kurzzeitig die IP-Adresse (Art. 6 Abs. 1 lit. f DSGVO). Eine Kampagnenkennung merkt sich dein Browser nur für die Dauer des geöffneten Tabs. Signalisiert dein Browser „Do Not Track“ oder Global Privacy Control, zählen wir nicht. Schriften werden von unserem eigenen Server geladen, nicht von Drittanbietern. Deine Sprachwahl (DE/EN) wird nur lokal in deinem Browser gespeichert.</p>
 
 <h2>3. Bewerbung und KI-Interview</h2>
 <p>Wenn du dich als Mitgründer:in bewirbst, verarbeiten wir:</p>
@@ -238,10 +238,28 @@ footer a{color:inherit}
 </div>
 <script>
 const app=document.getElementById('app'),$=id=>document.getElementById(id);
-function setLang(l){if(l!=='de'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY))}catch(e){}location.href='/privacy'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
+function setLang(l){if(l!=='de'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY));sessionStorage.setItem('fq-sw','1')}catch(e){}location.href='/privacy'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
 $('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
 let initial='de';try{const y=sessionStorage.getItem('fq-scroll');if(y!==null){sessionStorage.removeItem('fq-scroll');addEventListener('load',()=>scrollTo(0,+y))}}catch(e){}
 setLang(initial);
+</script>
+<script>
+/* Anonyme Seitenstatistik: nur Tageszaehler, keine Cookies, keine IP, keine Besucher-ID */
+(function(){
+  var off=function(){window.fqTrack=function(){}};
+  try{if(navigator.webdriver||navigator.doNotTrack==='1'||navigator.globalPrivacyControl||/bot|crawl|spider|headless/i.test(navigator.userAgent))return off()}catch(e){}
+  var U='https://dxydtiqlklihdqpromra.supabase.co/rest/v1/rpc/track_event',K='sb_publishable_A4USUX2EyunoomgZkSVoMw__sbNu7dr',P='privacy',L='de',s='',r='',sw=false,sent={};
+  try{var q=new URLSearchParams(location.search);s=(q.get('src')||q.get('utm_campaign')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40);if(s)sessionStorage.setItem('fq_src',s);else s=sessionStorage.getItem('fq_src')||'';sw=sessionStorage.getItem('fq-sw')==='1';sessionStorage.removeItem('fq-sw')}catch(e){}
+  try{var me=location.hostname.replace(/^www\./,''),h=document.referrer?new URL(document.referrer).hostname.replace(/^www\./,''):'';r=h===me?'intern':h}catch(e){}
+  window.fqTrack=function(ev){if(sent[ev])return;sent[ev]=1;try{fetch(U,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:K},body:JSON.stringify({p_event:ev,p_page:P,p_lang:L,p_src:s||'direct',p_ref:r})}).catch(function(){})}catch(e){}};
+  if(!sw)fqTrack('view');
+  var vis=0,last=document.visibilityState==='visible'?Date.now():0;
+  var tick=setInterval(function(){if(document.visibilityState==='visible'){vis+=1;if(vis>=30){fqTrack('engaged');clearInterval(tick)}}},1000);
+  addEventListener('scroll',function(){var d=document.documentElement;if((scrollY+innerHeight)/d.scrollHeight>0.75&&vis>=8)fqTrack('engaged')},{passive:true});
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    if(/^mailto:|linkedin\.com\/(in|company)\//.test(h)&&!a.classList.contains('li-help'))fqTrack('contact_click');
+    else if(/\/apply/.test(h)&&P!=='apply'&&P!=='engineer')fqTrack('apply_click')},true);
+})();
 </script>
 </body>
 </html>
