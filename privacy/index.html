@@ -200,7 +200,7 @@ footer a{color:inherit}
 <p>Frequenz Inc. (brand: Freequenz), a Delaware corporation (File No. 10120853), c/o Harvard Business Services, Inc., 16192 Coastal Highway, Lewes, DE 19958, USA, represented by its Director Daniel Tobias Heer. Email: <a href="mailto:danielh@freequenz.tech">danielh@freequenz.tech</a></p>
 
 <h2>2. Visiting this website</h2>
-<p>This website is served via GitHub Pages (GitHub, Inc., USA). When you visit, GitHub processes technically necessary data such as your IP address, time of access and the page requested, to deliver the site and protect it from abuse (Art. 6(1)(f) GDPR). We use no cookies, no tracking and no analytics. Fonts are loaded from our own server, not from third parties. Your language choice (DE/EN) is stored only locally in your browser.</p>
+<p>This website is served via GitHub Pages (GitHub, Inc., USA). When you visit, GitHub processes technically necessary data such as your IP address, time of access and the page requested, to deliver the site and protect it from abuse (Art. 6(1)(f) GDPR). We use no cookies and no third-party analytics. To understand which pages are read, we keep our own anonymous count: per day we only count how often a page was opened, read for longer, or an application or contact link was used, together with language, the campaign tag of the link (if any) and the domain of the referring page. We store no IP address, no device identifier and no profile; individual visitors cannot be recognised. The counters are stored with Supabase in the EU (Ireland); during transmission Supabase briefly processes the IP address for technical reasons (Art. 6(1)(f) GDPR). Your browser remembers a campaign tag only while the tab is open. If your browser signals Do Not Track or Global Privacy Control, we do not count. Fonts are loaded from our own server, not from third parties. Your language choice (DE/EN) is stored only locally in your browser.</p>
 
 <h2>3. Applications and the AI interview</h2>
 <p>When you apply as a co-founder, we process:</p>
@@ -238,10 +238,28 @@ footer a{color:inherit}
 </div>
 <script>
 const app=document.getElementById('app'),$=id=>document.getElementById(id);
-function setLang(l){if(l!=='en'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY))}catch(e){}location.href='/de/privacy'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
+function setLang(l){if(l!=='en'){try{sessionStorage.setItem('fq-scroll',String(window.scrollY));sessionStorage.setItem('fq-sw','1')}catch(e){}location.href='/de/privacy'+location.search+location.hash;return;}app.dataset.lang=l;$('lang-de').setAttribute('aria-pressed',l==='de');$('lang-en').setAttribute('aria-pressed',l==='en');document.documentElement.lang=l;}
 $('lang-de').onclick=()=>setLang('de');$('lang-en').onclick=()=>setLang('en');
 let initial='en';try{const y=sessionStorage.getItem('fq-scroll');if(y!==null){sessionStorage.removeItem('fq-scroll');addEventListener('load',()=>scrollTo(0,+y))}}catch(e){}
 setLang(initial);
+</script>
+<script>
+/* Anonyme Seitenstatistik: nur Tageszaehler, keine Cookies, keine IP, keine Besucher-ID */
+(function(){
+  var off=function(){window.fqTrack=function(){}};
+  try{if(navigator.webdriver||navigator.doNotTrack==='1'||navigator.globalPrivacyControl||/bot|crawl|spider|headless/i.test(navigator.userAgent))return off()}catch(e){}
+  var U='https://dxydtiqlklihdqpromra.supabase.co/rest/v1/rpc/track_event',K='sb_publishable_A4USUX2EyunoomgZkSVoMw__sbNu7dr',P='privacy',L='en',s='',r='',sw=false,sent={};
+  try{var q=new URLSearchParams(location.search);s=(q.get('src')||q.get('utm_campaign')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40);if(s)sessionStorage.setItem('fq_src',s);else s=sessionStorage.getItem('fq_src')||'';sw=sessionStorage.getItem('fq-sw')==='1';sessionStorage.removeItem('fq-sw')}catch(e){}
+  try{var me=location.hostname.replace(/^www\./,''),h=document.referrer?new URL(document.referrer).hostname.replace(/^www\./,''):'';r=h===me?'intern':h}catch(e){}
+  window.fqTrack=function(ev){if(sent[ev])return;sent[ev]=1;try{fetch(U,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json',apikey:K},body:JSON.stringify({p_event:ev,p_page:P,p_lang:L,p_src:s||'direct',p_ref:r})}).catch(function(){})}catch(e){}};
+  if(!sw)fqTrack('view');
+  var vis=0,last=document.visibilityState==='visible'?Date.now():0;
+  var tick=setInterval(function(){if(document.visibilityState==='visible'){vis+=1;if(vis>=30){fqTrack('engaged');clearInterval(tick)}}},1000);
+  addEventListener('scroll',function(){var d=document.documentElement;if((scrollY+innerHeight)/d.scrollHeight>0.75&&vis>=8)fqTrack('engaged')},{passive:true});
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');
+    if(/^mailto:|linkedin\.com\/(in|company)\//.test(h)&&!a.classList.contains('li-help'))fqTrack('contact_click');
+    else if(/\/apply/.test(h)&&P!=='apply'&&P!=='engineer')fqTrack('apply_click')},true);
+})();
 </script>
 </body>
 </html>
